@@ -7,13 +7,23 @@ class AuthMocks {
     required String username,
     required String password,
   }) {
+    final resolvedUsername = username.isEmpty ? 'reyy' : username;
+
     return LoginResult(
-      token: 'mock-token-${username.isEmpty ? 'guest' : username}',
+      token: 'mock-token-$resolvedUsername',
       user: LoginUser(
         id: 1,
-        nama: 'Parent Ziad',
-        username: username.isEmpty ? 'parent' : username,
-        role: 'parent',
+        name: 'Muhammad Renaldi Maulana',
+        username: resolvedUsername,
+        email: 'muhammadrenaldi687@gmail.com',
+        phone: '081234567890',
+        role: 'user',
+        avatarUrl: null,
+        memberTier: 'premiere_gold',
+        memberLabel: 'Member Premiere Gold',
+        watchedCount: 12,
+        reminderCount: 3,
+        loyaltyPoint: 450,
       ),
     );
   }

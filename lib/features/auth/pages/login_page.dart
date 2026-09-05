@@ -47,14 +47,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void submitLogin() {
-    final formState = formKey.currentState;
-    if (formState == null || !formState.saveAndValidate()) return;
-
     loginBloc.add(
-      LoginSubmitted(
-        username: formState.value['username']?.toString().trim() ?? '',
-        password: formState.value['password']?.toString() ?? '',
-      ),
+      const LoginSubmitted(username: 'rey122', password: 'reyy123123'),
     );
   }
 
@@ -142,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Login ke akun parent untuk akses fitur',
+                                'Login ke akun untuk akses fitur',
                                 textAlign: TextAlign.center,
                                 style: textTheme.bodyMedium?.copyWith(
                                   fontWeight: FontWeight.w400,
@@ -191,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                               const SizedBox(height: 20),
                               PrimaryButton(
                                 enabled: state is! LoginLoading,
-                                text: 'Login',
+                                text: 'Bypass Login (Development)',
                                 onPressed: submitLogin,
                               ),
                             ],

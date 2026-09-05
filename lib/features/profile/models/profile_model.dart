@@ -1,11 +1,10 @@
-class LoginUser {
-  const LoginUser({
+class ProfileModel {
+  const ProfileModel({
     required this.id,
     required this.name,
     required this.username,
     required this.email,
     required this.phone,
-    required this.role,
     this.avatarUrl,
     this.memberTier = 'premiere_gold',
     this.memberLabel = 'Member Premiere Gold',
@@ -19,7 +18,6 @@ class LoginUser {
   final String username;
   final String email;
   final String phone;
-  final String role;
   final String? avatarUrl;
   final String memberTier;
   final String memberLabel;
@@ -27,16 +25,15 @@ class LoginUser {
   final int reminderCount;
   final int loyaltyPoint;
 
-  factory LoginUser.fromJson(Map<String, dynamic> json) {
+  factory ProfileModel.fromJson(Map<String, dynamic> json) {
     final idValue = json['id'] ?? json['ID'];
-    return LoginUser(
+    return ProfileModel(
       id: idValue is num ? idValue.toInt() : int.tryParse('$idValue') ?? 0,
       name: (json['name'] ?? json['nama'] ?? '').toString(),
       username: (json['username'] ?? '').toString(),
       email: (json['email'] ?? '').toString(),
       phone: (json['phone'] ?? json['phone_number'] ?? json['no_telp'] ?? '')
           .toString(),
-      role: (json['role'] ?? 'user').toString(),
       avatarUrl: json['avatar_url']?.toString() ?? json['avatarUrl']?.toString(),
       memberTier: (json['member_tier'] ?? json['memberTier'] ?? 'premiere_gold')
           .toString(),
@@ -58,7 +55,6 @@ class LoginUser {
       'username': username,
       'email': email,
       'phone': phone,
-      'role': role,
       'avatar_url': avatarUrl,
       'member_tier': memberTier,
       'member_label': memberLabel,
@@ -71,26 +67,5 @@ class LoginUser {
   static int _toInt(dynamic value) {
     if (value is num) return value.toInt();
     return int.tryParse('$value') ?? 0;
-  }
-}
-
-class LoginResult {
-  const LoginResult({required this.token, required this.user});
-
-  final String token;
-  final LoginUser user;
-
-  factory LoginResult.fromJson(Map<String, dynamic> json) {
-    final userJson = json['user'];
-    if (userJson is! Map) {
-      throw FormatException('Login response missing user');
-    }
-
-    return LoginResult(
-      token:
-          (json['token'] ?? json['access_token'] ?? json['accessToken'] ?? '')
-              .toString(),
-      user: LoginUser.fromJson(userJson.cast<String, dynamic>()),
-    );
   }
 }

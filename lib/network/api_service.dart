@@ -4,6 +4,8 @@ import 'package:reyy_cinema/features/about_app/models/about_app_model.dart';
 import 'package:reyy_cinema/features/auth/mocks/auth_mocks.dart';
 import 'package:reyy_cinema/features/faq/mocks/faq_mocks.dart';
 import 'package:reyy_cinema/features/faq/models/faq_model.dart';
+import 'package:reyy_cinema/features/profile/mocks/profile_mocks.dart';
+import 'package:reyy_cinema/features/profile/models/profile_model.dart';
 import 'package:reyy_cinema/features/reminder/mocks/reminder_mocks.dart';
 import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/features/terms/mocks/terms_mocks.dart';
@@ -63,6 +65,16 @@ class ApiService {
     );
 
     return Converter.single(res.data, LoginResult.fromJson);
+  }
+
+  Future<ProfileModel> fetchProfile({bool mock = false}) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      return ProfileMocks.profile;
+    }
+
+    final res = await dio.get('/auth/profile');
+    return Converter.single(res.data, ProfileModel.fromJson);
   }
 
   Future<List<ReminderModel>> fetchReminderList({bool mock = false}) async {

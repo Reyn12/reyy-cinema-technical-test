@@ -50,6 +50,20 @@ class AuthStorage {
     return token != null && token.isNotEmpty;
   }
 
+  Future<LoginUser?> getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString(userKey);
+    if (raw == null || raw.isEmpty) return null;
+
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! Map) return null;
+      return LoginUser.fromJson(decoded.cast<String, dynamic>());
+    } catch (_) {
+      return null;
+    }
+  }
+
   Future<void> clearLogin() async {
     await _secureStorage.delete(key: tokenKey);
     final prefs = await SharedPreferences.getInstance();
