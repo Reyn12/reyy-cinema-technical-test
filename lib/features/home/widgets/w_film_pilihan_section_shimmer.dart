@@ -59,49 +59,100 @@ class WFilmPilihanSectionShimmer extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 350,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: 3,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
-            itemBuilder: (_, _) => const _FilmCardShimmer(),
-          ),
-        ),
+        const WFilmPilihanListShimmer(),
       ],
     );
   }
 }
 
-class _FilmCardShimmer extends StatelessWidget {
-  const _FilmCardShimmer();
+class WFilmPilihanListShimmer extends StatelessWidget {
+  const WFilmPilihanListShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: AppColors.neutral30,
-      highlightColor: AppColors.neutral10,
-      child: Container(
-        width: 168,
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 200,
-              width: double.infinity,
-              color: AppColors.neutral30,
+    return SizedBox(
+      height: 350,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: 3,
+        separatorBuilder: (_, _) => const SizedBox(width: 12),
+        itemBuilder: (_, _) => const WFilmPilihanItemShimmer(),
+      ),
+    );
+  }
+}
+
+class WFilmPilihanItemShimmer extends StatelessWidget {
+  const WFilmPilihanItemShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 168,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: AppShadows.smooth,
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 200,
+            width: double.infinity,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Shimmer.fromColors(
+                  baseColor: AppColors.neutral30,
+                  highlightColor: AppColors.neutral10,
+                  child: Container(color: AppColors.neutral30),
+                ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Shimmer.fromColors(
+                    baseColor: AppColors.neutral30,
+                    highlightColor: AppColors.neutral10,
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: const BoxDecoration(
+                        color: AppColors.neutral30,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 8,
+                  bottom: 8,
+                  child: Shimmer.fromColors(
+                    baseColor: AppColors.neutral30,
+                    highlightColor: AppColors.neutral10,
+                    child: Container(
+                      width: 48,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: AppColors.neutral30,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(12),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+            child: Shimmer.fromColors(
+              baseColor: AppColors.neutral30,
+              highlightColor: AppColors.neutral10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 8,
+                spacing: 6,
                 children: [
                   Container(
                     width: 120,
@@ -127,6 +178,7 @@ class _FilmCardShimmer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
+                  const SizedBox(height: 4),
                   Container(
                     width: double.infinity,
                     height: 40,
@@ -138,8 +190,8 @@ class _FilmCardShimmer extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

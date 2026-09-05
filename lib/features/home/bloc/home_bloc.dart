@@ -23,6 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ),
       ) {
     on<HomeLoadRequested>(onLoadRequested);
+    on<HomeFilmCategoryChanged>(onFilmCategoryChanged);
     add(const HomeLoadRequested());
   }
 
@@ -39,6 +40,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         isBannersLoading: true,
         isSorotanLoading: true,
         isFilmsLoading: true,
+        selectedFilmCategoryIndex: 0,
         hasPromoError: false,
         hasBannersError: false,
         hasSorotanError: false,
@@ -84,7 +86,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       () async {
         try {
           final results = await Future.wait([
-            apiService.fetchFilms(mock: true),
+            apiService.fetchFilms(mock: true, categoryId: 'all'),
             apiService.fetchFilmCategories(mock: true),
           ]);
           films = results[0] as List<FilmModel>;
@@ -105,6 +107,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         sorotan: sorotan,
         films: films,
         filmCategories: filmCategories,
+        selectedFilmCategoryIndex: 0,
         isPromoLoading: false,
         isBannersLoading: false,
         isSorotanLoading: false,
@@ -115,5 +118,45 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         hasFilmsError: hasFilmsError,
       ),
     );
+  }
+
+  Future<void> onFilmCategoryChanged(
+    HomeFilmCategoryChanged event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state.filmCategories.isEmpty) return;
+    if (event.categoryIndex == state.selectedFilmCategoryIndex &&
+        !state.isFilmsLoading) {
+      return;
+    }
+
+    final index = event.categoryIndex.clamp(0, state.filmCategories.length - 1);
+    final categoryId = state.filmCategories[index].id;
+
+    emit(
+      state.copyWith(
+        selectedFilmCategoryIndex: index,
+        isFilmsLoading: true,
+        hasFilmsError: false,
+      ),
+    );
+
+    try {
+      final films = await apiService.fetchFilms(
+        mock: true,
+        categoryId: categoryId,
+      );
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          films: films,
+          isFilmsLoading: false,
+          hasFilmsError: false,
+        ),
+      );
+    } catch (_) {
+      if (isClosed) return;
+      emit(state.copyWith(isFilmsLoading: false, hasFilmsError: true));
+    }
   }
 }

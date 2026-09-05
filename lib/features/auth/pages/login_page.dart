@@ -54,8 +54,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return BlocProvider.value(
       value: loginBloc,
       child: BlocConsumer<LoginBloc, LoginState>(
@@ -129,8 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 'Selamat Datang',
                                 textAlign: TextAlign.center,
-                                style: textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.w600,
+                                style: AppTypography.h8Bold.copyWith(
                                   color: AppColors.neutral100,
                                 ),
                               ),
@@ -138,8 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 'Login ke akun untuk akses fitur',
                                 textAlign: TextAlign.center,
-                                style: textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w400,
+                                style: AppTypography.bodyRegularM.copyWith(
                                   color: AppColors.textColor80,
                                 ),
                               ),
@@ -175,8 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   child: Text(
                                     'Lupa Password',
-                                    style: textTheme.bodyMedium?.copyWith(
-                                      fontWeight: FontWeight.w500,
+                                    style: AppTypography.bodySemiboldM.copyWith(
                                       color: AppColors.primary,
                                     ),
                                   ),

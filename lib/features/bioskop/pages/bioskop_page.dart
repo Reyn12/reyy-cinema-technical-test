@@ -6,7 +6,9 @@ import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_cinema_info_card.
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_map.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_select_cinema_bottom_sheet.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_selected_cinema.dart';
+import 'package:reyy_cinema/features/home/mappers/film_mapper.dart';
 import 'package:reyy_cinema/features/home/mocks/home_mocks.dart';
+import 'package:reyy_cinema/network/api_service.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
@@ -23,8 +25,11 @@ class BioskopPage extends StatefulWidget {
 }
 
 class _BioskopPageState extends State<BioskopPage> {
-  CinemaModel selectedCinema =
-      WBioskopSelectCinemaBottomSheet.cinemas.first;
+  CinemaModel selectedCinema = WBioskopSelectCinemaBottomSheet.cinemas.first;
+
+  int selectedFilmCategoryIndex = 0;
+  bool isFilmsLoading = false;
+  List<FilmPilihanItemModel> films = HomeMocks.films.toFilmPilihanItems();
 
   Future<void> openSelectCinemaBottomSheet() async {
     final result = await BottomSheetHelper.showBar<CinemaModel>(
@@ -36,6 +41,33 @@ class _BioskopPageState extends State<BioskopPage> {
 
     if (result == null || !mounted) return;
     setState(() => selectedCinema = result);
+  }
+
+  Future<void> onFilmCategorySelected(int index) async {
+    if (index == selectedFilmCategoryIndex && !isFilmsLoading) return;
+
+    final categories = HomeMocks.filmCategories;
+    final categoryId = categories[index.clamp(0, categories.length - 1)].id;
+
+    setState(() {
+      selectedFilmCategoryIndex = index;
+      isFilmsLoading = true;
+    });
+
+    try {
+      final result = await sharedApiService.fetchFilms(
+        mock: true,
+        categoryId: categoryId,
+      );
+      if (!mounted) return;
+      setState(() {
+        films = result.toFilmPilihanItems();
+        isFilmsLoading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => isFilmsLoading = false);
+    }
   }
 
   @override
@@ -105,25 +137,18 @@ class _BioskopPageState extends State<BioskopPage> {
                     WFilmPilihanSection(
                       title: 'Film di Bioskop Ini',
                       categories: HomeMocks.filmCategories,
-                      films: HomeMocks.films
-                          .map(
-                            (film) => FilmPilihanItemModel(
-                              image: film.poster,
-                              title: film.title,
-                              genres: film.genresLabel,
-                              duration: film.duration,
-                              rating: film.rating,
-                            ),
-                          )
-                          .toList(),
+                      films: films,
+                      selectedCategoryIndex: selectedFilmCategoryIndex,
+                      isFilmsLoading: isFilmsLoading,
+                      onCategorySelected: onFilmCategorySelected,
                       onTapSeeAll: () {
                         CustomSnackbar.info(
                           context,
                           'Fitur Semua Film di Bioskop belum tersedia',
                         );
                       },
-                      onTapLihatFilm: (_) {
-                        context.push(AppPaths.filmDetail);
+                      onTapLihatFilm: (film) {
+                        context.push(AppPaths.filmDetailWithId(film.id));
                       },
                     ),
                     const SizedBox(height: 16),

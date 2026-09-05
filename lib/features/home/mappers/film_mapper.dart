@@ -4,6 +4,7 @@ import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
 extension FilmModelMapper on FilmModel {
   FilmPilihanItemModel toFilmPilihanItem() {
     return FilmPilihanItemModel(
+      id: id,
       image: poster,
       title: title,
       genres: genresLabel,

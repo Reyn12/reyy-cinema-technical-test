@@ -116,21 +116,28 @@ class ApiService {
       final filmJson = data['data'] is Map
           ? (data['data'] as Map).cast<String, dynamic>()
           : data;
-      return HomeSorotanModel(
-        film: FilmDummyInjector.fromSwapiJson(filmJson),
-      );
+      return HomeSorotanModel(film: FilmDummyInjector.fromSwapiJson(filmJson));
     }
     throw Exception('Unexpected sorotan response');
   }
 
   /// SWAPI: `GET /films/` → `{ count, next, previous, results }`
-  Future<List<FilmModel>> fetchFilms({bool mock = false}) async {
+  Future<List<FilmModel>> fetchFilms({
+    bool mock = false,
+    String? categoryId,
+  }) async {
     if (useMock(mock)) {
       await Future<void>.delayed(const Duration(milliseconds: 700));
-      return HomeMocks.films;
+      return HomeMocks.filmsByCategory(categoryId);
     }
 
-    final res = await dio.get('/films/');
+    final res = await dio.get(
+      '/films/',
+      queryParameters: {
+        if (categoryId != null && categoryId.isNotEmpty && categoryId != 'all')
+          'category': categoryId,
+      },
+    );
     final data = res.data;
     if (data is! Map) {
       throw Exception('Unexpected films response');

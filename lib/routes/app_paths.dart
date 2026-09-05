@@ -8,7 +8,7 @@ class AppPaths {
   static const String products = '/products';
   static const String productDetail = '/product/:id';
   static const String reminder = '/reminder';
-  static const String filmDetail = '/film-detail';
+  static const String filmDetail = '/film-detail/:id';
   static const String buyTicket = '/buy-ticket';
   static const String seatSelect = '/seat-select';
   static const String ticketDetail = '/ticket-detail';
@@ -17,4 +17,5 @@ class AppPaths {
   static const String aboutApp = '/about-app';
 
   static String productDetailWithId(int id) => '/product/$id';
+  static String filmDetailWithId(int id) => '/film-detail/$id';
 }

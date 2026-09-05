@@ -336,6 +336,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgDumyDetailFilm =>
       const AssetGenImage('assets/images/img_dumy_detail_film.png');
 
+  /// File path: assets/images/img_empty_state.png
+  AssetGenImage get imgEmptyState =>
+      const AssetGenImage('assets/images/img_empty_state.png');
+
   /// File path: assets/images/img_login.png
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/img_login.png');
@@ -366,6 +370,7 @@ class $AssetsImagesGen {
     imgDummyReminderItem3,
     imgDummySorotanBanner1,
     imgDumyDetailFilm,
+    imgEmptyState,
     imgLogin,
     imgProfilePicDummy,
     imgScreenCinema,
@@ -451,6 +456,10 @@ class $AssetsIcons30xGen {
 class $AssetsImages20xGen {
   const $AssetsImages20xGen();
 
+  /// File path: assets/images/2.0x/img_empty_state.png
+  AssetGenImage get imgEmptyState =>
+      const AssetGenImage('assets/images/2.0x/img_empty_state.png');
+
   /// File path: assets/images/2.0x/img_login.png
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/2.0x/img_login.png');
@@ -460,11 +469,15 @@ class $AssetsImages20xGen {
       const AssetGenImage('assets/images/2.0x/img_screen_cinema.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [imgLogin, imgScreenCinema];
+  List<AssetGenImage> get values => [imgEmptyState, imgLogin, imgScreenCinema];
 }
 
 class $AssetsImages30xGen {
   const $AssetsImages30xGen();
+
+  /// File path: assets/images/3.0x/img_empty_state.png
+  AssetGenImage get imgEmptyState =>
+      const AssetGenImage('assets/images/3.0x/img_empty_state.png');
 
   /// File path: assets/images/3.0x/img_login.png
   AssetGenImage get imgLogin =>
@@ -475,7 +488,7 @@ class $AssetsImages30xGen {
       const AssetGenImage('assets/images/3.0x/img_screen_cinema.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [imgLogin, imgScreenCinema];
+  List<AssetGenImage> get values => [imgEmptyState, imgLogin, imgScreenCinema];
 }
 
 class Assets {

@@ -13,6 +13,7 @@ class HomeState {
     this.sorotan,
     this.films = const [],
     this.filmCategories = const [],
+    this.selectedFilmCategoryIndex = 0,
     this.isPromoLoading = false,
     this.isBannersLoading = false,
     this.isSorotanLoading = false,
@@ -29,6 +30,7 @@ class HomeState {
   final HomeSorotanModel? sorotan;
   final List<FilmModel> films;
   final List<FilmPilihanCategoryModel> filmCategories;
+  final int selectedFilmCategoryIndex;
 
   final bool isPromoLoading;
   final bool isBannersLoading;
@@ -46,6 +48,15 @@ class HomeState {
       isSorotanLoading ||
       isFilmsLoading;
 
+  bool get isInitialFilmsLoading =>
+      isFilmsLoading && filmCategories.isEmpty;
+
+  String? get selectedFilmCategoryId {
+    if (filmCategories.isEmpty) return null;
+    final index = selectedFilmCategoryIndex.clamp(0, filmCategories.length - 1);
+    return filmCategories[index].id;
+  }
+
   List<FilmPilihanItemModel> get filmPilihanItems => films.toFilmPilihanItems();
 
   List<String> get bannerImagePaths =>
@@ -58,6 +69,7 @@ class HomeState {
     HomeSorotanModel? sorotan,
     List<FilmModel>? films,
     List<FilmPilihanCategoryModel>? filmCategories,
+    int? selectedFilmCategoryIndex,
     bool? isPromoLoading,
     bool? isBannersLoading,
     bool? isSorotanLoading,
@@ -74,6 +86,8 @@ class HomeState {
       sorotan: sorotan ?? this.sorotan,
       films: films ?? this.films,
       filmCategories: filmCategories ?? this.filmCategories,
+      selectedFilmCategoryIndex:
+          selectedFilmCategoryIndex ?? this.selectedFilmCategoryIndex,
       isPromoLoading: isPromoLoading ?? this.isPromoLoading,
       isBannersLoading: isBannersLoading ?? this.isBannersLoading,
       isSorotanLoading: isSorotanLoading ?? this.isSorotanLoading,

@@ -59,6 +59,7 @@ class FilmPilihanCategoryModel {
 
 class FilmPilihanItemModel {
   const FilmPilihanItemModel({
+    required this.id,
     required this.image,
     required this.title,
     required this.genres,
@@ -66,6 +67,7 @@ class FilmPilihanItemModel {
     required this.rating,
   });
 
+  final int id;
   final AssetGenImage image;
   final String title;
   final String genres;

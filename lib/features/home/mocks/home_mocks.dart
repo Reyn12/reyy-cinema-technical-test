@@ -39,6 +39,29 @@ class HomeMocks {
     FilmPilihanCategoryModel(id: 'comedy', label: 'Comedy', iconKey: 'comedy'),
   ];
 
+  static List<FilmModel> filmsByCategory(String? categoryId) {
+    final all = films;
+    if (categoryId == null ||
+        categoryId.isEmpty ||
+        categoryId == 'all' ||
+        categoryId == 'semua') {
+      return all;
+    }
+
+    FilmPilihanCategoryModel? category;
+    for (final item in filmCategories) {
+      if (item.id == categoryId) {
+        category = item;
+        break;
+      }
+    }
+    final key = (category?.label ?? categoryId).toLowerCase();
+
+    return all.where((film) {
+      return film.genres.any((genre) => genre.toLowerCase().contains(key));
+    }).toList();
+  }
+
   static List<FilmModel> get films {
     final posters = [
       Assets.images.imgDummyFilmPilihan1,

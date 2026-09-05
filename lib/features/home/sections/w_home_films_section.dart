@@ -20,13 +20,14 @@ class WHomeFilmsSection extends StatelessWidget {
           prev.isFilmsLoading != curr.isFilmsLoading ||
           prev.hasFilmsError != curr.hasFilmsError ||
           prev.films != curr.films ||
-          prev.filmCategories != curr.filmCategories,
+          prev.filmCategories != curr.filmCategories ||
+          prev.selectedFilmCategoryIndex != curr.selectedFilmCategoryIndex,
       builder: (context, state) {
-        if (state.isFilmsLoading) {
+        if (state.isInitialFilmsLoading) {
           return const WFilmPilihanSectionShimmer();
         }
 
-        if (state.hasFilmsError) {
+        if (state.hasFilmsError && state.filmCategories.isEmpty) {
           return WHomeSectionRetry(
             message: 'Gagal memuat film',
             onRetry: () => context.read<HomeBloc>().add(
@@ -38,14 +39,19 @@ class WHomeFilmsSection extends StatelessWidget {
         return WFilmPilihanSection(
           categories: state.filmCategories,
           films: state.filmPilihanItems,
+          selectedCategoryIndex: state.selectedFilmCategoryIndex,
+          isFilmsLoading: state.isFilmsLoading,
+          onCategorySelected: (index) {
+            context.read<HomeBloc>().add(HomeFilmCategoryChanged(index));
+          },
           onTapSeeAll: () {
             CustomSnackbar.info(
               context,
               'Fitur Semua Film Pilihan belum tersedia',
             );
           },
-          onTapLihatFilm: (_) {
-            context.push(AppPaths.filmDetail);
+          onTapLihatFilm: (film) {
+            context.push(AppPaths.filmDetailWithId(film.id));
           },
         );
       },

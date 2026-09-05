@@ -75,7 +75,9 @@ final appRouter = GoRouter(
       path: AppPaths.filmDetail,
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
-        child: const FilmDetailPage(),
+        child: FilmDetailPage(
+          id: int.parse(state.pathParameters['id']!),
+        ),
       ),
     ),
     GoRoute(
