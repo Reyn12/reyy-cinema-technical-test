@@ -1,9 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-/// Prepared buat foreground/local notif. Nanti tinggal dipanggil dari FCM.
 class LocalNotificationService {
   LocalNotificationService._();
 
@@ -13,15 +11,15 @@ class LocalNotificationService {
   static const String androidChannelId = 'reyy_cinema_high_importance';
   static const String androidChannelName = 'Reyy Cinema Notifications';
 
-  final FlutterLocalNotificationsPlugin _plugin =
+  final FlutterLocalNotificationsPlugin plugin =
       FlutterLocalNotificationsPlugin();
 
-  bool _ready = false;
+  bool ready = false;
 
-  bool get isReady => _ready;
+  bool get isReady => ready;
 
   Future<void> init() async {
-    if (_ready) return;
+    if (ready) return;
 
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosInit = DarwinInitializationSettings(
@@ -35,17 +33,17 @@ class LocalNotificationService {
       iOS: iosInit,
     );
 
-    await _plugin.initialize(
+    await plugin.initialize(
       settings: initSettings,
-      onDidReceiveNotificationResponse: _onNotificationTap,
+      onDidReceiveNotificationResponse: onNotificationTap,
     );
 
-    await _createAndroidChannel();
-    await _requestPermissions();
-    _ready = true;
+    await createAndroidChannel();
+    await requestPermissions();
+    ready = true;
   }
 
-  Future<void> _createAndroidChannel() async {
+  Future<void> createAndroidChannel() async {
     if (!Platform.isAndroid) return;
 
     const channel = AndroidNotificationChannel(
@@ -55,16 +53,16 @@ class LocalNotificationService {
       importance: Importance.high,
     );
 
-    await _plugin
+    await plugin
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin
         >()
         ?.createNotificationChannel(channel);
   }
 
-  Future<void> _requestPermissions() async {
+  Future<void> requestPermissions() async {
     if (Platform.isAndroid) {
-      await _plugin
+      await plugin
           .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin
           >()
@@ -73,7 +71,7 @@ class LocalNotificationService {
     }
 
     if (Platform.isIOS) {
-      await _plugin
+      await plugin
           .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin
           >()
@@ -81,18 +79,15 @@ class LocalNotificationService {
     }
   }
 
-  void _onNotificationTap(NotificationResponse response) {
-    debugPrint('Notification tapped: ${response.payload}');
-  }
+  void onNotificationTap(NotificationResponse response) {}
 
-  /// Dipakai nanti saat FCM foreground message masuk.
   Future<void> show({
     required String title,
     required String body,
     String? payload,
     int id = 0,
   }) async {
-    if (!_ready) await init();
+    if (!ready) await init();
 
     const androidDetails = AndroidNotificationDetails(
       androidChannelId,
@@ -114,7 +109,7 @@ class LocalNotificationService {
       iOS: iosDetails,
     );
 
-    await _plugin.show(
+    await plugin.show(
       id: id,
       title: title,
       body: body,

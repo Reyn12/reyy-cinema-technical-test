@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:reyy_cinema/core/firebase/firebase_remote_config_service.dart';
@@ -11,25 +10,16 @@ class AppUpdateService {
 
   Future<bool> checkAndShow(BuildContext context) async {
     final remote = FirebaseRemoteConfigService.instance;
-    if (!remote.isReady) {
-      debugPrint('Update check skip: RemoteConfig belum ready');
-      return false;
-    }
+    if (!remote.isReady) return false;
+
+    await remote.refresh(retryOnDefault: true);
 
     final latestVersion = remote.appVersion.trim();
-    if (latestVersion.isEmpty) {
-      debugPrint('Update check skip: app_version kosong');
-      return false;
-    }
+    if (latestVersion.isEmpty) return false;
 
     final info = await PackageInfo.fromPlatform();
     final currentVersion = info.version;
     final needUpdate = isOlderThan(currentVersion, latestVersion);
-
-    debugPrint(
-      'Update check | current=$currentVersion | remote=$latestVersion | '
-      'needUpdate=$needUpdate | whatsNew=${remote.whatsNew}',
-    );
 
     if (!needUpdate) return false;
     if (!context.mounted) return false;

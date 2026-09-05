@@ -20,7 +20,7 @@ import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/core/notification/push_notification_service.dart';
 import 'package:reyy_cinema/widget/bottom_sheet_helper.dart';
-import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/loading_dialog.dart';
 import 'package:reyy_cinema/widget/primary_button.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -158,9 +158,14 @@ class _ProfileViewState extends State<ProfileView> {
                           text: 'Testing Push Notifikasi',
                           color: AppColors.primaryPressed,
                           onPressed: () async {
+                            LoadingDialog.show(context);
+                            await Future<void>.delayed(
+                              const Duration(milliseconds: 500),
+                            );
                             await PushNotificationService.instance
                                 .showDummyNotification();
                             if (!context.mounted) return;
+                            LoadingDialog.hide(context);
                           },
                         ),
                       ),

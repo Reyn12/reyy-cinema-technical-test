@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/foundation.dart';
 
 class FirebaseRemoteConfigService {
   FirebaseRemoteConfigService._();
@@ -20,16 +19,13 @@ class FirebaseRemoteConfigService {
   static const String keyWhatsNew = 'whats_new';
 
   Future<void> init() async {
-    if (Firebase.apps.isEmpty) {
-      debugPrint('RemoteConfig skip: Firebase belum di-init');
-      return;
-    }
+    if (Firebase.apps.isEmpty) return;
 
     try {
       remoteConfig = FirebaseRemoteConfig.instance;
       await remoteConfig!.setConfigSettings(
         RemoteConfigSettings(
-          fetchTimeout: const Duration(seconds: 15),
+          fetchTimeout: const Duration(seconds: 20),
           minimumFetchInterval: Duration.zero,
         ),
       );
@@ -43,23 +39,31 @@ class FirebaseRemoteConfigService {
         keyWhatsNew: 'Perbaikan bug|Peningkatan performa',
       });
 
-      try {
-        final activated = await remoteConfig!.fetchAndActivate();
-        debugPrint('RemoteConfig fetchAndActivate: $activated');
-      } catch (e) {
-        debugPrint('RemoteConfig fetch gagal, pakai default/cache: $e');
-      }
-
       ready = true;
-      debugPrint(
-        'RemoteConfig ready | app_version=$appVersion | '
-        'message=$updateMessage | whats_new=$whatsNewRaw',
-      );
-    } catch (e, st) {
-      debugPrint('RemoteConfig init gagal: $e');
-      debugPrintStack(stackTrace: st);
+      await refresh(retryOnDefault: true);
+    } catch (_) {
       ready = false;
     }
+  }
+
+  Future<void> refresh({bool retryOnDefault = false}) async {
+    if (remoteConfig == null) return;
+
+    await fetchAndActivateOnce();
+
+    var versionValue = remoteConfig!.getValue(keyAppVersion);
+    if (retryOnDefault && versionValue.source == ValueSource.valueDefault) {
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await fetchAndActivateOnce();
+    }
+  }
+
+  Future<void> fetchAndActivateOnce() async {
+    if (remoteConfig == null) return;
+
+    try {
+      await remoteConfig!.fetchAndActivate();
+    } catch (_) {}
   }
 
   String getString(String key) {

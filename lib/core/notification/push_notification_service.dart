@@ -1,13 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:reyy_cinema/core/notification/local_notification_service.dart';
 import 'package:reyy_cinema/firebase_options.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  debugPrint('FCM background: ${message.messageId}');
 }
 
 class PushNotificationService {
@@ -21,19 +19,15 @@ class PushNotificationService {
 
   Future<void> init() async {
     if (ready) return;
-    if (Firebase.apps.isEmpty) {
-      debugPrint('PushNotification skip: Firebase belum di-init');
-      return;
-    }
+    if (Firebase.apps.isEmpty) return;
 
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-    final settings = await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       badge: true,
       sound: true,
     );
-    debugPrint('FCM permission: ${settings.authorizationStatus}');
 
     await messaging.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -42,11 +36,9 @@ class PushNotificationService {
     );
 
     fcmToken = await messaging.getToken();
-    debugPrint('FCM token: $fcmToken');
 
     messaging.onTokenRefresh.listen((token) {
       fcmToken = token;
-      debugPrint('FCM token refresh: $token');
     });
 
     FirebaseMessaging.onMessage.listen(handleForegroundMessage);
@@ -73,14 +65,12 @@ class PushNotificationService {
     );
   }
 
-  void handleMessageOpened(RemoteMessage message) {
-    debugPrint('FCM opened: ${message.data}');
-  }
+  void handleMessageOpened(RemoteMessage message) {}
 
   Future<void> showDummyNotification() async {
     await LocalNotificationService.instance.show(
       title: 'Reyy Cinema',
-      body: 'Hidup Jokowi',
+      body: 'Ini dummy push notification untuk testing.',
       payload: 'dummy_push_test',
       id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
     );

@@ -15,7 +15,6 @@ class UpdateDialog extends StatefulWidget {
     this.whatsNew = const [],
   });
 
-  /// Return `true` kalau user skip.
   static Future<bool> show(
     BuildContext context, {
     String? message,
