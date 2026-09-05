@@ -7,3 +7,9 @@ class SeatSelectToggled extends SeatSelectEvent {
 
   final String seatId;
 }
+
+class SeatSelectReminderToggled extends SeatSelectEvent {
+  const SeatSelectReminderToggled(this.enabled);
+
+  final bool enabled;
+}

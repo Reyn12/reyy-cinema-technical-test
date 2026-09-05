@@ -7,6 +7,7 @@ import 'package:reyy_cinema/features/seat_select/models/seat_item_model.dart';
 class SeatSelectBloc extends Bloc<SeatSelectEvent, SeatSelectState> {
   SeatSelectBloc() : super(SeatSelectState(rows: SeatSelectMocks.seatRows)) {
     on<SeatSelectToggled>(onSeatToggled);
+    on<SeatSelectReminderToggled>(onReminderToggled);
   }
 
   void onSeatToggled(SeatSelectToggled event, Emitter<SeatSelectState> emit) {
@@ -28,5 +29,12 @@ class SeatSelectBloc extends Bloc<SeatSelectEvent, SeatSelectState> {
       selected.add(event.seatId);
     }
     emit(state.copyWith(selectedSeatIds: selected));
+  }
+
+  void onReminderToggled(
+    SeatSelectReminderToggled event,
+    Emitter<SeatSelectState> emit,
+  ) {
+    emit(state.copyWith(isReminderEnabled: event.enabled));
   }
 }

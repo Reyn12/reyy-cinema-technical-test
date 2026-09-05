@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/seat_select/bloc/seat_select_bloc.dart';
 import 'package:reyy_cinema/features/seat_select/bloc/seat_select_event.dart';
 import 'package:reyy_cinema/features/seat_select/bloc/seat_select_state.dart';
+import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_bottom_bar.dart';
 import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_film_summary.dart';
 import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_map.dart';
+import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_summary.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
@@ -68,22 +70,22 @@ class SeatSelectView extends StatelessWidget {
                     parent: ClampingScrollPhysics(),
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                  child: Column(
-                    spacing: 16,
-                    children: [
-                      WSeatSelectFilmSummary(
-                        image: Assets.images.imgDumyDetailFilm,
-                        ageRating: 'D-17',
-                        format: 'Reguler 2D',
-                        rating: '4.2',
-                        title: 'Black Adam',
-                        cinemaLabel: 'XXI Solo Square • Studio 1',
-                        dateLabel: 'Rabu, 14 Okt 2026',
-                        timeLabel: '18:30 WIB',
-                      ),
-                      BlocBuilder<SeatSelectBloc, SeatSelectState>(
-                        builder: (context, state) {
-                          return WSeatSelectMap(
+                  child: BlocBuilder<SeatSelectBloc, SeatSelectState>(
+                    builder: (context, state) {
+                      return Column(
+                        spacing: 16,
+                        children: [
+                          WSeatSelectFilmSummary(
+                            image: Assets.images.imgDumyDetailFilm,
+                            ageRating: 'D-17',
+                            format: 'Reguler 2D',
+                            rating: '4.2',
+                            title: 'Black Adam',
+                            cinemaLabel: 'XXI Solo Square • Studio 1',
+                            dateLabel: 'Rabu, 14 Okt 2026',
+                            timeLabel: '18:30 WIB',
+                          ),
+                          WSeatSelectMap(
                             rows: state.rows,
                             selectedSeatIds: state.selectedSeatIds,
                             onSeatSelected: (seatId) {
@@ -91,13 +93,41 @@ class SeatSelectView extends StatelessWidget {
                                 SeatSelectToggled(seatId),
                               );
                             },
-                          );
-                        },
-                      ),
-                    ],
+                          ),
+                          WSeatSelectSummary(
+                            selectedSeatsLabel: state.selectedSeatsLabel,
+                            ticketCountLabel: state.ticketCountLabel,
+                            ticketsPriceDetailLabel:
+                                state.ticketsPriceDetailLabel,
+                            ticketsSubtotalLabel: state.ticketsSubtotalLabel,
+                            serviceFeeLabel: state.serviceFeeLabel,
+                            isReminderEnabled: state.isReminderEnabled,
+                            onReminderChanged: (enabled) {
+                              context.read<SeatSelectBloc>().add(
+                                SeatSelectReminderToggled(enabled),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
+            ),
+            BlocBuilder<SeatSelectBloc, SeatSelectState>(
+              builder: (context, state) {
+                return WSeatSelectBottomBar(
+                  totalPaymentLabel: state.totalPaymentLabel,
+                  enabled: state.hasSelectedSeats,
+                  onPressed: () {
+                    CustomSnackbar.info(
+                      context,
+                      'Fitur Pembayaran belum tersedia',
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),

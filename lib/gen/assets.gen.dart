@@ -127,6 +127,10 @@ class $AssetsIconsGen {
   AssetGenImage get icNotifItem =>
       const AssetGenImage('assets/icons/ic_notif_item.png');
 
+  /// File path: assets/icons/ic_notif_selected_seat.svg
+  SvgGenImage get icNotifSelectedSeat =>
+      const SvgGenImage('assets/icons/ic_notif_selected_seat.svg');
+
   /// File path: assets/icons/ic_notifikasi.svg
   SvgGenImage get icNotifikasi =>
       const SvgGenImage('assets/icons/ic_notifikasi.svg');
@@ -161,6 +165,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_scifi.svg
   SvgGenImage get icScifi => const SvgGenImage('assets/icons/ic_scifi.svg');
+
+  /// File path: assets/icons/ic_seat.svg
+  SvgGenImage get icSeat => const SvgGenImage('assets/icons/ic_seat.svg');
 
   /// File path: assets/icons/ic_see_schedule.svg
   SvgGenImage get icSeeSchedule =>
@@ -224,6 +231,7 @@ class $AssetsIconsGen {
     icMemberCopy,
     icMember,
     icNotifItem,
+    icNotifSelectedSeat,
     icNotifikasi,
     icNotifikasiActive,
     icProfile,
@@ -234,6 +242,7 @@ class $AssetsIconsGen {
     icRightProfile,
     icRomance,
     icScifi,
+    icSeat,
     icSeeSchedule,
     icSelectBioskop,
     icSemua,
