@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:reyy_cinema/features/auth/mocks/auth_mocks.dart';
-import 'package:reyy_cinema/features/notification/mocks/notification_mocks.dart';
-import 'package:reyy_cinema/features/notification/models/notification_model.dart';
+import 'package:reyy_cinema/features/reminder/mocks/reminder_mocks.dart';
+import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/network/environment.dart';
 
 import '../features/auth/models/login_result.dart';
@@ -59,15 +59,15 @@ class ApiService {
     return Converter.single(res.data, LoginResult.fromJson);
   }
 
-  Future<List<NotificationModel>> fetchNotificationList({
+  Future<List<ReminderModel>> fetchReminderList({
     bool mock = false,
   }) async {
     if (useMock(mock)) {
       await Future<void>.delayed(const Duration(milliseconds: 400));
-      return NotificationMocks.list;
+      return ReminderMocks.list;
     }
 
-    final res = await dio.get('/notifications');
-    return Converter.list(res.data, NotificationModel.fromJson);
+    final res = await dio.get('/reminders');
+    return Converter.list(res.data, ReminderModel.fromJson);
   }
 }

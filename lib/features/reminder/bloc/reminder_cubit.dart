@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reyy_cinema/features/notification/models/notification_model.dart';
+import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/network/api_service.dart';
 
-import 'notification_state.dart';
+import 'reminder_state.dart';
 
-class NotificationCubit extends Cubit<NotificationState> {
-  NotificationCubit({ApiService? apiService})
+class ReminderCubit extends Cubit<ReminderState> {
+  ReminderCubit({ApiService? apiService})
     : _apiService = apiService ?? sharedApiService,
-      super(const NotificationState(isLoading: true)) {
+      super(const ReminderState(isLoading: true)) {
     load();
   }
 
@@ -16,7 +16,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   Future<void> load() async {
     emit(state.copyWith(isLoading: true, hasError: false));
     try {
-      final items = await _apiService.fetchNotificationList(mock: true);
+      final items = await _apiService.fetchReminderList(mock: true);
       if (isClosed) return;
       emit(state.copyWith(items: items, isLoading: false, hasError: false));
     } catch (_) {
@@ -25,7 +25,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     }
   }
 
-  void setSelectedTab(NotificationTab tab) {
+  void setSelectedTab(ReminderTab tab) {
     emit(state.copyWith(selectedTab: tab));
   }
 

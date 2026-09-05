@@ -1,38 +1,38 @@
-import 'package:reyy_cinema/features/notification/models/notification_model.dart';
+import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 
-class NotificationState {
-  const NotificationState({
-    this.selectedTab = NotificationTab.all,
+class ReminderState {
+  const ReminderState({
+    this.selectedTab = ReminderTab.all,
     this.items = const [],
     this.isLoading = false,
     this.hasError = false,
   });
 
-  final NotificationTab selectedTab;
-  final List<NotificationModel> items;
+  final ReminderTab selectedTab;
+  final List<ReminderModel> items;
   final bool isLoading;
   final bool hasError;
 
-  List<NotificationModel> get filteredItems {
+  List<ReminderModel> get filteredItems {
     switch (selectedTab) {
-      case NotificationTab.all:
+      case ReminderTab.all:
         return items;
-      case NotificationTab.unread:
+      case ReminderTab.unread:
         return items.where((item) => !item.isRead).toList();
-      case NotificationTab.read:
+      case ReminderTab.read:
         return items.where((item) => item.isRead).toList();
     }
   }
 
   bool get hasUnread => items.any((item) => !item.isRead);
 
-  NotificationState copyWith({
-    NotificationTab? selectedTab,
-    List<NotificationModel>? items,
+  ReminderState copyWith({
+    ReminderTab? selectedTab,
+    List<ReminderModel>? items,
     bool? isLoading,
     bool? hasError,
   }) {
-    return NotificationState(
+    return ReminderState(
       selectedTab: selectedTab ?? this.selectedTab,
       items: items ?? this.items,
       isLoading: isLoading ?? this.isLoading,

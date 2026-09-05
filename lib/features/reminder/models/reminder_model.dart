@@ -1,15 +1,15 @@
-enum NotificationTab {
+enum ReminderTab {
   all('Semua'),
   unread('Belum Dibaca'),
   read('Dibaca');
 
-  const NotificationTab(this.label);
+  const ReminderTab(this.label);
 
   final String label;
 }
 
-class NotificationModel {
-  const NotificationModel({
+class ReminderModel {
+  const ReminderModel({
     required this.id,
     required this.title,
     required this.description,
@@ -23,14 +23,14 @@ class NotificationModel {
   final String createdAtLabel;
   final bool isRead;
 
-  NotificationModel copyWith({
+  ReminderModel copyWith({
     String? id,
     String? title,
     String? description,
     String? createdAtLabel,
     bool? isRead,
   }) {
-    return NotificationModel(
+    return ReminderModel(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -39,23 +39,23 @@ class NotificationModel {
     );
   }
 
-  factory NotificationModel.fromJson(Map<String, dynamic> json) {
-    return NotificationModel(
+  factory ReminderModel.fromJson(Map<String, dynamic> json) {
+    return ReminderModel(
       id: json['id']?.toString() ?? '',
       title: json['title']?.toString() ?? '',
       description: json['description']?.toString() ?? '',
       createdAtLabel:
           (json['created_at_label'] ?? json['createdAtLabel'])?.toString() ??
-              '',
+          '',
       isRead: json['is_read'] as bool? ?? json['isRead'] as bool? ?? false,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'description': description,
-        'created_at_label': createdAtLabel,
-        'is_read': isRead,
-      };
+    'id': id,
+    'title': title,
+    'description': description,
+    'created_at_label': createdAtLabel,
+    'is_read': isRead,
+  };
 }

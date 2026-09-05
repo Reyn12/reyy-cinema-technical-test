@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reyy_cinema/features/notification/bloc/notification_cubit.dart';
-import 'package:reyy_cinema/features/notification/widgets/w_notification_item.dart';
+import 'package:reyy_cinema/features/reminder/bloc/reminder_cubit.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 
-class WNotificationList extends StatelessWidget {
-  const WNotificationList({super.key});
+/// Legacy notification-style list. Film reminder list uses [WReminderListBuilder].
+class WReminderList extends StatelessWidget {
+  const WReminderList({super.key});
 
   @override
   Widget build(BuildContext context) {
     final items = context.select(
-      (NotificationCubit cubit) => cubit.state.filteredItems,
+      (ReminderCubit cubit) => cubit.state.filteredItems,
     );
 
     return ListView.separated(
@@ -24,10 +24,11 @@ class WNotificationList extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final item = items[index];
-        return WNotificationItem(
-          item: item,
+        return ListTile(
+          title: Text(item.title),
+          subtitle: Text(item.description),
           onTap: () {
-            context.read<NotificationCubit>().markAsRead(item.id);
+            context.read<ReminderCubit>().markAsRead(item.id);
           },
         );
       },

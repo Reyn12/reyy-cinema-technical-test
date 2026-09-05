@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 
-class WNotificationListShimmer extends StatelessWidget {
-  const WNotificationListShimmer({super.key});
+class WReminderListShimmer extends StatelessWidget {
+  const WReminderListShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class WNotificationListShimmer extends StatelessWidget {
         height: 1,
         color: AppColors.neutral30,
       ),
-      itemBuilder: (_, _) => const _NotificationItemShimmer(),
+      itemBuilder: (_, _) => const _ReminderItemShimmer(),
     );
   }
 }
 
-class _NotificationItemShimmer extends StatelessWidget {
-  const _NotificationItemShimmer();
+class _ReminderItemShimmer extends StatelessWidget {
+  const _ReminderItemShimmer();
 
   @override
   Widget build(BuildContext context) {
