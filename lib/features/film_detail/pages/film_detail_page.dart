@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_cast_list_builder.dart';
+import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_hero.dart';
+import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_info_row.dart';
+import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_status_header.dart';
+import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_synopsis.dart';
+import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
@@ -50,21 +56,42 @@ class FilmDetailPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
+                    spacing: 16,
                     children: [
-                      Text(
-                        'Detail Film',
-                        style: AppTypography.h9Bold.copyWith(
-                          color: AppColors.primaryPressed,
-                        ),
+                      WFilmDetailStatusHeader(
+                        statusLabel: 'SEDANG TAYANG',
+                        onTapBookmark: () {
+                          CustomSnackbar.info(
+                            context,
+                            'Fitur Bookmark belum tersedia',
+                          );
+                        },
+                        onTapShare: () {
+                          CustomSnackbar.info(
+                            context,
+                            'Fitur Share belum tersedia',
+                          );
+                        },
                       ),
-                      Text(
-                        'Informasi lengkap film akan tampil di sini.',
-                        style: AppTypography.bodyRegularS.copyWith(
-                          color: AppColors.textColor50,
-                        ),
+                      WFilmDetailHero(
+                        image: Assets.images.imgDumyDetailFilm,
+                        ageRating: '13+',
+                        rating: '4.7',
+                        ratingCount: '12.4k',
+                        duration: '2j 05m',
+                        title: 'Black Adam',
+                        genres: const ['Aksi', 'Petualangan', 'Fantasi'],
                       ),
+                      WFilmDetailSynopsis(
+                        text:
+                            'Hampir 5.000 tahun setelah dianugerahi kekuatan maha dahsyat para dewa Mesir kuno dan dipenjarakan, Black Adam terbebas dari makamnya dan dilempar ke dunia modern. Dengan kekuatan yang hampir tak terbatas, ia harus memilih antara menjadi pahlawan atau ancaman bagi umat manusia.',
+                      ),
+                      WFilmDetailInfoRow(
+                        director: 'Jaume Collet-Serra',
+                        writer: 'Adam Sztykiel',
+                        status: 'Tayang Bioskop',
+                      ),
+                      const WFilmDetailCastListBuilder(),
                     ],
                   ),
                 ),
