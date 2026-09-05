@@ -6,8 +6,10 @@ import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_cinema_info_card.
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_map.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_select_cinema_bottom_sheet.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_selected_cinema.dart';
+import 'package:reyy_cinema/features/home/mocks/home_mocks.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
+import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
 import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_section.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/bottom_sheet_helper.dart';
@@ -102,13 +104,25 @@ class _BioskopPageState extends State<BioskopPage> {
                     ),
                     WFilmPilihanSection(
                       title: 'Film di Bioskop Ini',
+                      categories: HomeMocks.filmCategories,
+                      films: HomeMocks.films
+                          .map(
+                            (film) => FilmPilihanItemModel(
+                              image: film.poster,
+                              title: film.title,
+                              genres: film.genresLabel,
+                              duration: film.duration,
+                              rating: film.rating,
+                            ),
+                          )
+                          .toList(),
                       onTapSeeAll: () {
                         CustomSnackbar.info(
                           context,
                           'Fitur Semua Film di Bioskop belum tersedia',
                         );
                       },
-                      onTapLihatFilm: () {
+                      onTapLihatFilm: (_) {
                         context.push(AppPaths.filmDetail);
                       },
                     ),

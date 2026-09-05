@@ -4,6 +4,12 @@ import 'package:reyy_cinema/features/about_app/models/about_app_model.dart';
 import 'package:reyy_cinema/features/auth/mocks/auth_mocks.dart';
 import 'package:reyy_cinema/features/faq/mocks/faq_mocks.dart';
 import 'package:reyy_cinema/features/faq/models/faq_model.dart';
+import 'package:reyy_cinema/features/home/mocks/home_mocks.dart';
+import 'package:reyy_cinema/features/home/models/film_model.dart';
+import 'package:reyy_cinema/features/home/models/home_banner_model.dart';
+import 'package:reyy_cinema/features/home/models/home_promo_model.dart';
+import 'package:reyy_cinema/features/home/models/home_sorotan_model.dart';
+import 'package:reyy_cinema/features/home/utils/film_dummy_injector.dart';
 import 'package:reyy_cinema/features/profile/mocks/profile_mocks.dart';
 import 'package:reyy_cinema/features/profile/models/profile_model.dart';
 import 'package:reyy_cinema/features/reminder/mocks/reminder_mocks.dart';
@@ -11,6 +17,7 @@ import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/features/terms/mocks/terms_mocks.dart';
 import 'package:reyy_cinema/features/terms/models/terms_model.dart';
 import 'package:reyy_cinema/network/environment.dart';
+import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
 
 import '../features/auth/models/login_result.dart';
 import '../features/products/models/product.dart';
@@ -75,6 +82,96 @@ class ApiService {
 
     final res = await dio.get('/auth/profile');
     return Converter.single(res.data, ProfileModel.fromJson);
+  }
+
+  Future<HomePromoModel> fetchHomePromo({bool mock = false}) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 450));
+      return HomeMocks.promo;
+    }
+
+    final res = await dio.get('/home/promo');
+    return Converter.single(res.data, HomePromoModel.fromJson);
+  }
+
+  Future<List<HomeBannerModel>> fetchHomeBanners({bool mock = false}) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return HomeMocks.banners;
+    }
+
+    final res = await dio.get('/home/banners');
+    return Converter.list(res.data, HomeBannerModel.fromJson);
+  }
+
+  Future<HomeSorotanModel> fetchHomeSorotan({bool mock = false}) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 550));
+      return HomeMocks.sorotan;
+    }
+
+    final res = await dio.get('/home/sorotan');
+    final data = res.data;
+    if (data is Map<String, dynamic>) {
+      final filmJson = data['data'] is Map
+          ? (data['data'] as Map).cast<String, dynamic>()
+          : data;
+      return HomeSorotanModel(
+        film: FilmDummyInjector.fromSwapiJson(filmJson),
+      );
+    }
+    throw Exception('Unexpected sorotan response');
+  }
+
+  /// SWAPI: `GET /films/` → `{ count, next, previous, results }`
+  Future<List<FilmModel>> fetchFilms({bool mock = false}) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 700));
+      return HomeMocks.films;
+    }
+
+    final res = await dio.get('/films/');
+    final data = res.data;
+    if (data is! Map) {
+      throw Exception('Unexpected films response');
+    }
+
+    final results = data['results'];
+    if (results is! List) {
+      throw Exception('Films response missing results');
+    }
+
+    return FilmDummyInjector.fromSwapiList(results);
+  }
+
+  Future<List<FilmPilihanCategoryModel>> fetchFilmCategories({
+    bool mock = false,
+  }) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 400));
+      return HomeMocks.filmCategories;
+    }
+
+    final res = await dio.get('/films/categories');
+    return Converter.list(res.data, FilmPilihanCategoryModel.fromJson);
+  }
+
+  Future<FilmModel> fetchFilmDetail(int id, {bool mock = false}) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return HomeMocks.films.firstWhere(
+        (film) => film.id == id,
+        orElse: () => HomeMocks.films.first,
+      );
+    }
+
+    final res = await dio.get('/films/$id/');
+    final data = res.data;
+    if (data is! Map) {
+      throw Exception('Unexpected film detail response');
+    }
+
+    return FilmDummyInjector.fromSwapiJson(data.cast<String, dynamic>());
   }
 
   Future<List<ReminderModel>> fetchReminderList({bool mock = false}) async {

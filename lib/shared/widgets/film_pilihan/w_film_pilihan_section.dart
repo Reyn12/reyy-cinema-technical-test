@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
 import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_category_builder.dart';
@@ -9,13 +8,17 @@ class WFilmPilihanSection extends StatefulWidget {
   const WFilmPilihanSection({
     super.key,
     this.title = 'Film Pilihan',
+    this.categories = const [],
+    this.films = const [],
     required this.onTapSeeAll,
     required this.onTapLihatFilm,
   });
 
   final String title;
+  final List<FilmPilihanCategoryModel> categories;
+  final List<FilmPilihanItemModel> films;
   final VoidCallback onTapSeeAll;
-  final VoidCallback onTapLihatFilm;
+  final ValueChanged<FilmPilihanItemModel> onTapLihatFilm;
 
   @override
   State<WFilmPilihanSection> createState() => _WFilmPilihanSectionState();
@@ -24,49 +27,30 @@ class WFilmPilihanSection extends StatefulWidget {
 class _WFilmPilihanSectionState extends State<WFilmPilihanSection> {
   int selectedCategoryIndex = 0;
 
-  static final categories = [
-    FilmPilihanCategoryModel(label: 'Semua', icon: Assets.icons.icSemua),
-    FilmPilihanCategoryModel(label: 'Action', icon: Assets.icons.icAction),
-    FilmPilihanCategoryModel(label: 'Animasi', icon: Assets.icons.icAnimasi),
-    FilmPilihanCategoryModel(label: 'Sci-Fi', icon: Assets.icons.icScifi),
-    FilmPilihanCategoryModel(label: 'Romance', icon: Assets.icons.icRomance),
-    FilmPilihanCategoryModel(label: 'Horror', icon: Assets.icons.icHorror),
-    FilmPilihanCategoryModel(label: 'Comedy', icon: Assets.icons.icComedy),
-  ];
+  List<FilmPilihanItemModel> get filteredFilms {
+    final categories = widget.categories;
+    if (categories.isEmpty) return widget.films;
 
-  static final films = [
-    FilmPilihanItemModel(
-      image: Assets.images.imgDummyFilmPilihan1,
-      title: 'Cyberia: Protocol',
-      genres: 'Sci-Fi • Thriller',
-      duration: '1j 52m',
-      rating: '4.9',
-    ),
-    FilmPilihanItemModel(
-      image: Assets.images.imgDummyFilmPilihan2,
-      title: 'Kiko dan Hutan Cahaya',
-      genres: 'Animasi • Petualangan',
-      duration: '1j 38m',
-      rating: '4.7',
-    ),
-    FilmPilihanItemModel(
-      image: Assets.images.imgDummyFilmPilihan1,
-      title: 'Cyberia: Protocol',
-      genres: 'Sci-Fi • Thriller',
-      duration: '1j 52m',
-      rating: '4.9',
-    ),
-    FilmPilihanItemModel(
-      image: Assets.images.imgDummyFilmPilihan2,
-      title: 'Kiko dan Hutan Cahaya',
-      genres: 'Animasi • Petualangan',
-      duration: '1j 38m',
-      rating: '4.7',
-    ),
-  ];
+    final selected = categories[selectedCategoryIndex.clamp(
+      0,
+      categories.length - 1,
+    )];
+    final isAll =
+        selected.id == 'all' || selected.iconKey.toLowerCase() == 'semua';
+
+    if (isAll) return widget.films;
+
+    final key = selected.label.toLowerCase();
+    return widget.films.where((film) {
+      return film.genres.toLowerCase().contains(key);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final films = filteredFilms;
+    final categories = widget.categories;
+
     return Column(
       spacing: 12,
       children: [
@@ -93,33 +77,40 @@ class _WFilmPilihanSectionState extends State<WFilmPilihanSection> {
             ],
           ),
         ),
-        WFilmPilihanCategoryBuilder(
-          categories: categories,
-          selectedCategoryIndex: selectedCategoryIndex,
-          onCategorySelected: (index) {
-            setState(() => selectedCategoryIndex = index);
-          },
-        ),
-        SizedBox(
-          height: 350,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: films.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              final film = films[index];
-              return WFilmPilihanItem(
-                image: film.image,
-                title: film.title,
-                genres: film.genres,
-                duration: film.duration,
-                rating: film.rating,
-                onTapLihatFilm: widget.onTapLihatFilm,
-              );
+        if (categories.isNotEmpty)
+          WFilmPilihanCategoryBuilder(
+            categories: categories,
+            selectedCategoryIndex: selectedCategoryIndex,
+            onCategorySelected: (index) {
+              setState(() => selectedCategoryIndex = index);
             },
           ),
-        ),
+        if (films.isEmpty)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Text('Belum ada film'),
+          )
+        else
+          SizedBox(
+            height: 350,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: films.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 12),
+              itemBuilder: (context, index) {
+                final film = films[index];
+                return WFilmPilihanItem(
+                  image: film.image,
+                  title: film.title,
+                  genres: film.genres,
+                  duration: film.duration,
+                  rating: film.rating,
+                  onTapLihatFilm: () => widget.onTapLihatFilm(film),
+                );
+              },
+            ),
+          ),
       ],
     );
   }
