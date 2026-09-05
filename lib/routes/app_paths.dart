@@ -11,6 +11,7 @@ class AppPaths {
   static const String filmDetail = '/film-detail';
   static const String buyTicket = '/buy-ticket';
   static const String seatSelect = '/seat-select';
+  static const String ticketDetail = '/ticket-detail';
   static const String terms = '/terms';
   static const String faq = '/faq';
   static const String aboutApp = '/about-app';

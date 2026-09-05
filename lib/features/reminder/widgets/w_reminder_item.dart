@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/reminder/models/film_reminder_item_model.dart';
 import 'package:reyy_cinema/features/reminder/widgets/w_reminder_countdown_badge.dart';
 import 'package:reyy_cinema/features/reminder/widgets/w_reminder_meta_row.dart';
 import 'package:reyy_cinema/features/reminder/widgets/w_reminder_status_badge.dart';
 import 'package:reyy_cinema/resources/resources.dart';
+import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 import 'package:reyy_cinema/widget/image_load.dart';
 import 'package:reyy_cinema/widget/primary_button.dart';
@@ -99,12 +101,7 @@ class WReminderItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: PrimaryButton.btnLihatTiket(
-                    onPressed: () {
-                      CustomSnackbar.info(
-                        context,
-                        'Fitur Lihat Tiket belum tersedia',
-                      );
-                    },
+                    onPressed: () => context.push(AppPaths.ticketDetail),
                   ),
                 ),
               ],
@@ -124,12 +121,7 @@ class WReminderItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: PrimaryButton.btnLihatTiket(
-                    onPressed: () {
-                      CustomSnackbar.info(
-                        context,
-                        'Fitur Lihat Tiket belum tersedia',
-                      );
-                    },
+                    onPressed: () => context.push(AppPaths.ticketDetail),
                   ),
                 ),
               ],
