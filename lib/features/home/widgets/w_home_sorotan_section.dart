@@ -153,13 +153,15 @@ class WHomeSorotanSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 12,
                     children: [
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          for (final genre in genres)
-                            WHomeGenreChip(label: genre),
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            for (final genre in genres)
+                              WHomeGenreChip(label: genre),
+                          ],
+                        ),
                       ),
                       PrimaryButton.withIcon(
                         text: 'Pesan Tiket',

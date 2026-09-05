@@ -5,6 +5,7 @@ import 'package:reyy_cinema/features/home/widgets/w_home_background_header.dart'
 import 'package:reyy_cinema/features/home/widgets/w_home_banner_carousel.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_greetings.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_header.dart';
+import 'package:reyy_cinema/features/home/widgets/w_home_film_pilihan_section.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_promo_card.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_sorotan_section.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
@@ -91,7 +92,15 @@ class HomePage extends StatelessWidget {
                       cinemaLabel: 'BIOSKOP PREMIERE & REGULER',
                       movieTitle: 'Black Adam: Sovereign',
                       duration: '2j 05m',
-                      genres: const ['Action', 'Petualangan', 'Sci-Fi'],
+                      genres: const [
+                        'Action',
+                        'Petualangan',
+                        'Sci-Fi',
+                        'Drama',
+                        'Thriller',
+                        'Fantasi',
+                        'Komedi',
+                      ],
                       onTapSeeAll: () {
                         CustomSnackbar.info(
                           context,
@@ -102,6 +111,20 @@ class HomePage extends StatelessWidget {
                         CustomSnackbar.info(
                           context,
                           'Fitur Pesan Tiket belum tersedia',
+                        );
+                      },
+                    ),
+                    WHomeFilmPilihanSection(
+                      onTapSeeAll: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Semua Film Pilihan belum tersedia',
+                        );
+                      },
+                      onTapLihatFilm: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Lihat Film belum tersedia',
                         );
                       },
                     ),

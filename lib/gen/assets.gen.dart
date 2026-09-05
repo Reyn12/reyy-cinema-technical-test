@@ -23,6 +23,12 @@ class $AssetsIconsGen {
   /// Directory path: assets/icons/3.0x
   $AssetsIcons30xGen get a3 => const $AssetsIcons30xGen();
 
+  /// File path: assets/icons/ic_action.svg
+  SvgGenImage get icAction => const SvgGenImage('assets/icons/ic_action.svg');
+
+  /// File path: assets/icons/ic_animasi.svg
+  SvgGenImage get icAnimasi => const SvgGenImage('assets/icons/ic_animasi.svg');
+
   /// File path: assets/icons/ic_beranda.svg
   SvgGenImage get icBeranda => const SvgGenImage('assets/icons/ic_beranda.svg');
 
@@ -39,6 +45,12 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_clock.svg
   SvgGenImage get icClock => const SvgGenImage('assets/icons/ic_clock.svg');
+
+  /// File path: assets/icons/ic_comedy.svg
+  SvgGenImage get icComedy => const SvgGenImage('assets/icons/ic_comedy.svg');
+
+  /// File path: assets/icons/ic_horror.svg
+  SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
 
   /// File path: assets/icons/ic_left.svg
   SvgGenImage get icLeft => const SvgGenImage('assets/icons/ic_left.svg');
@@ -81,6 +93,15 @@ class $AssetsIconsGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
 
+  /// File path: assets/icons/ic_romance.svg
+  SvgGenImage get icRomance => const SvgGenImage('assets/icons/ic_romance.svg');
+
+  /// File path: assets/icons/ic_scifi.svg
+  SvgGenImage get icScifi => const SvgGenImage('assets/icons/ic_scifi.svg');
+
+  /// File path: assets/icons/ic_semua.svg
+  SvgGenImage get icSemua => const SvgGenImage('assets/icons/ic_semua.svg');
+
   /// File path: assets/icons/ic_star.svg
   SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
 
@@ -89,11 +110,15 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    icAction,
+    icAnimasi,
     icBeranda,
     icBerandaActive,
     icBioskop,
     icBioskopActive,
     icClock,
+    icComedy,
+    icHorror,
     icLeft,
     icLogoApp,
     icLogoHome,
@@ -105,6 +130,9 @@ class $AssetsIconsGen {
     icProfileActive,
     icPromo,
     icRightProfile,
+    icRomance,
+    icScifi,
+    icSemua,
     icStar,
     icTicket,
   ];
@@ -147,6 +175,14 @@ class $AssetsImagesGen {
   AssetGenImage get imgDummyBanner3 =>
       const AssetGenImage('assets/images/img_dummy_banner_3.png');
 
+  /// File path: assets/images/img_dummy_film_pilihan_1.png
+  AssetGenImage get imgDummyFilmPilihan1 =>
+      const AssetGenImage('assets/images/img_dummy_film_pilihan_1.png');
+
+  /// File path: assets/images/img_dummy_film_pilihan_2.png
+  AssetGenImage get imgDummyFilmPilihan2 =>
+      const AssetGenImage('assets/images/img_dummy_film_pilihan_2.png');
+
   /// File path: assets/images/img_dummy_sorotan_banner_1.png
   AssetGenImage get imgDummySorotanBanner1 =>
       const AssetGenImage('assets/images/img_dummy_sorotan_banner_1.png');
@@ -164,6 +200,8 @@ class $AssetsImagesGen {
     imgDummyBanner1,
     imgDummyBanner2,
     imgDummyBanner3,
+    imgDummyFilmPilihan1,
+    imgDummyFilmPilihan2,
     imgDummySorotanBanner1,
     imgLogin,
   ];
