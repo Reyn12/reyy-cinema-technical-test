@@ -18,7 +18,6 @@ class WBioskopSelectedCinema extends StatelessWidget {
     return GestureDetector(
       onTap: onTapOpenBottomSheetCinema,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: AppColors.white,
@@ -40,7 +39,7 @@ class WBioskopSelectedCinema extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Bioskop Terpilih',
+                    'Pilih Bioskop',
                     style: AppTypography.bodyRegularS.copyWith(
                       color: AppColors.textColor50,
                     ),

@@ -96,6 +96,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_promo.svg
   SvgGenImage get icPromo => const SvgGenImage('assets/icons/ic_promo.svg');
 
+  /// File path: assets/icons/ic_range.svg
+  SvgGenImage get icRange => const SvgGenImage('assets/icons/ic_range.svg');
+
   /// File path: assets/icons/ic_right_profile.png
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
@@ -106,6 +109,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_scifi.svg
   SvgGenImage get icScifi => const SvgGenImage('assets/icons/ic_scifi.svg');
 
+  /// File path: assets/icons/ic_see_schedule.svg
+  SvgGenImage get icSeeSchedule =>
+      const SvgGenImage('assets/icons/ic_see_schedule.svg');
+
   /// File path: assets/icons/ic_select_bioskop.png
   AssetGenImage get icSelectBioskop =>
       const AssetGenImage('assets/icons/ic_select_bioskop.png');
@@ -115,6 +122,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_star.svg
   SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
+
+  /// File path: assets/icons/ic_start_navigation.svg
+  SvgGenImage get icStartNavigation =>
+      const SvgGenImage('assets/icons/ic_start_navigation.svg');
 
   /// File path: assets/icons/ic_ticket.svg
   SvgGenImage get icTicket => const SvgGenImage('assets/icons/ic_ticket.svg');
@@ -142,12 +153,15 @@ class $AssetsIconsGen {
     icProfile,
     icProfileActive,
     icPromo,
+    icRange,
     icRightProfile,
     icRomance,
     icScifi,
+    icSeeSchedule,
     icSelectBioskop,
     icSemua,
     icStar,
+    icStartNavigation,
     icTicket,
   ];
 }

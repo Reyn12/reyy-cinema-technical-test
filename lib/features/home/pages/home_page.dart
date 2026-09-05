@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                               Stack(
                                 children: [
                                   WHomeBackgroundHeader(),
-                                  WHomeGreetings(userName: 'Parent Reyy'),
+                                  WHomeGreetings(userName: 'Renaldi (Reyy)'),
                                 ],
                               ),
                               const SizedBox(height: 120),

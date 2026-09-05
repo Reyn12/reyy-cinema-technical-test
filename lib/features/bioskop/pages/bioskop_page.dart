@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_cinema_info_card.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_map.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_selected_cinema.dart';
 import 'package:reyy_cinema/resources/resources.dart';
@@ -27,7 +28,7 @@ class BioskopPage extends StatelessWidget {
           children: [
             const AppHeader(title: 'Bioskop'),
             Expanded(
-              child: Padding(
+              child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                 child: Column(
                   spacing: 16,
@@ -47,6 +48,31 @@ class BioskopPage extends StatelessWidget {
                         cinemaName: cinemaName,
                         destination: cinemaLocation,
                       ),
+                    ),
+                    WBioskopCinemaInfoCard(
+                      cinemaName: cinemaName,
+                      statusLabel: 'Buka',
+                      openHours: '10.00 - 22.30',
+                      distanceLabel: '1.8 km',
+                      durationLabel: '12 menit berkendara',
+                      onTapBookmark: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Bookmark Bioskop belum tersedia',
+                        );
+                      },
+                      onTapStartNavigation: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Mulai Navigasi belum tersedia',
+                        );
+                      },
+                      onTapSeeSchedule: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Lihat Jadwal belum tersedia',
+                        );
+                      },
                     ),
                   ],
                 ),
