@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/bioskop/models/cinema_model.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_cinema_info_card.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_map.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_select_cinema_bottom_sheet.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_selected_cinema.dart';
 import 'package:reyy_cinema/resources/resources.dart';
+import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_section.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/bottom_sheet_helper.dart';
@@ -107,10 +109,7 @@ class _BioskopPageState extends State<BioskopPage> {
                         );
                       },
                       onTapLihatFilm: () {
-                        CustomSnackbar.info(
-                          context,
-                          'Fitur Lihat Film belum tersedia',
-                        );
+                        context.push(AppPaths.filmDetail);
                       },
                     ),
                     const SizedBox(height: 16),

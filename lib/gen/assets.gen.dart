@@ -51,6 +51,10 @@ class $AssetsIconsGen {
   SvgGenImage get icBioskopActive =>
       const SvgGenImage('assets/icons/ic_bioskop_active.svg');
 
+  /// File path: assets/icons/ic_bookmark.svg
+  SvgGenImage get icBookmark =>
+      const SvgGenImage('assets/icons/ic_bookmark.svg');
+
   /// File path: assets/icons/ic_buy_ticket.svg
   SvgGenImage get icBuyTicket =>
       const SvgGenImage('assets/icons/ic_buy_ticket.svg');
@@ -169,6 +173,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_semua.svg
   SvgGenImage get icSemua => const SvgGenImage('assets/icons/ic_semua.svg');
 
+  /// File path: assets/icons/ic_share.svg
+  SvgGenImage get icShare => const SvgGenImage('assets/icons/ic_share.svg');
+
   /// File path: assets/icons/ic_snk.svg
   SvgGenImage get icSnk => const SvgGenImage('assets/icons/ic_snk.svg');
 
@@ -192,6 +199,7 @@ class $AssetsIconsGen {
     icBerandaActive,
     icBioskop,
     icBioskopActive,
+    icBookmark,
     icBuyTicket,
     icChangeSchedule,
     icClock,
@@ -225,6 +233,7 @@ class $AssetsIconsGen {
     icSeeSchedule,
     icSelectBioskop,
     icSemua,
+    icShare,
     icSnk,
     icStar,
     icStartNavigation,

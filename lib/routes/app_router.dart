@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/about_app/pages/about_app_page.dart';
 import 'package:reyy_cinema/features/faq/pages/faq_page.dart';
+import 'package:reyy_cinema/features/film_detail/pages/film_detail_page.dart';
 import 'package:reyy_cinema/features/main_navigation/pages/main_navigation_page.dart';
 import 'package:reyy_cinema/features/onboarding/pages/onboarding_page.dart';
 import 'package:reyy_cinema/features/reminder/pages/reminder_page.dart';
@@ -65,6 +66,13 @@ final appRouter = GoRouter(
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
         child: const ReminderPage(),
+      ),
+    ),
+    GoRoute(
+      path: AppPaths.filmDetail,
+      pageBuilder: (context, state) => buildCupertinoPage(
+        key: state.pageKey,
+        child: const FilmDetailPage(),
       ),
     ),
     GoRoute(
