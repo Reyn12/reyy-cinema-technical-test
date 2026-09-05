@@ -65,8 +65,16 @@ class $AssetsIconsGen {
   AssetGenImage get icCurrentLocation =>
       const AssetGenImage('assets/icons/ic_current_location.png');
 
+  /// File path: assets/icons/ic_ditonton.svg
+  SvgGenImage get icDitonton =>
+      const SvgGenImage('assets/icons/ic_ditonton.svg');
+
   /// File path: assets/icons/ic_down.svg
   SvgGenImage get icDown => const SvgGenImage('assets/icons/ic_down.svg');
+
+  /// File path: assets/icons/ic_edit_profile.svg
+  SvgGenImage get icEditProfile =>
+      const SvgGenImage('assets/icons/ic_edit_profile.svg');
 
   /// File path: assets/icons/ic_horror.svg
   SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
@@ -89,6 +97,17 @@ class $AssetsIconsGen {
   AssetGenImage get icLogoLogin =>
       const AssetGenImage('assets/icons/ic_logo_login.png');
 
+  /// File path: assets/icons/ic_loyality_point.svg
+  SvgGenImage get icLoyalityPoint =>
+      const SvgGenImage('assets/icons/ic_loyality_point.svg');
+
+  /// File path: assets/icons/ic_member copy.svg
+  SvgGenImage get icMemberCopy =>
+      const SvgGenImage('assets/icons/ic_member copy.svg');
+
+  /// File path: assets/icons/ic_member.svg
+  SvgGenImage get icMember => const SvgGenImage('assets/icons/ic_member.svg');
+
   /// File path: assets/icons/ic_notif_item.png
   AssetGenImage get icNotifItem =>
       const AssetGenImage('assets/icons/ic_notif_item.png');
@@ -107,6 +126,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_profile_active.svg
   SvgGenImage get icProfileActive =>
       const SvgGenImage('assets/icons/ic_profile_active.svg');
+
+  /// File path: assets/icons/ic_profile_reminder.svg
+  SvgGenImage get icProfileReminder =>
+      const SvgGenImage('assets/icons/ic_profile_reminder.svg');
 
   /// File path: assets/icons/ic_promo.svg
   SvgGenImage get icPromo => const SvgGenImage('assets/icons/ic_promo.svg');
@@ -159,18 +182,24 @@ class $AssetsIconsGen {
     icClock,
     icComedy,
     icCurrentLocation,
+    icDitonton,
     icDown,
+    icEditProfile,
     icHorror,
     icInfo,
     icLeft,
     icLogoApp,
     icLogoHome,
     icLogoLogin,
+    icLoyalityPoint,
+    icMemberCopy,
+    icMember,
     icNotifItem,
     icNotifikasi,
     icNotifikasiActive,
     icProfile,
     icProfileActive,
+    icProfileReminder,
     icPromo,
     icRange,
     icRightProfile,
@@ -202,9 +231,9 @@ class $AssetsImagesGen {
   AssetGenImage get imgBgBerandaUpper =>
       const AssetGenImage('assets/images/img_bg_beranda_upper.png');
 
-  /// File path: assets/images/img_bg_profile_upper copy.png
-  AssetGenImage get imgBgProfileUpperCopy =>
-      const AssetGenImage('assets/images/img_bg_profile_upper copy.png');
+  /// File path: assets/images/img_bg_profile_bottom.png
+  AssetGenImage get imgBgProfileBottom =>
+      const AssetGenImage('assets/images/img_bg_profile_bottom.png');
 
   /// File path: assets/images/img_bg_profile_upper.png
   AssetGenImage get imgBgProfileUpper =>
@@ -254,7 +283,7 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [
     imgBgBerandaBottom,
     imgBgBerandaUpper,
-    imgBgProfileUpperCopy,
+    imgBgProfileBottom,
     imgBgProfileUpper,
     imgDummyBanner1,
     imgDummyBanner2,

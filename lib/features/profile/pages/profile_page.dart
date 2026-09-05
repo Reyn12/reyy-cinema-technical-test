@@ -6,6 +6,7 @@ import 'package:reyy_cinema/features/auth/bloc/auth_bloc.dart';
 import 'package:reyy_cinema/features/auth/bloc/auth_event.dart';
 import 'package:reyy_cinema/features/profile/widgets/w_profile_background_header.dart';
 import 'package:reyy_cinema/features/profile/widgets/w_profile_header.dart';
+import 'package:reyy_cinema/features/profile/widgets/w_profile_info_card.dart';
 import 'package:reyy_cinema/features/profile/widgets/w_profile_logout_bottom_sheet.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
@@ -44,9 +45,22 @@ class ProfilePage extends StatelessWidget {
                 physics: const ClampingScrollPhysics(),
                 child: Column(
                   children: [
-                    const WProfileBackgroundHeader(),
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        const WProfileBackgroundHeader(),
+                        const WProfileInfoCard(
+                          name: 'Muhammad Renaldi Maulana',
+                          email: 'renaldi.m@gmail.com',
+                          memberLabel: 'Member Premiere Gold',
+                          watchedCount: '12',
+                          reminderCount: '3',
+                          loyaltyPoint: '450',
+                        ),
+                      ],
+                    ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 40, 16, 40),
+                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 40),
                       child: PrimaryButton(
                         text: 'Keluar',
                         color: AppColors.error,
