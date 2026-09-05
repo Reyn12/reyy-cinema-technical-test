@@ -49,6 +49,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_comedy.svg
   SvgGenImage get icComedy => const SvgGenImage('assets/icons/ic_comedy.svg');
 
+  /// File path: assets/icons/ic_current_location.png
+  AssetGenImage get icCurrentLocation =>
+      const AssetGenImage('assets/icons/ic_current_location.png');
+
+  /// File path: assets/icons/ic_down.svg
+  SvgGenImage get icDown => const SvgGenImage('assets/icons/ic_down.svg');
+
   /// File path: assets/icons/ic_horror.svg
   SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
 
@@ -89,6 +96,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_promo.svg
   SvgGenImage get icPromo => const SvgGenImage('assets/icons/ic_promo.svg');
 
+  /// File path: assets/icons/ic_range.svg
+  SvgGenImage get icRange => const SvgGenImage('assets/icons/ic_range.svg');
+
   /// File path: assets/icons/ic_right_profile.png
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
@@ -99,11 +109,23 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_scifi.svg
   SvgGenImage get icScifi => const SvgGenImage('assets/icons/ic_scifi.svg');
 
+  /// File path: assets/icons/ic_see_schedule.svg
+  SvgGenImage get icSeeSchedule =>
+      const SvgGenImage('assets/icons/ic_see_schedule.svg');
+
+  /// File path: assets/icons/ic_select_bioskop.png
+  AssetGenImage get icSelectBioskop =>
+      const AssetGenImage('assets/icons/ic_select_bioskop.png');
+
   /// File path: assets/icons/ic_semua.svg
   SvgGenImage get icSemua => const SvgGenImage('assets/icons/ic_semua.svg');
 
   /// File path: assets/icons/ic_star.svg
   SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
+
+  /// File path: assets/icons/ic_start_navigation.svg
+  SvgGenImage get icStartNavigation =>
+      const SvgGenImage('assets/icons/ic_start_navigation.svg');
 
   /// File path: assets/icons/ic_ticket.svg
   SvgGenImage get icTicket => const SvgGenImage('assets/icons/ic_ticket.svg');
@@ -118,6 +140,8 @@ class $AssetsIconsGen {
     icBioskopActive,
     icClock,
     icComedy,
+    icCurrentLocation,
+    icDown,
     icHorror,
     icLeft,
     icLogoApp,
@@ -129,11 +153,15 @@ class $AssetsIconsGen {
     icProfile,
     icProfileActive,
     icPromo,
+    icRange,
     icRightProfile,
     icRomance,
     icScifi,
+    icSeeSchedule,
+    icSelectBioskop,
     icSemua,
     icStar,
+    icStartNavigation,
     icTicket,
   ];
 }
@@ -210,6 +238,10 @@ class $AssetsImagesGen {
 class $AssetsIcons20xGen {
   const $AssetsIcons20xGen();
 
+  /// File path: assets/icons/2.0x/ic_current_location.png
+  AssetGenImage get icCurrentLocation =>
+      const AssetGenImage('assets/icons/2.0x/ic_current_location.png');
+
   /// File path: assets/icons/2.0x/ic_logo_home.png
   AssetGenImage get icLogoHome =>
       const AssetGenImage('assets/icons/2.0x/ic_logo_home.png');
@@ -226,17 +258,27 @@ class $AssetsIcons20xGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/2.0x/ic_right_profile.png');
 
+  /// File path: assets/icons/2.0x/ic_select_bioskop.png
+  AssetGenImage get icSelectBioskop =>
+      const AssetGenImage('assets/icons/2.0x/ic_select_bioskop.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+    icCurrentLocation,
     icLogoHome,
     icLogoLogin,
     icNotifItem,
     icRightProfile,
+    icSelectBioskop,
   ];
 }
 
 class $AssetsIcons30xGen {
   const $AssetsIcons30xGen();
+
+  /// File path: assets/icons/3.0x/ic_current_location.png
+  AssetGenImage get icCurrentLocation =>
+      const AssetGenImage('assets/icons/3.0x/ic_current_location.png');
 
   /// File path: assets/icons/3.0x/ic_logo_home.png
   AssetGenImage get icLogoHome =>
@@ -254,12 +296,18 @@ class $AssetsIcons30xGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/3.0x/ic_right_profile.png');
 
+  /// File path: assets/icons/3.0x/ic_select_bioskop.png
+  AssetGenImage get icSelectBioskop =>
+      const AssetGenImage('assets/icons/3.0x/ic_select_bioskop.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+    icCurrentLocation,
     icLogoHome,
     icLogoLogin,
     icNotifItem,
     icRightProfile,
+    icSelectBioskop,
   ];
 }
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 
-class WHomeFilmPilihanCategoryItem extends StatelessWidget {
-  const WHomeFilmPilihanCategoryItem({
+class WFilmPilihanCategoryItem extends StatelessWidget {
+  const WFilmPilihanCategoryItem({
     super.key,
     required this.label,
     required this.icon,
