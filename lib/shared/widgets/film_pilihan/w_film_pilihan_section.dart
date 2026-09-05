@@ -8,10 +8,12 @@ import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_item.dart
 class WFilmPilihanSection extends StatefulWidget {
   const WFilmPilihanSection({
     super.key,
+    this.title = 'Film Pilihan',
     required this.onTapSeeAll,
     required this.onTapLihatFilm,
   });
 
+  final String title;
   final VoidCallback onTapSeeAll;
   final VoidCallback onTapLihatFilm;
 
@@ -74,7 +76,7 @@ class _WFilmPilihanSectionState extends State<WFilmPilihanSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Film Pilihan',
+                widget.title,
                 style: AppTypography.h9Bold.copyWith(
                   color: AppColors.neutral100,
                 ),

@@ -83,10 +83,11 @@ class BioskopPage extends StatelessWidget {
                       ),
                     ),
                     WFilmPilihanSection(
+                      title: 'Film di Bioskop Ini',
                       onTapSeeAll: () {
                         CustomSnackbar.info(
                           context,
-                          'Fitur Semua Film Pilihan belum tersedia',
+                          'Fitur Semua Film di Bioskop belum tersedia',
                         );
                       },
                       onTapLihatFilm: () {
