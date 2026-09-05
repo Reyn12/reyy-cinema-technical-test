@@ -26,6 +26,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_action.svg
   SvgGenImage get icAction => const SvgGenImage('assets/icons/ic_action.svg');
 
+  /// File path: assets/icons/ic_add_reminder.svg
+  SvgGenImage get icAddReminder =>
+      const SvgGenImage('assets/icons/ic_add_reminder.svg');
+
   /// File path: assets/icons/ic_animasi.svg
   SvgGenImage get icAnimasi => const SvgGenImage('assets/icons/ic_animasi.svg');
 
@@ -58,6 +62,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_horror.svg
   SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
+
+  /// File path: assets/icons/ic_info.svg
+  SvgGenImage get icInfo => const SvgGenImage('assets/icons/ic_info.svg');
 
   /// File path: assets/icons/ic_left.svg
   SvgGenImage get icLeft => const SvgGenImage('assets/icons/ic_left.svg');
@@ -133,6 +140,7 @@ class $AssetsIconsGen {
   /// List of all assets
   List<dynamic> get values => [
     icAction,
+    icAddReminder,
     icAnimasi,
     icBeranda,
     icBerandaActive,
@@ -143,6 +151,7 @@ class $AssetsIconsGen {
     icCurrentLocation,
     icDown,
     icHorror,
+    icInfo,
     icLeft,
     icLogoApp,
     icLogoHome,
@@ -211,6 +220,18 @@ class $AssetsImagesGen {
   AssetGenImage get imgDummyFilmPilihan2 =>
       const AssetGenImage('assets/images/img_dummy_film_pilihan_2.png');
 
+  /// File path: assets/images/img_dummy_reminder_item_1.png
+  AssetGenImage get imgDummyReminderItem1 =>
+      const AssetGenImage('assets/images/img_dummy_reminder_item_1.png');
+
+  /// File path: assets/images/img_dummy_reminder_item_2.png
+  AssetGenImage get imgDummyReminderItem2 =>
+      const AssetGenImage('assets/images/img_dummy_reminder_item_2.png');
+
+  /// File path: assets/images/img_dummy_reminder_item_3.png
+  AssetGenImage get imgDummyReminderItem3 =>
+      const AssetGenImage('assets/images/img_dummy_reminder_item_3.png');
+
   /// File path: assets/images/img_dummy_sorotan_banner_1.png
   AssetGenImage get imgDummySorotanBanner1 =>
       const AssetGenImage('assets/images/img_dummy_sorotan_banner_1.png');
@@ -230,6 +251,9 @@ class $AssetsImagesGen {
     imgDummyBanner3,
     imgDummyFilmPilihan1,
     imgDummyFilmPilihan2,
+    imgDummyReminderItem1,
+    imgDummyReminderItem2,
+    imgDummyReminderItem3,
     imgDummySorotanBanner1,
     imgLogin,
   ];
