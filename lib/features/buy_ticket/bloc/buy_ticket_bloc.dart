@@ -1,11 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_event.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_state.dart';
+import 'package:reyy_cinema/features/buy_ticket/mocks/buy_ticket_mocks.dart';
 import 'package:reyy_cinema/features/buy_ticket/models/buy_ticket_date_model.dart';
 
 class BuyTicketBloc extends Bloc<BuyTicketEvent, BuyTicketState> {
   BuyTicketBloc() : super(_initialState()) {
     on<BuyTicketDateSelected>(onDateSelected);
+    on<BuyTicketFormatSelected>(onFormatSelected);
+    on<BuyTicketFavoriteToggled>(onFavoriteToggled);
+    on<BuyTicketSlotSelected>(onSlotSelected);
   }
 
   static const dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
@@ -62,6 +66,9 @@ class BuyTicketBloc extends Bloc<BuyTicketEvent, BuyTicketState> {
     return BuyTicketState(
       dates: dates,
       monthLabel: '${monthNames[today.month - 1]} ${today.year}',
+      formats: BuyTicketMocks.formats,
+      cinemas: BuyTicketMocks.cinemas,
+      selectedSlotId: 'slot-1a-3',
     );
   }
 
@@ -70,5 +77,34 @@ class BuyTicketBloc extends Bloc<BuyTicketEvent, BuyTicketState> {
     Emitter<BuyTicketState> emit,
   ) {
     emit(state.copyWith(selectedDateIndex: event.index));
+  }
+
+  void onFormatSelected(
+    BuyTicketFormatSelected event,
+    Emitter<BuyTicketState> emit,
+  ) {
+    emit(state.copyWith(selectedFormatIndex: event.index));
+  }
+
+  void onFavoriteToggled(
+    BuyTicketFavoriteToggled event,
+    Emitter<BuyTicketState> emit,
+  ) {
+    final updated = state.cinemas.map((cinema) {
+      if (cinema.id != event.cinemaId) return cinema;
+      return cinema.copyWith(isFavorite: !cinema.isFavorite);
+    }).toList();
+    emit(state.copyWith(cinemas: updated));
+  }
+
+  void onSlotSelected(
+    BuyTicketSlotSelected event,
+    Emitter<BuyTicketState> emit,
+  ) {
+    if (state.selectedSlotId == event.slotId) {
+      emit(state.copyWith(clearSelectedSlot: true));
+      return;
+    }
+    emit(state.copyWith(selectedSlotId: event.slotId));
   }
 }

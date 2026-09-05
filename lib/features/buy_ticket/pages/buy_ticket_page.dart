@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_bloc.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_event.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_state.dart';
+import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_cinema_list_builder.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_date_selector.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summary.dart';
+import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_format_filter.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
@@ -68,21 +70,21 @@ class BuyTicketView extends StatelessWidget {
                     parent: ClampingScrollPhysics(),
                   ),
                   padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
-                  child: Column(
-                    spacing: 16,
-                    children: [
-                      WBuyTicketFilmSummary(
-                        image: Assets.images.imgDumyDetailFilm,
-                        ageRating: '13+',
-                        rating: '4.7',
-                        duration: '2j 05m',
-                        title: 'Black Adam',
-                        genres: 'Aksi, Petualangan, Fantasi',
-                        formats: const ['Dolby Atmos', 'IMAX 2D'],
-                      ),
-                      BlocBuilder<BuyTicketBloc, BuyTicketState>(
-                        builder: (context, state) {
-                          return WBuyTicketDateSelector(
+                  child: BlocBuilder<BuyTicketBloc, BuyTicketState>(
+                    builder: (context, state) {
+                      return Column(
+                        spacing: 16,
+                        children: [
+                          WBuyTicketFilmSummary(
+                            image: Assets.images.imgDumyDetailFilm,
+                            ageRating: '13+',
+                            rating: '4.7',
+                            duration: '2j 05m',
+                            title: 'Black Adam',
+                            genres: 'Aksi, Petualangan, Fantasi',
+                            formats: const ['Dolby Atmos', 'IMAX 2D'],
+                          ),
+                          WBuyTicketDateSelector(
                             monthLabel: state.monthLabel,
                             items: state.dates,
                             selectedIndex: state.selectedDateIndex,
@@ -91,10 +93,33 @@ class BuyTicketView extends StatelessWidget {
                                 BuyTicketDateSelected(index),
                               );
                             },
-                          );
-                        },
-                      ),
-                    ],
+                          ),
+                          WBuyTicketFormatFilter(
+                            formats: state.formats,
+                            selectedIndex: state.selectedFormatIndex,
+                            onFormatSelected: (index) {
+                              context.read<BuyTicketBloc>().add(
+                                BuyTicketFormatSelected(index),
+                              );
+                            },
+                          ),
+                          WBuyTicketCinemaListBuilder(
+                            cinemas: state.filteredCinemas,
+                            selectedSlotId: state.selectedSlotId,
+                            onToggleFavorite: (cinemaId) {
+                              context.read<BuyTicketBloc>().add(
+                                BuyTicketFavoriteToggled(cinemaId),
+                              );
+                            },
+                            onSlotSelected: (slot) {
+                              context.read<BuyTicketBloc>().add(
+                                BuyTicketSlotSelected(slot.id),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
