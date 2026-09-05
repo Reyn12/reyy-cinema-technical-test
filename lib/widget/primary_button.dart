@@ -187,6 +187,25 @@ class PrimaryButton extends StatelessWidget {
   }) : child = null,
        icon = null;
 
+  factory PrimaryButton.btnTambahPengingat({
+    Key? key,
+    required VoidCallback onPressed,
+    double height = 48,
+    double width = double.infinity,
+  }) {
+    return PrimaryButton.withIcon(
+      key: key,
+      text: 'Tambah Pengingat',
+      height: height,
+      width: width,
+      leading: Assets.icons.icAddReminder.svg(
+        width: 18,
+        height: 18,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
   factory PrimaryButton.btnAturNotification({
     Key? key,
     required VoidCallback onPressed,
