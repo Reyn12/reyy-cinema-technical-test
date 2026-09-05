@@ -16,6 +16,8 @@ import 'package:reyy_cinema/features/profile/mocks/profile_mocks.dart';
 import 'package:reyy_cinema/features/profile/models/profile_model.dart';
 import 'package:reyy_cinema/features/reminder/mocks/reminder_mocks.dart';
 import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
+import 'package:reyy_cinema/features/seat_select/mocks/seat_select_mocks.dart';
+import 'package:reyy_cinema/features/seat_select/models/seat_map_result.dart';
 import 'package:reyy_cinema/features/terms/mocks/terms_mocks.dart';
 import 'package:reyy_cinema/features/terms/models/terms_model.dart';
 import 'package:reyy_cinema/helper/format_date_helper.dart';
@@ -208,6 +210,27 @@ class ApiService {
         ? (data['data'] as Map).cast<String, dynamic>()
         : data.cast<String, dynamic>();
     return BuyTicketSchedulesResult.fromJson(payload);
+  }
+
+  Future<SeatMapResult> fetchSeatMap({
+    required String slotId,
+    bool mock = false,
+  }) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return SeatSelectMocks.mapForSlot(slotId);
+    }
+
+    final res = await dio.get('/schedules/$slotId/seats');
+    final data = res.data;
+
+    if (data is! Map) {
+      throw Exception('Unexpected seat map response');
+    }
+    final payload = data['data'] is Map
+        ? (data['data'] as Map).cast<String, dynamic>()
+        : data.cast<String, dynamic>();
+    return SeatMapResult.fromJson(payload);
   }
 
   Future<List<ReminderModel>> fetchReminderList({bool mock = false}) async {

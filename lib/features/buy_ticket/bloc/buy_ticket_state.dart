@@ -131,11 +131,21 @@ class BuyTicketState {
 
   String get scheduleLabel {
     if (dates.isEmpty || selectedDateIndex >= dates.length) return '-';
+    final time = selectedSlot?.time ?? '--:--';
+    return '$dateLabel • $time WIB';
+  }
+
+  String get dateLabel {
+    if (dates.isEmpty || selectedDateIndex >= dates.length) return '-';
     final date = dates[selectedDateIndex].date;
     final dayName = fullDayNames[date.weekday % 7];
     final month = monthShortNames[date.month - 1];
+    return '$dayName, ${date.day} $month';
+  }
+
+  String get timeLabel {
     final time = selectedSlot?.time ?? '--:--';
-    return '$dayName, ${date.day} $month • $time WIB';
+    return '$time WIB';
   }
 
   String get estimatedPriceLabel {

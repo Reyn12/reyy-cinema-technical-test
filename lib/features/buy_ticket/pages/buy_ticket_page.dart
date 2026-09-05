@@ -14,6 +14,7 @@ import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summar
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_format_filter.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_format_filter_shimmer.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
+import 'package:reyy_cinema/features/seat_select/models/seat_select_args.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
@@ -177,7 +178,25 @@ class BuyTicketView extends StatelessWidget {
                   cinemaStudioLabel: state.cinemaStudioLabel,
                   scheduleLabel: state.scheduleLabel,
                   estimatedPriceLabel: state.estimatedPriceLabel,
-                  onPressed: () => context.push(AppPaths.seatSelect),
+                  onPressed: () {
+                    final slotId = state.selectedSlotId;
+                    final studio = state.selectedStudio;
+                    final filmId = context.read<BuyTicketBloc>().filmId;
+                    if (slotId == null || studio == null) return;
+
+                    context.push(
+                      AppPaths.seatSelect,
+                      extra: SeatSelectArgs(
+                        filmId: state.film?.id ?? filmId,
+                        slotId: slotId,
+                        cinemaStudioLabel: state.cinemaStudioLabel,
+                        dateLabel: state.dateLabel,
+                        timeLabel: state.timeLabel,
+                        formatLabel: studio.name,
+                        ticketPrice: studio.price,
+                      ),
+                    );
+                  },
                 );
               },
             ),
