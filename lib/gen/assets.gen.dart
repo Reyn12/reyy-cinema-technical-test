@@ -69,6 +69,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_comedy.svg
   SvgGenImage get icComedy => const SvgGenImage('assets/icons/ic_comedy.svg');
 
+  /// File path: assets/icons/ic_copy.svg
+  SvgGenImage get icCopy => const SvgGenImage('assets/icons/ic_copy.svg');
+
   /// File path: assets/icons/ic_current_location.png
   AssetGenImage get icCurrentLocation =>
       const AssetGenImage('assets/icons/ic_current_location.png');
@@ -160,6 +163,9 @@ class $AssetsIconsGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
 
+  /// File path: assets/icons/ic_roadmap.svg
+  SvgGenImage get icRoadmap => const SvgGenImage('assets/icons/ic_roadmap.svg');
+
   /// File path: assets/icons/ic_romance.svg
   SvgGenImage get icRomance => const SvgGenImage('assets/icons/ic_romance.svg');
 
@@ -215,6 +221,7 @@ class $AssetsIconsGen {
     icChangeSchedule,
     icClock,
     icComedy,
+    icCopy,
     icCurrentLocation,
     icDitonton,
     icDown,
@@ -240,6 +247,7 @@ class $AssetsIconsGen {
     icPromo,
     icRange,
     icRightProfile,
+    icRoadmap,
     icRomance,
     icScifi,
     icSeat,
@@ -304,6 +312,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgDummyFilmPilihan2 =>
       const AssetGenImage('assets/images/img_dummy_film_pilihan_2.png');
 
+  /// File path: assets/images/img_dummy_qr.png
+  AssetGenImage get imgDummyQr =>
+      const AssetGenImage('assets/images/img_dummy_qr.png');
+
   /// File path: assets/images/img_dummy_reminder_item_1.png
   AssetGenImage get imgDummyReminderItem1 =>
       const AssetGenImage('assets/images/img_dummy_reminder_item_1.png');
@@ -348,6 +360,7 @@ class $AssetsImagesGen {
     imgDummyBoarding,
     imgDummyFilmPilihan1,
     imgDummyFilmPilihan2,
+    imgDummyQr,
     imgDummyReminderItem1,
     imgDummyReminderItem2,
     imgDummyReminderItem3,

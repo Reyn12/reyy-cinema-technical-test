@@ -14,6 +14,7 @@ import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/bottom_sheet_helper.dart';
+import 'package:reyy_cinema/widget/custom_snackbar.dart';
 import 'package:reyy_cinema/widget/primary_button.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -84,6 +85,20 @@ class ProfilePage extends StatelessWidget {
                           onTap: () => context.push(AppPaths.aboutApp),
                         ),
                       ],
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: PrimaryButton(
+                        text: 'Testing Push Notifikasi',
+                        color: AppColors.primaryPressed,
+                        onPressed: () {
+                          CustomSnackbar.info(
+                            context,
+                            'Testing push notifikasi',
+                          );
+                        },
+                      ),
                     ),
 
                     FutureBuilder<PackageInfo>(
