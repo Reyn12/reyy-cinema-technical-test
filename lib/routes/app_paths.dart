@@ -9,6 +9,7 @@ class AppPaths {
   static const String productDetail = '/product/:id';
   static const String reminder = '/reminder';
   static const String filmDetail = '/film-detail';
+  static const String buyTicket = '/buy-ticket';
   static const String terms = '/terms';
   static const String faq = '/faq';
   static const String aboutApp = '/about-app';

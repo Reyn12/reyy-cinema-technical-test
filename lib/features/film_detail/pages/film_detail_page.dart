@@ -9,6 +9,7 @@ import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_status_he
 import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_synopsis.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
+import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
@@ -99,9 +100,7 @@ class FilmDetailPage extends StatelessWidget {
               ),
             ),
             WFilmDetailBuyTicketBar(
-              onPressed: () {
-                CustomSnackbar.info(context, 'Fitur Beli Tiket belum tersedia');
-              },
+              onPressed: () => context.push(AppPaths.buyTicket),
             ),
           ],
         ),
