@@ -8,9 +8,11 @@ class WHomeBannerCarousel extends StatefulWidget {
   const WHomeBannerCarousel({
     super.key,
     required this.banners,
+    required this.onTapDetailBanner,
   });
 
   final List<AssetGenImage> banners;
+  final ValueChanged<int> onTapDetailBanner;
 
   @override
   State<WHomeBannerCarousel> createState() => _WHomeBannerCarouselState();
@@ -35,21 +37,26 @@ class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
               setState(() => _currentIndex = index);
             },
           ),
-          items: banners.map((banner) {
+          items: banners.asMap().entries.map((entry) {
+            final index = entry.key;
+            final banner = entry.value;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  width: double.infinity,
-                  height: 180,
-                  color: AppColors.neutral50.withValues(alpha: 0.1),
-                  child: ImageLoad(
-                    src: banner.path,
-                    isAsset: true,
+              child: GestureDetector(
+                onTap: () => widget.onTapDetailBanner(index),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
                     width: double.infinity,
                     height: 180,
-                    fit: BoxFit.cover,
+                    color: AppColors.neutral50.withValues(alpha: 0.1),
+                    child: ImageLoad(
+                      src: banner.path,
+                      isAsset: true,
+                      width: double.infinity,
+                      height: 180,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

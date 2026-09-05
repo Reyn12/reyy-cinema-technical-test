@@ -6,6 +6,7 @@ import 'package:reyy_cinema/features/home/widgets/w_home_banner_carousel.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_greetings.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_header.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_promo_card.dart';
+import 'package:reyy_cinema/features/home/widgets/w_home_sorotan_section.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
@@ -34,6 +35,7 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
                 child: Column(
+                  spacing: 24,
                   children: [
                     Stack(
                       children: [
@@ -61,22 +63,49 @@ class HomePage extends StatelessWidget {
                             onTapClaimPromo: () {
                               CustomSnackbar.info(
                                 context,
-                                'Fitur ini belum tersedia',
+                                'Fitur Klaim Promo belum tersedia',
                               );
                             },
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24),
                     WHomeBannerCarousel(
                       banners: [
                         Assets.images.imgDummyBanner1,
                         Assets.images.imgDummyBanner2,
                         Assets.images.imgDummyBanner3,
                       ],
+                      onTapDetailBanner: (_) {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Detail Banner belum tersedia',
+                        );
+                      },
                     ),
-                    const SizedBox(height: 24),
+                    WHomeSorotanSection(
+                      image: Assets.images.imgDummySorotanBanner1,
+                      rating: '4.8',
+                      ratingCount: '12.4k',
+                      ageRating: 'D 17+',
+                      cinemaLabel: 'BIOSKOP PREMIERE & REGULER',
+                      movieTitle: 'Black Adam: Sovereign',
+                      duration: '2j 05m',
+                      genres: const ['Action', 'Petualangan', 'Sci-Fi'],
+                      onTapSeeAll: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Lihat Semua belum tersedia',
+                        );
+                      },
+                      onTapBookTicket: () {
+                        CustomSnackbar.info(
+                          context,
+                          'Fitur Pesan Tiket belum tersedia',
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),

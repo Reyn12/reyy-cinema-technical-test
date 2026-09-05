@@ -37,6 +37,9 @@ class $AssetsIconsGen {
   SvgGenImage get icBioskopActive =>
       const SvgGenImage('assets/icons/ic_bioskop_active.svg');
 
+  /// File path: assets/icons/ic_clock.svg
+  SvgGenImage get icClock => const SvgGenImage('assets/icons/ic_clock.svg');
+
   /// File path: assets/icons/ic_left.svg
   SvgGenImage get icLeft => const SvgGenImage('assets/icons/ic_left.svg');
 
@@ -78,12 +81,19 @@ class $AssetsIconsGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
 
+  /// File path: assets/icons/ic_star.svg
+  SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
+
+  /// File path: assets/icons/ic_ticket.svg
+  SvgGenImage get icTicket => const SvgGenImage('assets/icons/ic_ticket.svg');
+
   /// List of all assets
   List<dynamic> get values => [
     icBeranda,
     icBerandaActive,
     icBioskop,
     icBioskopActive,
+    icClock,
     icLeft,
     icLogoApp,
     icLogoHome,
@@ -95,6 +105,8 @@ class $AssetsIconsGen {
     icProfileActive,
     icPromo,
     icRightProfile,
+    icStar,
+    icTicket,
   ];
 }
 
@@ -135,6 +147,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgDummyBanner3 =>
       const AssetGenImage('assets/images/img_dummy_banner_3.png');
 
+  /// File path: assets/images/img_dummy_sorotan_banner_1.png
+  AssetGenImage get imgDummySorotanBanner1 =>
+      const AssetGenImage('assets/images/img_dummy_sorotan_banner_1.png');
+
   /// File path: assets/images/img_login.png
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/img_login.png');
@@ -148,6 +164,7 @@ class $AssetsImagesGen {
     imgDummyBanner1,
     imgDummyBanner2,
     imgDummyBanner3,
+    imgDummySorotanBanner1,
     imgLogin,
   ];
 }
