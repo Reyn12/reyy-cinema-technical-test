@@ -1,19 +1,32 @@
+import 'package:reyy_cinema/features/ticket_detail/models/ticket_detail_model.dart';
+
 class TicketDetailState {
   const TicketDetailState({
-    this.cinemaMapsQuery = 'XXI Solo Square',
+    this.ticket,
+    this.isLoading = false,
+    this.hasError = false,
     this.mapsErrorMessage,
   });
 
-  final String cinemaMapsQuery;
+  final TicketDetailModel? ticket;
+  final bool isLoading;
+  final bool hasError;
   final String? mapsErrorMessage;
 
+  String get cinemaMapsQuery =>
+      ticket?.cinemaMapsQuery ?? ticket?.cinemaName ?? '';
+
   TicketDetailState copyWith({
-    String? cinemaMapsQuery,
+    TicketDetailModel? ticket,
+    bool? isLoading,
+    bool? hasError,
     String? mapsErrorMessage,
     bool clearMapsError = false,
   }) {
     return TicketDetailState(
-      cinemaMapsQuery: cinemaMapsQuery ?? this.cinemaMapsQuery,
+      ticket: ticket ?? this.ticket,
+      isLoading: isLoading ?? this.isLoading,
+      hasError: hasError ?? this.hasError,
       mapsErrorMessage:
           clearMapsError ? null : (mapsErrorMessage ?? this.mapsErrorMessage),
     );

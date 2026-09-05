@@ -20,6 +20,8 @@ import 'package:reyy_cinema/features/seat_select/mocks/seat_select_mocks.dart';
 import 'package:reyy_cinema/features/seat_select/models/seat_map_result.dart';
 import 'package:reyy_cinema/features/terms/mocks/terms_mocks.dart';
 import 'package:reyy_cinema/features/terms/models/terms_model.dart';
+import 'package:reyy_cinema/features/ticket_detail/mocks/ticket_detail_mocks.dart';
+import 'package:reyy_cinema/features/ticket_detail/models/ticket_detail_model.dart';
 import 'package:reyy_cinema/helper/format_date_helper.dart';
 import 'package:reyy_cinema/network/environment.dart';
 import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
@@ -231,6 +233,27 @@ class ApiService {
         ? (data['data'] as Map).cast<String, dynamic>()
         : data.cast<String, dynamic>();
     return SeatMapResult.fromJson(payload);
+  }
+
+  Future<TicketDetailModel> fetchTicketDetail(
+    String id, {
+    bool mock = false,
+  }) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return TicketDetailMocks.byId(id);
+    }
+
+    final res = await dio.get('/tickets/$id');
+    final data = res.data;
+
+    if (data is! Map) {
+      throw Exception('Unexpected ticket detail response');
+    }
+    final payload = data['data'] is Map
+        ? (data['data'] as Map).cast<String, dynamic>()
+        : data.cast<String, dynamic>();
+    return TicketDetailModel.fromJson(payload);
   }
 
   Future<List<FilmReminderItemModel>> fetchReminderList({

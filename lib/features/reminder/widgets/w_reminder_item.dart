@@ -101,7 +101,8 @@ class WReminderItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: PrimaryButton.btnLihatTiket(
-                    onPressed: () => context.push(AppPaths.ticketDetail),
+                    onPressed: () =>
+                        context.push(AppPaths.ticketDetailWithId(item.id)),
                   ),
                 ),
               ],
@@ -121,7 +122,8 @@ class WReminderItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: PrimaryButton.btnLihatTiket(
-                    onPressed: () => context.push(AppPaths.ticketDetail),
+                    onPressed: () =>
+                        context.push(AppPaths.ticketDetailWithId(item.id)),
                   ),
                 ),
               ],

@@ -105,7 +105,9 @@ final appRouter = GoRouter(
       path: AppPaths.ticketDetail,
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
-        child: const TicketDetailPage(),
+        child: TicketDetailPage(
+          ticketId: state.pathParameters['id']!,
+        ),
       ),
     ),
     GoRoute(
