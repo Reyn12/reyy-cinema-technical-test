@@ -49,6 +49,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_comedy.svg
   SvgGenImage get icComedy => const SvgGenImage('assets/icons/ic_comedy.svg');
 
+  /// File path: assets/icons/ic_current_location.png
+  AssetGenImage get icCurrentLocation =>
+      const AssetGenImage('assets/icons/ic_current_location.png');
+
   /// File path: assets/icons/ic_down.svg
   SvgGenImage get icDown => const SvgGenImage('assets/icons/ic_down.svg');
 
@@ -125,6 +129,7 @@ class $AssetsIconsGen {
     icBioskopActive,
     icClock,
     icComedy,
+    icCurrentLocation,
     icDown,
     icHorror,
     icLeft,
@@ -219,6 +224,10 @@ class $AssetsImagesGen {
 class $AssetsIcons20xGen {
   const $AssetsIcons20xGen();
 
+  /// File path: assets/icons/2.0x/ic_current_location.png
+  AssetGenImage get icCurrentLocation =>
+      const AssetGenImage('assets/icons/2.0x/ic_current_location.png');
+
   /// File path: assets/icons/2.0x/ic_logo_home.png
   AssetGenImage get icLogoHome =>
       const AssetGenImage('assets/icons/2.0x/ic_logo_home.png');
@@ -241,6 +250,7 @@ class $AssetsIcons20xGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    icCurrentLocation,
     icLogoHome,
     icLogoLogin,
     icNotifItem,
@@ -251,6 +261,10 @@ class $AssetsIcons20xGen {
 
 class $AssetsIcons30xGen {
   const $AssetsIcons30xGen();
+
+  /// File path: assets/icons/3.0x/ic_current_location.png
+  AssetGenImage get icCurrentLocation =>
+      const AssetGenImage('assets/icons/3.0x/ic_current_location.png');
 
   /// File path: assets/icons/3.0x/ic_logo_home.png
   AssetGenImage get icLogoHome =>
@@ -274,6 +288,7 @@ class $AssetsIcons30xGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    icCurrentLocation,
     icLogoHome,
     icLogoLogin,
     icNotifItem,

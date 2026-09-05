@@ -49,5 +49,9 @@
 	<string>Reyy Cinema butuh akses galeri untuk upload bukti pembayaran.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Reyy Cinema butuh akses kamera untuk upload bukti pembayaran.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Reyy Cinema butuh lokasi untuk menampilkan rute ke bioskop.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Reyy Cinema butuh lokasi untuk menampilkan rute ke bioskop.</string>
 </dict>
 </plist>
