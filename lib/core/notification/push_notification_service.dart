@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:reyy_cinema/core/notification/local_notification_service.dart';
@@ -31,7 +33,7 @@ class PushNotificationService {
       sound: true,
     );
 
-    fcmToken = await messaging.getToken();
+    await resolveFcmToken();
 
     messaging.onTokenRefresh.listen((token) {
       fcmToken = token;
@@ -46,6 +48,22 @@ class PushNotificationService {
     }
 
     ready = true;
+  }
+
+  Future<void> resolveFcmToken() async {
+    try {
+      if (Platform.isIOS) {
+        String? apnsToken;
+        for (var i = 0; i < 10; i++) {
+          apnsToken = await messaging.getAPNSToken();
+          if (apnsToken != null) break;
+          await Future<void>.delayed(const Duration(milliseconds: 300));
+        }
+        if (apnsToken == null) return;
+      }
+
+      fcmToken = await messaging.getToken();
+    } catch (_) {}
   }
 
   Future<void> handleForegroundMessage(RemoteMessage message) async {
