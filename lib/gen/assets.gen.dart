@@ -323,6 +323,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgProfilePicDummy =>
       const AssetGenImage('assets/images/img_profile_pic_dummy.jpg');
 
+  /// File path: assets/images/img_screen_cinema.png
+  AssetGenImage get imgScreenCinema =>
+      const AssetGenImage('assets/images/img_screen_cinema.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     imgBgBerandaBottom,
@@ -342,6 +346,7 @@ class $AssetsImagesGen {
     imgDumyDetailFilm,
     imgLogin,
     imgProfilePicDummy,
+    imgScreenCinema,
   ];
 }
 
@@ -428,8 +433,12 @@ class $AssetsImages20xGen {
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/2.0x/img_login.png');
 
+  /// File path: assets/images/2.0x/img_screen_cinema.png
+  AssetGenImage get imgScreenCinema =>
+      const AssetGenImage('assets/images/2.0x/img_screen_cinema.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imgLogin];
+  List<AssetGenImage> get values => [imgLogin, imgScreenCinema];
 }
 
 class $AssetsImages30xGen {
@@ -439,8 +448,12 @@ class $AssetsImages30xGen {
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/3.0x/img_login.png');
 
+  /// File path: assets/images/3.0x/img_screen_cinema.png
+  AssetGenImage get imgScreenCinema =>
+      const AssetGenImage('assets/images/3.0x/img_screen_cinema.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imgLogin];
+  List<AssetGenImage> get values => [imgLogin, imgScreenCinema];
 }
 
 class Assets {

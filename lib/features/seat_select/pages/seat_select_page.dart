@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reyy_cinema/features/seat_select/bloc/seat_select_bloc.dart';
+import 'package:reyy_cinema/features/seat_select/bloc/seat_select_event.dart';
+import 'package:reyy_cinema/features/seat_select/bloc/seat_select_state.dart';
+import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_film_summary.dart';
+import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_map.dart';
+import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
 class SeatSelectPage extends StatelessWidget {
   const SeatSelectPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => SeatSelectBloc(),
+      child: const SeatSelectView(),
+    );
+  }
+}
+
+class SeatSelectView extends StatelessWidget {
+  const SeatSelectView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +69,30 @@ class SeatSelectPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
+                    spacing: 16,
                     children: [
-                      Text(
-                        'Pilih Kursi',
-                        style: AppTypography.h9Bold.copyWith(
-                          color: AppColors.primaryPressed,
-                        ),
+                      WSeatSelectFilmSummary(
+                        image: Assets.images.imgDumyDetailFilm,
+                        ageRating: 'D-17',
+                        format: 'Reguler 2D',
+                        rating: '4.2',
+                        title: 'Black Adam',
+                        cinemaLabel: 'XXI Solo Square • Studio 1',
+                        dateLabel: 'Rabu, 14 Okt 2026',
+                        timeLabel: '18:30 WIB',
                       ),
-                      Text(
-                        'Pilih kursi bioskop yang tersedia di sini.',
-                        style: AppTypography.bodyRegularS.copyWith(
-                          color: AppColors.textColor50,
-                        ),
+                      BlocBuilder<SeatSelectBloc, SeatSelectState>(
+                        builder: (context, state) {
+                          return WSeatSelectMap(
+                            rows: state.rows,
+                            selectedSeatIds: state.selectedSeatIds,
+                            onSeatSelected: (seatId) {
+                              context.read<SeatSelectBloc>().add(
+                                SeatSelectToggled(seatId),
+                              );
+                            },
+                          );
+                        },
                       ),
                     ],
                   ),
