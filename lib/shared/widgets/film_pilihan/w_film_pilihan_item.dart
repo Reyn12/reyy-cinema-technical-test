@@ -4,8 +4,8 @@ import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/image_load.dart';
 import 'package:reyy_cinema/widget/primary_button.dart';
 
-class WHomeFilmPilihanItem extends StatefulWidget {
-  const WHomeFilmPilihanItem({
+class WFilmPilihanItem extends StatefulWidget {
+  const WFilmPilihanItem({
     super.key,
     required this.image,
     required this.title,
@@ -27,10 +27,10 @@ class WHomeFilmPilihanItem extends StatefulWidget {
   final ValueChanged<bool>? onTapFavorite;
 
   @override
-  State<WHomeFilmPilihanItem> createState() => _WHomeFilmPilihanItemState();
+  State<WFilmPilihanItem> createState() => _WFilmPilihanItemState();
 }
 
-class _WHomeFilmPilihanItemState extends State<WHomeFilmPilihanItem> {
+class _WFilmPilihanItemState extends State<WFilmPilihanItem> {
   late bool isFavorite;
 
   @override

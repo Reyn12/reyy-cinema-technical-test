@@ -5,7 +5,7 @@ import 'package:reyy_cinema/features/home/widgets/w_home_background_header.dart'
 import 'package:reyy_cinema/features/home/widgets/w_home_banner_carousel.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_greetings.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_header.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_film_pilihan_section.dart';
+import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_section.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_promo_card.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_sorotan_section.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                           );
                         },
                       ),
-                      WHomeFilmPilihanSection(
+                      WFilmPilihanSection(
                         onTapSeeAll: () {
                           CustomSnackbar.info(
                             context,

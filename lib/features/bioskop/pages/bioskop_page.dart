@@ -5,6 +5,7 @@ import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_cinema_info_card.
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_map.dart';
 import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_selected_cinema.dart';
 import 'package:reyy_cinema/resources/resources.dart';
+import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_section.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
@@ -29,51 +30,73 @@ class BioskopPage extends StatelessWidget {
             const AppHeader(title: 'Bioskop'),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                 child: Column(
                   spacing: 16,
                   children: [
-                    WBioskopSelectedCinema(
-                      cinemaName: cinemaName,
-                      onTapOpenBottomSheetCinema: () {
-                        CustomSnackbar.info(
-                          context,
-                          'Fitur Pilih Bioskop belum tersedia',
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 360,
-                      child: WBioskopMap(
-                        cinemaName: cinemaName,
-                        destination: cinemaLocation,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          WBioskopSelectedCinema(
+                            cinemaName: cinemaName,
+                            onTapOpenBottomSheetCinema: () {
+                              CustomSnackbar.info(
+                                context,
+                                'Fitur Pilih Bioskop belum tersedia',
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            height: 360,
+                            child: WBioskopMap(
+                              cinemaName: cinemaName,
+                              destination: cinemaLocation,
+                            ),
+                          ),
+                          WBioskopCinemaInfoCard(
+                            cinemaName: cinemaName,
+                            statusLabel: 'Buka',
+                            openHours: '10.00 - 22.30',
+                            distanceLabel: '1.8 km',
+                            durationLabel: '12 menit berkendara',
+                            onTapBookmark: () {
+                              CustomSnackbar.info(
+                                context,
+                                'Fitur Bookmark Bioskop belum tersedia',
+                              );
+                            },
+                            onTapStartNavigation: () {
+                              CustomSnackbar.info(
+                                context,
+                                'Fitur Mulai Navigasi belum tersedia',
+                              );
+                            },
+                            onTapSeeSchedule: () {
+                              CustomSnackbar.info(
+                                context,
+                                'Fitur Lihat Jadwal belum tersedia',
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    WBioskopCinemaInfoCard(
-                      cinemaName: cinemaName,
-                      statusLabel: 'Buka',
-                      openHours: '10.00 - 22.30',
-                      distanceLabel: '1.8 km',
-                      durationLabel: '12 menit berkendara',
-                      onTapBookmark: () {
+                    WFilmPilihanSection(
+                      onTapSeeAll: () {
                         CustomSnackbar.info(
                           context,
-                          'Fitur Bookmark Bioskop belum tersedia',
+                          'Fitur Semua Film Pilihan belum tersedia',
                         );
                       },
-                      onTapStartNavigation: () {
+                      onTapLihatFilm: () {
                         CustomSnackbar.info(
                           context,
-                          'Fitur Mulai Navigasi belum tersedia',
-                        );
-                      },
-                      onTapSeeSchedule: () {
-                        CustomSnackbar.info(
-                          context,
-                          'Fitur Lihat Jadwal belum tersedia',
+                          'Fitur Lihat Film belum tersedia',
                         );
                       },
                     ),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),

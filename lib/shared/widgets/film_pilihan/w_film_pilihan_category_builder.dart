@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reyy_cinema/features/home/models/film_pilihan_model.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_film_pilihan_category_item.dart';
+import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
+import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_category_item.dart';
 
-class WHomeFilmPilihanCategoryBuilder extends StatelessWidget {
-  const WHomeFilmPilihanCategoryBuilder({
+class WFilmPilihanCategoryBuilder extends StatelessWidget {
+  const WFilmPilihanCategoryBuilder({
     super.key,
     required this.categories,
     required this.selectedCategoryIndex,
@@ -25,7 +25,7 @@ class WHomeFilmPilihanCategoryBuilder extends StatelessWidget {
         separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           final category = categories[index];
-          return WHomeFilmPilihanCategoryItem(
+          return WFilmPilihanCategoryItem(
             label: category.label,
             icon: category.icon,
             isSelected: index == selectedCategoryIndex,

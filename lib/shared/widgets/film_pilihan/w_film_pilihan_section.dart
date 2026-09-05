@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:reyy_cinema/features/home/models/film_pilihan_model.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_film_pilihan_category_builder.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_film_pilihan_item.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
+import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
+import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_category_builder.dart';
+import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_item.dart';
 
-class WHomeFilmPilihanSection extends StatefulWidget {
-  const WHomeFilmPilihanSection({
+class WFilmPilihanSection extends StatefulWidget {
+  const WFilmPilihanSection({
     super.key,
     required this.onTapSeeAll,
     required this.onTapLihatFilm,
@@ -16,11 +16,10 @@ class WHomeFilmPilihanSection extends StatefulWidget {
   final VoidCallback onTapLihatFilm;
 
   @override
-  State<WHomeFilmPilihanSection> createState() =>
-      _WHomeFilmPilihanSectionState();
+  State<WFilmPilihanSection> createState() => _WFilmPilihanSectionState();
 }
 
-class _WHomeFilmPilihanSectionState extends State<WHomeFilmPilihanSection> {
+class _WFilmPilihanSectionState extends State<WFilmPilihanSection> {
   int selectedCategoryIndex = 0;
 
   static final categories = [
@@ -92,7 +91,7 @@ class _WHomeFilmPilihanSectionState extends State<WHomeFilmPilihanSection> {
             ],
           ),
         ),
-        WHomeFilmPilihanCategoryBuilder(
+        WFilmPilihanCategoryBuilder(
           categories: categories,
           selectedCategoryIndex: selectedCategoryIndex,
           onCategorySelected: (index) {
@@ -108,7 +107,7 @@ class _WHomeFilmPilihanSectionState extends State<WHomeFilmPilihanSection> {
             separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
               final film = films[index];
-              return WHomeFilmPilihanItem(
+              return WFilmPilihanItem(
                 image: film.image,
                 title: film.title,
                 genres: film.genres,
