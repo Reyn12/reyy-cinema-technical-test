@@ -152,10 +152,39 @@ class PrimaryButton extends StatelessWidget {
     this.fontWeight,
     this.margin,
     this.padding,
-    this.wrapContent = false, 
+    this.wrapContent = false,
     this.textStyle,
     this.boxFit,
   });
+
+  /// Text + leading widget (SVG / custom icon).
+  const PrimaryButton.withIcon({
+    super.key,
+    required this.text,
+    required Widget this.leading,
+    required this.onPressed,
+    this.gradient,
+    this.width = double.infinity,
+    this.height = 48,
+    this.borderRadius,
+    this.radiusValue = 12,
+    this.borderWidth,
+    this.borderColor,
+    this.elevation = 0,
+    this.iconColor,
+    this.enabled = true,
+    this.reverse = false,
+    this.color,
+    this.textColor,
+    this.fontSize,
+    this.fontWeight,
+    this.margin,
+    this.padding,
+    this.wrapContent = false,
+    this.textStyle,
+    this.boxFit,
+  }) : child = null,
+       icon = null;
 
   @override
   Widget build(BuildContext context) {

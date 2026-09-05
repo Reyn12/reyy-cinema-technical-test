@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "230659502620",
+    "project_id": "reyy-cinema-logkar",
+    "storage_bucket": "reyy-cinema-logkar.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230659502620:android:56e798e55cdf360a1665d9",
+        "android_client_info": {
+          "package_name": "com.reyy_cinema"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA7Zp5IZDo4HkUh__KFulOptcqS1rLRv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

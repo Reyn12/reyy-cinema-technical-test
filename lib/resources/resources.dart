@@ -80,6 +80,21 @@ class AppColors {
   static const Color neutral80 = Color(0xFF616161);
   static const Color neutral90 = Color(0xFF404040);
   static const Color neutral100 = Color(0xFF0A0A0A);
+
+  static const Color overlayNavy = Color(0xFF00193B);
+}
+
+class AppGradients {
+  static LinearGradient get imageOverlayTop => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      AppColors.overlayNavy.withValues(alpha: 0.9),
+      AppColors.overlayNavy.withValues(alpha: 0.2),
+      AppColors.overlayNavy.withValues(alpha: 0),
+    ],
+    stops: const [0.0, 0.5, 1.0],
+  );
 }
 
 class AppShadows {
