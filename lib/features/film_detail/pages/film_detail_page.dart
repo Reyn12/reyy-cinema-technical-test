@@ -17,6 +17,7 @@ import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class FilmDetailPage extends StatelessWidget {
   const FilmDetailPage({super.key, required this.id});
@@ -92,15 +93,20 @@ class _FilmDetailViewState extends State<FilmDetailView> {
                 },
                 child: BlocBuilder<FilmDetailBloc, FilmDetailState>(
                   builder: (context, state) {
-                    if (state.isLoading) {
-                      return const SingleChildScrollView(
+                    final film = state.film;
+
+                    return StateView(
+                      isLoading: state.isLoading,
+                      hasError: state.hasError || film == null,
+                      errorMessage: 'Gagal memuat detail film',
+                      onRetry: () => context.read<FilmDetailBloc>().add(
+                        const FilmDetailLoadRequested(),
+                      ),
+                      loadingView: const SingleChildScrollView(
                         physics: AlwaysScrollableScrollPhysics(),
                         child: WFilmDetailContentShimmer(),
-                      );
-                    }
-
-                    if (state.hasError || state.film == null) {
-                      return SingleChildScrollView(
+                      ),
+                      errorView: SingleChildScrollView(
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 48),
@@ -111,53 +117,54 @@ class _FilmDetailViewState extends State<FilmDetailView> {
                             ),
                           ),
                         ),
-                      );
-                    }
-
-                    final film = state.film!;
-
-                    return SingleChildScrollView(
-                      controller: scrollController,
-                      physics: const AlwaysScrollableScrollPhysics(
-                        parent: ClampingScrollPhysics(),
                       ),
-                      padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
-                      child: Column(
-                        spacing: 16,
-                        children: [
-                          WFilmDetailStatusHeader(
-                            statusLabel: state.statusLabel,
-                            onTapBookmark: () {
-                              CustomSnackbar.info(
-                                context,
-                                'Fitur Bookmark belum tersedia',
-                              );
-                            },
-                            onTapShare: () {
-                              CustomSnackbar.info(
-                                context,
-                                'Fitur Share belum tersedia',
-                              );
-                            },
-                          ),
-                          WFilmDetailHero(
-                            image: film.poster,
-                            ageRating: film.ageRating,
-                            rating: film.rating,
-                            ratingCount: film.ratingCount,
-                            duration: film.duration,
-                            title: film.title,
-                            genres: film.genres,
-                          ),
-                          WFilmDetailSynopsis(text: film.openingCrawl),
-                          WFilmDetailInfoRow(
-                            director: film.director,
-                            writer: state.writer,
-                            status: state.cinemaStatus,
-                          ),
-                          WFilmDetailCastListBuilder(items: state.casts),
-                        ],
-                      ),
+                      child: film == null
+                          ? const SizedBox.shrink()
+                          : SingleChildScrollView(
+                              controller: scrollController,
+                              physics: const AlwaysScrollableScrollPhysics(
+                                parent: ClampingScrollPhysics(),
+                              ),
+                              padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
+                              child: Column(
+                                spacing: 16,
+                                children: [
+                                  WFilmDetailStatusHeader(
+                                    statusLabel: state.statusLabel,
+                                    onTapBookmark: () {
+                                      CustomSnackbar.info(
+                                        context,
+                                        'Fitur Bookmark belum tersedia',
+                                      );
+                                    },
+                                    onTapShare: () {
+                                      CustomSnackbar.info(
+                                        context,
+                                        'Fitur Share belum tersedia',
+                                      );
+                                    },
+                                  ),
+                                  WFilmDetailHero(
+                                    image: film.poster,
+                                    ageRating: film.ageRating,
+                                    rating: film.rating,
+                                    ratingCount: film.ratingCount,
+                                    duration: film.duration,
+                                    title: film.title,
+                                    genres: film.genres,
+                                  ),
+                                  WFilmDetailSynopsis(text: film.openingCrawl),
+                                  WFilmDetailInfoRow(
+                                    director: film.director,
+                                    writer: state.writer,
+                                    status: state.cinemaStatus,
+                                  ),
+                                  WFilmDetailCastListBuilder(
+                                    items: state.casts,
+                                  ),
+                                ],
+                              ),
+                            ),
                     );
                   },
                 ),

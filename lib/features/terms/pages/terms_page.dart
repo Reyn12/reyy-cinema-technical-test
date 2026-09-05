@@ -12,6 +12,7 @@ import 'package:reyy_cinema/features/terms/widgets/terms_scroll_rail.dart';
 import 'package:reyy_cinema/features/terms/widgets/terms_section_error.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class TermsPage extends StatelessWidget {
   const TermsPage({super.key});
@@ -124,19 +125,22 @@ class TermsViewState extends State<TermsView> {
                             }
                           },
                           builder: (context, state) {
-                            if (state.isLoading) {
-                              return const TermsContentShimmer();
-                            }
-                            if (state.hasError || state.data == null) {
-                              return TermsSectionError(
+                            final data = state.data;
+                            return StateView(
+                              isLoading: state.isLoading,
+                              hasError: state.hasError || data == null,
+                              loadingView: const TermsContentShimmer(),
+                              errorView: TermsSectionError(
                                 onRetry: () => context.read<TermsBloc>().add(
                                   const TermsLoadRequested(),
                                 ),
-                              );
-                            }
-                            return TermsContent(
-                              htmlContent:
-                                  state.data!.htmlContent?.toString() ?? '',
+                              ),
+                              child: data == null
+                                  ? const SizedBox.shrink()
+                                  : TermsContent(
+                                      htmlContent:
+                                          data.htmlContent?.toString() ?? '',
+                                    ),
                             );
                           },
                         ),

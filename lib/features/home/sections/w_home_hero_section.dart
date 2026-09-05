@@ -7,8 +7,8 @@ import 'package:reyy_cinema/features/home/widgets/w_home_background_header.dart'
 import 'package:reyy_cinema/features/home/widgets/w_home_greetings.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_promo_card.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_promo_card_shimmer.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class WHomeHeroSection extends StatelessWidget {
   const WHomeHeroSection({super.key});
@@ -46,26 +46,28 @@ class WHomeHeroSection extends StatelessWidget {
               left: 0,
               right: 0,
               bottom: 0,
-              child: state.isPromoLoading
-                  ? const WHomePromoCardShimmer()
-                  : state.hasPromoError || promo == null
-                  ? WHomeSectionRetry(
-                      message: 'Gagal memuat promo',
-                      onRetry: () => context.read<HomeBloc>().add(
-                        const HomeLoadRequested(),
+              child: StateView(
+                isLoading: state.isPromoLoading,
+                hasError: state.hasPromoError || promo == null,
+                errorMessage: 'Gagal memuat promo',
+                onRetry: () => context.read<HomeBloc>().add(
+                  const HomeLoadRequested(),
+                ),
+                loadingView: const WHomePromoCardShimmer(),
+                child: promo == null
+                    ? const SizedBox.shrink()
+                    : WHomePromoCard(
+                        title: promo.title,
+                        description: promo.description,
+                        buttonText: promo.buttonText,
+                        onTapClaimPromo: () {
+                          CustomSnackbar.info(
+                            context,
+                            'Fitur Klaim Promo belum tersedia',
+                          );
+                        },
                       ),
-                    )
-                  : WHomePromoCard(
-                      title: promo.title,
-                      description: promo.description,
-                      buttonText: promo.buttonText,
-                      onTapClaimPromo: () {
-                        CustomSnackbar.info(
-                          context,
-                          'Fitur Klaim Promo belum tersedia',
-                        );
-                      },
-                    ),
+              ),
             ),
           ],
         );

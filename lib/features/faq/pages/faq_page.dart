@@ -10,6 +10,7 @@ import 'package:reyy_cinema/features/faq/widgets/faq_list_builder_shimmer.dart';
 import 'package:reyy_cinema/features/faq/widgets/faq_section_error.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class FaqPage extends StatelessWidget {
   const FaqPage({super.key});
@@ -79,17 +80,17 @@ class FaqViewState extends State<FaqView> {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: BlocBuilder<FaqBloc, FaqState>(
                     builder: (context, state) {
-                      if (state.isLoading) {
-                        return const FaqListBuilderShimmer();
-                      }
-                      if (state.hasError) {
-                        return FaqSectionError(
+                      return StateView(
+                        isLoading: state.isLoading,
+                        hasError: state.hasError,
+                        loadingView: const FaqListBuilderShimmer(),
+                        errorView: FaqSectionError(
                           onRetry: () => context.read<FaqBloc>().add(
                             const FaqLoadRequested(),
                           ),
-                        );
-                      }
-                      return FaqListBuilder(items: state.items);
+                        ),
+                        child: FaqListBuilder(items: state.items),
+                      );
                     },
                   ),
                 ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
 import 'package:reyy_cinema/features/seat_select/bloc/seat_select_bloc.dart';
 import 'package:reyy_cinema/features/seat_select/bloc/seat_select_event.dart';
 import 'package:reyy_cinema/features/seat_select/bloc/seat_select_state.dart';
@@ -16,12 +15,10 @@ import 'package:reyy_cinema/features/seat_select/widgets/w_seat_select_summary.d
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class SeatSelectPage extends StatelessWidget {
-  const SeatSelectPage({
-    super.key,
-    this.args = SeatSelectArgs.fallback,
-  });
+  const SeatSelectPage({super.key, this.args = SeatSelectArgs.fallback});
 
   final SeatSelectArgs args;
 
@@ -80,63 +77,70 @@ class SeatSelectView extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                   child: BlocBuilder<SeatSelectBloc, SeatSelectState>(
                     builder: (context, state) {
+                      final film = state.film;
+
                       return Column(
                         spacing: 16,
                         children: [
-                          if (state.isFilmLoading)
-                            const WSeatSelectFilmSummaryShimmer()
-                          else if (state.hasFilmError || state.film == null)
-                            WHomeSectionRetry(
-                              message: 'Gagal memuat film',
-                              onRetry: () => context.read<SeatSelectBloc>().add(
-                                const SeatSelectLoadRequested(),
-                              ),
-                            )
-                          else
-                            WSeatSelectFilmSummary(
-                              image: state.film!.poster,
-                              ageRating: state.film!.ageRating,
-                              format: state.formatLabel,
-                              rating: state.film!.rating,
-                              title: state.film!.title,
-                              cinemaLabel: state.cinemaStudioLabel,
-                              dateLabel: state.dateLabel,
-                              timeLabel: state.timeLabel,
+                          StateView(
+                            isLoading: state.isFilmLoading,
+                            hasError: state.hasFilmError || film == null,
+                            errorMessage: 'Gagal memuat film',
+                            onRetry: () => context.read<SeatSelectBloc>().add(
+                              const SeatSelectLoadRequested(),
                             ),
-                          if (state.isSeatsLoading)
-                            const WSeatSelectMapShimmer()
-                          else if (state.hasSeatsError)
-                            WHomeSectionRetry(
-                              message: 'Gagal memuat denah kursi',
-                              onRetry: () => context.read<SeatSelectBloc>().add(
-                                const SeatSelectLoadRequested(),
-                              ),
-                            )
-                          else
-                            WSeatSelectMap(
-                              rows: state.rows,
-                              selectedSeatIds: state.selectedSeatIds,
-                              onSeatSelected: (seatId) {
-                                context.read<SeatSelectBloc>().add(
-                                  SeatSelectToggled(seatId),
-                                );
-                              },
+                            loadingView: const WSeatSelectFilmSummaryShimmer(),
+                            child: film == null
+                                ? const SizedBox.shrink()
+                                : WSeatSelectFilmSummary(
+                                    image: film.poster,
+                                    ageRating: film.ageRating,
+                                    format: state.formatLabel,
+                                    rating: film.rating,
+                                    title: film.title,
+                                    cinemaLabel: state.cinemaStudioLabel,
+                                    dateLabel: state.dateLabel,
+                                    timeLabel: state.timeLabel,
+                                  ),
+                          ),
+                          StateView(
+                            isLoading: state.isSeatsLoading,
+                            hasError: state.hasSeatsError,
+                            errorMessage: 'Gagal memuat denah kursi',
+                            onRetry: () => context.read<SeatSelectBloc>().add(
+                              const SeatSelectLoadRequested(),
                             ),
-                          if (!state.isSeatsLoading && !state.hasSeatsError)
-                            WSeatSelectSummary(
-                              selectedSeatsLabel: state.selectedSeatsLabel,
-                              ticketCountLabel: state.ticketCountLabel,
-                              ticketsPriceDetailLabel:
-                                  state.ticketsPriceDetailLabel,
-                              ticketsSubtotalLabel: state.ticketsSubtotalLabel,
-                              serviceFeeLabel: state.serviceFeeLabel,
-                              isReminderEnabled: state.isReminderEnabled,
-                              onReminderChanged: (enabled) {
-                                context.read<SeatSelectBloc>().add(
-                                  SeatSelectReminderToggled(enabled),
-                                );
-                              },
+                            loadingView: const WSeatSelectMapShimmer(),
+                            child: Column(
+                              spacing: 16,
+                              children: [
+                                WSeatSelectMap(
+                                  rows: state.rows,
+                                  selectedSeatIds: state.selectedSeatIds,
+                                  onSeatSelected: (seatId) {
+                                    context.read<SeatSelectBloc>().add(
+                                      SeatSelectToggled(seatId),
+                                    );
+                                  },
+                                ),
+                                WSeatSelectSummary(
+                                  selectedSeatsLabel: state.selectedSeatsLabel,
+                                  ticketCountLabel: state.ticketCountLabel,
+                                  ticketsPriceDetailLabel:
+                                      state.ticketsPriceDetailLabel,
+                                  ticketsSubtotalLabel:
+                                      state.ticketsSubtotalLabel,
+                                  serviceFeeLabel: state.serviceFeeLabel,
+                                  isReminderEnabled: state.isReminderEnabled,
+                                  onReminderChanged: (enabled) {
+                                    context.read<SeatSelectBloc>().add(
+                                      SeatSelectReminderToggled(enabled),
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
+                          ),
                         ],
                       );
                     },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
 import 'package:reyy_cinema/features/reminder/bloc/reminder_bloc.dart';
 import 'package:reyy_cinema/features/reminder/bloc/reminder_event.dart';
 import 'package:reyy_cinema/features/reminder/bloc/reminder_state.dart';
@@ -15,6 +14,7 @@ import 'package:reyy_cinema/widget/custom_snackbar.dart';
 import 'package:reyy_cinema/widget/empty_state.dart';
 import 'package:reyy_cinema/widget/info_card.dart';
 import 'package:reyy_cinema/widget/primary_button.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class ReminderPage extends StatelessWidget {
   const ReminderPage({super.key});
@@ -118,23 +118,22 @@ class ReminderView extends StatelessWidget {
                             message:
                                 'Notifikasi akan dikirim 2 jam sebelum film dimulai via Push Notification & Kalender perangkat.',
                           ),
-                          if (state.isLoading)
-                            const WReminderListShimmer()
-                          else if (state.hasError)
-                            WHomeSectionRetry(
-                              message: 'Gagal memuat pengingat',
-                              onRetry: () => context.read<ReminderBloc>().add(
-                                const ReminderLoadRequested(),
-                              ),
-                            )
-                          else if (state.items.isEmpty)
-                            const EmptyState(
+                          StateView(
+                            isLoading: state.isLoading,
+                            hasError: state.hasError,
+                            isEmpty: state.items.isEmpty,
+                            errorMessage: 'Gagal memuat pengingat',
+                            onRetry: () => context.read<ReminderBloc>().add(
+                              const ReminderLoadRequested(),
+                            ),
+                            loadingView: const WReminderListShimmer(),
+                            emptyView: const EmptyState(
                               title: 'Belum ada pengingat',
                               subtitle:
                                   'Tambah pengingat biar jadwal tontonmu nggak kelewat',
-                            )
-                          else
-                            WReminderListBuilder(items: state.items),
+                            ),
+                            child: WReminderListBuilder(items: state.items),
+                          ),
                         ],
                       );
                     },

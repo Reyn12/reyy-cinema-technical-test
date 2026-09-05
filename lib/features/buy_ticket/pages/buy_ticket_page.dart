@@ -13,12 +13,12 @@ import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summar
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summary_shimmer.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_format_filter.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_format_filter_shimmer.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
 import 'package:reyy_cinema/features/seat_select/models/seat_select_args.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/empty_state.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class BuyTicketPage extends StatelessWidget {
   const BuyTicketPage({super.key, required this.filmId});
@@ -80,28 +80,31 @@ class BuyTicketView extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                   child: BlocBuilder<BuyTicketBloc, BuyTicketState>(
                     builder: (context, state) {
+                      final film = state.film;
+
                       return Column(
                         spacing: 16,
                         children: [
-                          if (state.isFilmLoading)
-                            const WBuyTicketFilmSummaryShimmer()
-                          else if (state.hasFilmError || state.film == null)
-                            WHomeSectionRetry(
-                              message: 'Gagal memuat film',
-                              onRetry: () => context.read<BuyTicketBloc>().add(
-                                const BuyTicketLoadRequested(),
-                              ),
-                            )
-                          else
-                            WBuyTicketFilmSummary(
-                              image: state.film!.poster,
-                              ageRating: state.film!.ageRating,
-                              rating: state.film!.rating,
-                              duration: state.film!.duration,
-                              title: state.film!.title,
-                              genres: state.film!.genres.join(', '),
-                              formats: state.filmFormats,
+                          StateView(
+                            isLoading: state.isFilmLoading,
+                            hasError: state.hasFilmError || film == null,
+                            errorMessage: 'Gagal memuat film',
+                            onRetry: () => context.read<BuyTicketBloc>().add(
+                              const BuyTicketLoadRequested(),
                             ),
+                            loadingView: const WBuyTicketFilmSummaryShimmer(),
+                            child: film == null
+                                ? const SizedBox.shrink()
+                                : WBuyTicketFilmSummary(
+                                    image: film.poster,
+                                    ageRating: film.ageRating,
+                                    rating: film.rating,
+                                    duration: film.duration,
+                                    title: film.title,
+                                    genres: film.genres.join(', '),
+                                    formats: state.filmFormats,
+                                  ),
+                          ),
                           WBuyTicketDateSelector(
                             monthLabel: state.monthLabel,
                             items: state.dates,
@@ -112,10 +115,13 @@ class BuyTicketView extends StatelessWidget {
                               );
                             },
                           ),
-                          if (state.isSchedulesLoading && state.formats.isEmpty)
-                            const WBuyTicketFormatFilterShimmer()
-                          else
-                            WBuyTicketFormatFilter(
+                          StateView(
+                            isLoading:
+                                state.isSchedulesLoading &&
+                                state.formats.isEmpty,
+                            hasError: false,
+                            loadingView: const WBuyTicketFormatFilterShimmer(),
+                            child: WBuyTicketFormatFilter(
                               formats: state.formats,
                               selectedIndex: state.selectedFormatIndex,
                               onFormatSelected: (index) {
@@ -124,31 +130,30 @@ class BuyTicketView extends StatelessWidget {
                                 );
                               },
                             ),
-                          if (state.isSchedulesLoading)
-                            const WBuyTicketCinemaListShimmer()
-                          else if (state.hasSchedulesError)
-                            WHomeSectionRetry(
-                              message: 'Gagal memuat jadwal',
-                              onRetry: () {
-                                final bloc = context.read<BuyTicketBloc>();
-                                bloc.add(
-                                  BuyTicketDateSelected(
-                                    bloc.state.selectedDateIndex,
-                                  ),
-                                );
-                              },
-                            )
-                          else if (state.filteredCinemas.isEmpty)
-                            const Padding(
+                          ),
+                          StateView(
+                            isLoading: state.isSchedulesLoading,
+                            hasError: state.hasSchedulesError,
+                            isEmpty: state.filteredCinemas.isEmpty,
+                            errorMessage: 'Gagal memuat jadwal',
+                            onRetry: () {
+                              final bloc = context.read<BuyTicketBloc>();
+                              bloc.add(
+                                BuyTicketDateSelected(
+                                  bloc.state.selectedDateIndex,
+                                ),
+                              );
+                            },
+                            loadingView: const WBuyTicketCinemaListShimmer(),
+                            emptyView: const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16),
                               child: EmptyState(
                                 title: 'Jadwal kosong',
                                 subtitle:
                                     'Belum ada bioskop untuk filter/tanggal ini',
                               ),
-                            )
-                          else
-                            WBuyTicketCinemaListBuilder(
+                            ),
+                            child: WBuyTicketCinemaListBuilder(
                               cinemas: state.filteredCinemas,
                               selectedSlotId: state.selectedSlotId,
                               onToggleFavorite: (cinemaId) {
@@ -162,6 +167,7 @@ class BuyTicketView extends StatelessWidget {
                                 );
                               },
                             ),
+                          ),
                         ],
                       );
                     },

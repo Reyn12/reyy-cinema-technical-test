@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/home/bloc/home_bloc.dart';
 import 'package:reyy_cinema/features/home/bloc/home_event.dart';
 import 'package:reyy_cinema/features/home/bloc/home_state.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_sorotan_section.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_sorotan_section_shimmer.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class WHomeSorotanSectionView extends StatelessWidget {
   const WHomeSorotanSectionView({super.key});
@@ -21,38 +21,37 @@ class WHomeSorotanSectionView extends StatelessWidget {
           prev.hasSorotanError != curr.hasSorotanError ||
           prev.sorotan != curr.sorotan,
       builder: (context, state) {
-        if (state.isSorotanLoading) {
-          return const WHomeSorotanSectionShimmer();
-        }
-
         final film = state.sorotan?.film;
-        if (state.hasSorotanError || film == null) {
-          return WHomeSectionRetry(
-            message: 'Gagal memuat sorotan',
-            onRetry: () => context.read<HomeBloc>().add(
-              const HomeLoadRequested(),
-            ),
-          );
-        }
 
-        return WHomeSorotanSection(
-          image: film.poster,
-          rating: film.rating,
-          ratingCount: film.ratingCount,
-          ageRating: film.ageRating,
-          cinemaLabel: film.cinemaLabel,
-          movieTitle: film.title,
-          duration: film.duration,
-          genres: film.genres,
-          onTapSeeAll: () {
-            CustomSnackbar.info(
-              context,
-              'Fitur Lihat Semua belum tersedia',
-            );
-          },
-          onTapBookTicket: () {
-            context.push(AppPaths.buyTicketWithId(film.id));
-          },
+        return StateView(
+          isLoading: state.isSorotanLoading,
+          hasError: state.hasSorotanError || film == null,
+          errorMessage: 'Gagal memuat sorotan',
+          onRetry: () => context.read<HomeBloc>().add(
+            const HomeLoadRequested(),
+          ),
+          loadingView: const WHomeSorotanSectionShimmer(),
+          child: film == null
+              ? const SizedBox.shrink()
+              : WHomeSorotanSection(
+                  image: film.poster,
+                  rating: film.rating,
+                  ratingCount: film.ratingCount,
+                  ageRating: film.ageRating,
+                  cinemaLabel: film.cinemaLabel,
+                  movieTitle: film.title,
+                  duration: film.duration,
+                  genres: film.genres,
+                  onTapSeeAll: () {
+                    CustomSnackbar.info(
+                      context,
+                      'Fitur Lihat Semua belum tersedia',
+                    );
+                  },
+                  onTapBookTicket: () {
+                    context.push(AppPaths.buyTicketWithId(film.id));
+                  },
+                ),
         );
       },
     );

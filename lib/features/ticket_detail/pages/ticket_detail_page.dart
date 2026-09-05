@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_section_retry.dart';
 import 'package:reyy_cinema/features/ticket_detail/bloc/ticket_detail_bloc.dart';
 import 'package:reyy_cinema/features/ticket_detail/bloc/ticket_detail_event.dart';
 import 'package:reyy_cinema/features/ticket_detail/bloc/ticket_detail_state.dart';
@@ -16,6 +15,7 @@ import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_polic
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class TicketDetailPage extends StatelessWidget {
   const TicketDetailPage({super.key, required this.ticketId});
@@ -87,73 +87,77 @@ class TicketDetailView extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                     child: BlocBuilder<TicketDetailBloc, TicketDetailState>(
                       builder: (context, state) {
-                        if (state.isLoading) {
-                          return const Column(
+                        final ticket = state.ticket;
+
+                        return StateView(
+                          isLoading: state.isLoading,
+                          hasError: state.hasError || ticket == null,
+                          errorMessage: 'Gagal memuat detail tiket',
+                          onRetry: () => context.read<TicketDetailBloc>().add(
+                            const TicketDetailLoadRequested(),
+                          ),
+                          loadingView: const Column(
                             spacing: 16,
                             children: [
                               WTicketDetailCardShimmer(),
                               WTicketDetailOrderSummaryShimmer(),
                               WTicketDetailPolicyShimmer(),
                             ],
-                          );
-                        }
-
-                        if (state.hasError || state.ticket == null) {
-                          return WHomeSectionRetry(
-                            message: 'Gagal memuat detail tiket',
-                            onRetry: () => context.read<TicketDetailBloc>().add(
-                              const TicketDetailLoadRequested(),
-                            ),
-                          );
-                        }
-
-                        final ticket = state.ticket!;
-                        return Column(
-                          spacing: 16,
-                          children: [
-                            WTicketDetailCard(
-                              image: ticket.image,
-                              cinemaBrand: ticket.cinemaBrand,
-                              studioLabel: ticket.studioLabel,
-                              formatLabel: ticket.formatLabel,
-                              ageRating: ticket.ageRating,
-                              duration: ticket.duration,
-                              title: ticket.title,
-                              genres: ticket.genres,
-                              cinemaName: ticket.cinemaName,
-                              dateLabel: ticket.dateLabel,
-                              timeLabel: ticket.timeLabel,
-                              seatCount: ticket.seatCount,
-                              seatsLabel: ticket.seatsLabel,
-                              bookingCode: ticket.bookingCode,
-                              qrImage: ticket.qrImage,
-                              onTapCopyBookingCode: () async {
-                                await Clipboard.setData(
-                                  ClipboardData(text: ticket.bookingCode),
-                                );
-                                if (!context.mounted) return;
-                                CustomSnackbar.info(
-                                  context,
-                                  'Kode booking disalin',
-                                );
-                              },
-                            ),
-                            WTicketDetailOrderSummary(
-                              orderNumber: ticket.orderNumber,
-                              customerName: ticket.customerName,
-                              paymentMethod: ticket.paymentMethod,
-                              transactionTime: ticket.transactionTime,
-                              ticketCount: ticket.ticketCount,
-                              totalPayment: ticket.totalPayment,
-                              statusLabel: ticket.statusLabel,
-                            ),
-                            WTicketDetailPolicy(items: ticket.policies),
-                            WTicketDetailMapsButton(
-                              onTap: () => context.read<TicketDetailBloc>().add(
-                                const TicketDetailOpenMapsRequested(),
-                              ),
-                            ),
-                          ],
+                          ),
+                          child: ticket == null
+                              ? const SizedBox.shrink()
+                              : Column(
+                                  spacing: 16,
+                                  children: [
+                                    WTicketDetailCard(
+                                      image: ticket.image,
+                                      cinemaBrand: ticket.cinemaBrand,
+                                      studioLabel: ticket.studioLabel,
+                                      formatLabel: ticket.formatLabel,
+                                      ageRating: ticket.ageRating,
+                                      duration: ticket.duration,
+                                      title: ticket.title,
+                                      genres: ticket.genres,
+                                      cinemaName: ticket.cinemaName,
+                                      dateLabel: ticket.dateLabel,
+                                      timeLabel: ticket.timeLabel,
+                                      seatCount: ticket.seatCount,
+                                      seatsLabel: ticket.seatsLabel,
+                                      bookingCode: ticket.bookingCode,
+                                      qrImage: ticket.qrImage,
+                                      onTapCopyBookingCode: () async {
+                                        await Clipboard.setData(
+                                          ClipboardData(
+                                            text: ticket.bookingCode,
+                                          ),
+                                        );
+                                        if (!context.mounted) return;
+                                        CustomSnackbar.info(
+                                          context,
+                                          'Kode booking disalin',
+                                        );
+                                      },
+                                    ),
+                                    WTicketDetailOrderSummary(
+                                      orderNumber: ticket.orderNumber,
+                                      customerName: ticket.customerName,
+                                      paymentMethod: ticket.paymentMethod,
+                                      transactionTime: ticket.transactionTime,
+                                      ticketCount: ticket.ticketCount,
+                                      totalPayment: ticket.totalPayment,
+                                      statusLabel: ticket.statusLabel,
+                                    ),
+                                    WTicketDetailPolicy(
+                                      items: ticket.policies,
+                                    ),
+                                    WTicketDetailMapsButton(
+                                      onTap: () =>
+                                          context.read<TicketDetailBloc>().add(
+                                            const TicketDetailOpenMapsRequested(),
+                                          ),
+                                    ),
+                                  ],
+                                ),
                         );
                       },
                     ),
