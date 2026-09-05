@@ -1,0 +1,3 @@
+class SessionExpiredEvent {
+  const SessionExpiredEvent();
+}
