@@ -123,11 +123,11 @@ class WReminderItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: PrimaryButton.btnUbahJadwal(
+                  child: PrimaryButton.btnLihatTiket(
                     onPressed: () {
                       CustomSnackbar.info(
                         context,
-                        'Fitur Ubah Jadwal belum tersedia',
+                        'Fitur Lihat Tiket belum tersedia',
                       );
                     },
                   ),
