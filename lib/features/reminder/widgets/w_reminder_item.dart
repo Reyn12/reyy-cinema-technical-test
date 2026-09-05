@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:reyy_cinema/features/notification/models/notification_model.dart';
+import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/image_load.dart';
 
-class WNotificationItem extends StatelessWidget {
-  const WNotificationItem({
+class WReminderItem extends StatelessWidget {
+  const WReminderItem({
     super.key,
     required this.item,
     this.onTap,
   });
 
-  final NotificationModel item;
+  final ReminderModel item;
   final VoidCallback? onTap;
 
   @override

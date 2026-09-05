@@ -5,7 +5,7 @@ import 'package:reyy_cinema/features/bioskop/pages/bioskop_page.dart';
 import 'package:reyy_cinema/features/home/pages/home_page.dart';
 import 'package:reyy_cinema/features/main_navigation/bloc/main_navigation_cubit.dart';
 import 'package:reyy_cinema/features/main_navigation/widgets/custom_bottom_nav.dart';
-import 'package:reyy_cinema/features/notification/pages/notification_page.dart';
+import 'package:reyy_cinema/features/reminder/pages/reminder_page.dart';
 import 'package:reyy_cinema/features/profile/pages/profile_page.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
@@ -25,7 +25,7 @@ class MainNavigationPage extends StatelessWidget {
       activeIconPath: Assets.icons.icBioskopActive.path,
     ),
     NavItem(
-      label: 'Notifikasi',
+      label: 'Reminder',
       iconPath: Assets.icons.icNotifikasi.path,
       activeIconPath: Assets.icons.icNotifikasiActive.path,
     ),
@@ -55,7 +55,7 @@ class _MainNavigationView extends StatelessWidget {
     final pages = [
       const HomePage(key: ValueKey('home')),
       const BioskopPage(key: ValueKey('bioskop')),
-      const NotificationPage(key: ValueKey('notification')),
+      const ReminderPage(key: ValueKey('reminder')),
       const ProfilePage(key: ValueKey('profile')),
     ];
 

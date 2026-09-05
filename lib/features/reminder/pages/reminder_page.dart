@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 
-class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
+class ReminderPage extends StatelessWidget {
+  const ReminderPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class NotificationPage extends StatelessWidget {
         body: Column(
           children: [
             AppHeader(
-              title: 'Notifikasi',
+              title: 'Reminder',
               leading: canPop
                   ? IconButton(
                       onPressed: () => context.pop(),
@@ -38,7 +38,7 @@ class NotificationPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  'Notifikasi Page',
+                  'Reminder Page',
                   style: AppTypography.bodySemiboldM.copyWith(
                     color: AppColors.neutral100,
                   ),

@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
             WHomeHeader(
               isNotificationActive: true,
               onTapDetailNotification: () {
-                context.push(AppPaths.notification);
+                context.push(AppPaths.reminder);
               },
             ),
             Expanded(

@@ -1,10 +1,10 @@
-import 'package:reyy_cinema/features/notification/models/notification_model.dart';
+import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 
-class NotificationMocks {
-  const NotificationMocks._();
+class ReminderMocks {
+  const ReminderMocks._();
 
   static const list = [
-    NotificationModel(
+    ReminderModel(
       id: '1',
       title: 'Tagihan Baru: Biaya Daftar Ulang Tahunan',
       description:
@@ -12,7 +12,7 @@ class NotificationMocks {
       createdAtLabel: '10 Juli 2026 • 12:30 WIB',
       isRead: false,
     ),
-    NotificationModel(
+    ReminderModel(
       id: '2',
       title: 'Pembayaran Berhasil Diverifikasi',
       description:
@@ -20,7 +20,7 @@ class NotificationMocks {
       createdAtLabel: '09 Juli 2026 • 09:15 WIB',
       isRead: true,
     ),
-    NotificationModel(
+    ReminderModel(
       id: '3',
       title: 'Pengingat: Batas Pembayaran',
       description:
@@ -28,7 +28,7 @@ class NotificationMocks {
       createdAtLabel: '08 Juli 2026 • 16:45 WIB',
       isRead: false,
     ),
-    NotificationModel(
+    ReminderModel(
       id: '4',
       title: 'Update Data Anak',
       description:
@@ -36,7 +36,7 @@ class NotificationMocks {
       createdAtLabel: '07 Juli 2026 • 11:00 WIB',
       isRead: true,
     ),
-    NotificationModel(
+    ReminderModel(
       id: '5',
       title: 'Tagihan Baru: SPP Bulan Agustus',
       description:
