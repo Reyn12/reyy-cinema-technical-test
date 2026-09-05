@@ -9,8 +9,6 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     : apiService = apiService ?? sharedApiService,
       super(const ReminderState(isLoading: true)) {
     on<ReminderLoadRequested>(onLoadRequested);
-    on<ReminderTabChanged>(onTabChanged);
-    on<ReminderMarkAsRead>(onMarkAsRead);
     add(const ReminderLoadRequested());
   }
 
@@ -29,17 +27,5 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       if (isClosed) return;
       emit(state.copyWith(isLoading: false, hasError: true));
     }
-  }
-
-  void onTabChanged(ReminderTabChanged event, Emitter<ReminderState> emit) {
-    emit(state.copyWith(selectedTab: event.tab));
-  }
-
-  void onMarkAsRead(ReminderMarkAsRead event, Emitter<ReminderState> emit) {
-    final updated = state.items.map((item) {
-      if (item.id != event.id || item.isRead) return item;
-      return item.copyWith(isRead: true);
-    }).toList();
-    emit(state.copyWith(items: updated));
   }
 }

@@ -15,7 +15,7 @@ import 'package:reyy_cinema/features/home/utils/film_dummy_injector.dart';
 import 'package:reyy_cinema/features/profile/mocks/profile_mocks.dart';
 import 'package:reyy_cinema/features/profile/models/profile_model.dart';
 import 'package:reyy_cinema/features/reminder/mocks/reminder_mocks.dart';
-import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
+import 'package:reyy_cinema/features/reminder/models/film_reminder_item_model.dart';
 import 'package:reyy_cinema/features/seat_select/mocks/seat_select_mocks.dart';
 import 'package:reyy_cinema/features/seat_select/models/seat_map_result.dart';
 import 'package:reyy_cinema/features/terms/mocks/terms_mocks.dart';
@@ -233,14 +233,16 @@ class ApiService {
     return SeatMapResult.fromJson(payload);
   }
 
-  Future<List<ReminderModel>> fetchReminderList({bool mock = false}) async {
+  Future<List<FilmReminderItemModel>> fetchReminderList({
+    bool mock = false,
+  }) async {
     if (useMock(mock)) {
-      await Future<void>.delayed(const Duration(milliseconds: 400));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
       return ReminderMocks.list;
     }
 
     final res = await dio.get('/reminders');
-    return Converter.list(res.data, ReminderModel.fromJson);
+    return Converter.list(res.data, FilmReminderItemModel.fromJson);
   }
 
   Future<TermsModel> fetchTermsContent({bool mock = false}) async {
