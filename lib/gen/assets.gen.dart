@@ -23,6 +23,10 @@ class $AssetsIconsGen {
   /// Directory path: assets/icons/3.0x
   $AssetsIcons30xGen get a3 => const $AssetsIcons30xGen();
 
+  /// File path: assets/icons/ic_about_app.svg
+  SvgGenImage get icAboutApp =>
+      const SvgGenImage('assets/icons/ic_about_app.svg');
+
   /// File path: assets/icons/ic_action.svg
   SvgGenImage get icAction => const SvgGenImage('assets/icons/ic_action.svg');
 
@@ -75,6 +79,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_edit_profile.svg
   SvgGenImage get icEditProfile =>
       const SvgGenImage('assets/icons/ic_edit_profile.svg');
+
+  /// File path: assets/icons/ic_faq.svg
+  SvgGenImage get icFaq => const SvgGenImage('assets/icons/ic_faq.svg');
 
   /// File path: assets/icons/ic_horror.svg
   SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
@@ -158,6 +165,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_semua.svg
   SvgGenImage get icSemua => const SvgGenImage('assets/icons/ic_semua.svg');
 
+  /// File path: assets/icons/ic_snk.svg
+  SvgGenImage get icSnk => const SvgGenImage('assets/icons/ic_snk.svg');
+
   /// File path: assets/icons/ic_star.svg
   SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
 
@@ -170,6 +180,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    icAboutApp,
     icAction,
     icAddReminder,
     icAnimasi,
@@ -185,6 +196,7 @@ class $AssetsIconsGen {
     icDitonton,
     icDown,
     icEditProfile,
+    icFaq,
     icHorror,
     icInfo,
     icLeft,
@@ -208,6 +220,7 @@ class $AssetsIconsGen {
     icSeeSchedule,
     icSelectBioskop,
     icSemua,
+    icSnk,
     icStar,
     icStartNavigation,
     icTicket,
@@ -279,6 +292,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/img_login.png');
 
+  /// File path: assets/images/img_profile_pic_dummy.jpg
+  AssetGenImage get imgProfilePicDummy =>
+      const AssetGenImage('assets/images/img_profile_pic_dummy.jpg');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     imgBgBerandaBottom,
@@ -295,6 +312,7 @@ class $AssetsImagesGen {
     imgDummyReminderItem3,
     imgDummySorotanBanner1,
     imgLogin,
+    imgProfilePicDummy,
   ];
 }
 

@@ -9,19 +9,17 @@ import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
-    required ApiService apiService,
-    required AuthBloc authBloc,
+    required this.apiService,
+    required this.authBloc,
     AuthStorage? authStorage,
-  }) : _apiService = apiService,
-       _authBloc = authBloc,
-       _authStorage = authStorage ?? AuthStorage(),
+  }) : authStorage = authStorage ?? AuthStorage(),
        super(const LoginInitial()) {
     on<LoginSubmitted>(onSubmitted);
   }
 
-  final ApiService _apiService;
-  final AuthBloc _authBloc;
-  final AuthStorage _authStorage;
+  final ApiService apiService;
+  final AuthBloc authBloc;
+  final AuthStorage authStorage;
 
   Future<void> onSubmitted(
     LoginSubmitted event,
@@ -29,13 +27,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(const LoginLoading());
     try {
-      final result = await _apiService.login(
+      final result = await apiService.login(
         username: event.username,
         password: event.password,
         mock: true,
       );
-      await _authStorage.saveLogin(result);
-      _authBloc.add(const AuthLoggedIn());
+      await authStorage.saveLogin(result);
+      authBloc.add(const AuthLoggedIn());
       emit(LoginSuccess(result));
     } catch (error) {
       emit(LoginFailure(error));

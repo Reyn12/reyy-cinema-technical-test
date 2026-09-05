@@ -5,11 +5,7 @@ import 'package:reyy_cinema/widget/custom_snackbar.dart';
 import 'package:reyy_cinema/widget/image_load.dart';
 
 class WProfileInfoAvatar extends StatelessWidget {
-  const WProfileInfoAvatar({
-    super.key,
-    this.avatarSrc,
-    this.onTapEditProfile,
-  });
+  const WProfileInfoAvatar({super.key, this.avatarSrc, this.onTapEditProfile});
 
   final String? avatarSrc;
   final VoidCallback? onTapEditProfile;
@@ -49,33 +45,18 @@ class WProfileInfoAvatar extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 0,
-          bottom: 0,
+          right: -2,
+          bottom: -12,
           child: GestureDetector(
-            onTap: onTapEditProfile ??
+            onTap:
+                onTapEditProfile ??
                 () {
                   CustomSnackbar.info(
                     context,
                     'Fitur Edit Profile belum tersedia',
                   );
                 },
-            child: Container(
-              width: 28,
-              height: 28,
-              decoration: const BoxDecoration(
-                color: AppColors.primaryPressed,
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Assets.icons.icEditProfile.svg(
-                width: 14,
-                height: 14,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
+            child: Assets.icons.icEditProfile.svg(width: 42, height: 42),
           ),
         ),
       ],
