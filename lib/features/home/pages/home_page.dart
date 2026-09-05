@@ -132,10 +132,7 @@ class HomePage extends StatelessWidget {
                           );
                         },
                         onTapLihatFilm: () {
-                          CustomSnackbar.info(
-                            context,
-                            'Fitur Lihat Film belum tersedia',
-                          );
+                          context.push(AppPaths.filmDetail);
                         },
                       ),
                       const SizedBox(height: 8),
