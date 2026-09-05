@@ -47,6 +47,14 @@ class $AssetsIconsGen {
   SvgGenImage get icBioskopActive =>
       const SvgGenImage('assets/icons/ic_bioskop_active.svg');
 
+  /// File path: assets/icons/ic_buy_ticket.svg
+  SvgGenImage get icBuyTicket =>
+      const SvgGenImage('assets/icons/ic_buy_ticket.svg');
+
+  /// File path: assets/icons/ic_change_schedule.svg
+  SvgGenImage get icChangeSchedule =>
+      const SvgGenImage('assets/icons/ic_change_schedule.svg');
+
   /// File path: assets/icons/ic_clock.svg
   SvgGenImage get icClock => const SvgGenImage('assets/icons/ic_clock.svg');
 
@@ -146,6 +154,8 @@ class $AssetsIconsGen {
     icBerandaActive,
     icBioskop,
     icBioskopActive,
+    icBuyTicket,
+    icChangeSchedule,
     icClock,
     icComedy,
     icCurrentLocation,

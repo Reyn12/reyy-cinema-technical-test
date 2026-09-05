@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 
 ///  default button on this project with primary color
@@ -185,6 +186,108 @@ class PrimaryButton extends StatelessWidget {
     this.boxFit,
   }) : child = null,
        icon = null;
+
+  factory PrimaryButton.btnAturNotification({
+    Key? key,
+    required VoidCallback onPressed,
+    double height = 40,
+    double width = double.infinity,
+  }) {
+    return PrimaryButton.withIcon(
+      key: key,
+      text: 'Atur Notifikasi',
+      height: height,
+      width: width,
+      color: AppColors.neutral15,
+      textColor: AppColors.primaryPressed,
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      leading: const Icon(
+        Icons.notifications_outlined,
+        size: 16,
+        color: AppColors.primaryPressed,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  factory PrimaryButton.btnLihatTiket({
+    Key? key,
+    required VoidCallback onPressed,
+    double height = 40,
+    double width = double.infinity,
+  }) {
+    return PrimaryButton.withIcon(
+      key: key,
+      text: 'Lihat Tiket',
+      height: height,
+      width: width,
+      color: AppColors.primaryPressed,
+      textColor: AppColors.white,
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      leading: Assets.icons.icBuyTicket.svg(
+        width: 16,
+        height: 16,
+        colorFilter: const ColorFilter.mode(
+          AppColors.white,
+          BlendMode.srcIn,
+        ),
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  factory PrimaryButton.btnUbahJadwal({
+    Key? key,
+    required VoidCallback onPressed,
+    double height = 40,
+    double width = double.infinity,
+  }) {
+    return PrimaryButton.withIcon(
+      key: key,
+      text: 'Ubah Jadwal',
+      height: height,
+      width: width,
+      color: AppColors.primaryLight,
+      textColor: AppColors.primaryPressed,
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      leading: Assets.icons.icChangeSchedule.svg(
+        width: 16,
+        height: 16,
+        colorFilter: const ColorFilter.mode(
+          AppColors.primaryPressed,
+          BlendMode.srcIn,
+        ),
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  factory PrimaryButton.btnIngatkanSaatTiketDirilis({
+    Key? key,
+    required VoidCallback onPressed,
+    double height = 40,
+    double width = double.infinity,
+  }) {
+    return PrimaryButton.withIcon(
+      key: key,
+      text: 'Ingatkan Saya Saat Tiket Dirilis',
+      height: height,
+      width: width,
+      color: AppColors.primaryLight,
+      textColor: AppColors.primaryPressed,
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      leading: const Icon(
+        Icons.notifications_outlined,
+        size: 16,
+        color: AppColors.primaryPressed,
+      ),
+      onPressed: onPressed,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

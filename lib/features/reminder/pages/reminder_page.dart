@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/reminder/widgets/w_reminder_active_badge.dart';
+import 'package:reyy_cinema/features/reminder/widgets/w_reminder_list_builder.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
@@ -89,6 +90,7 @@ class ReminderPage extends StatelessWidget {
                       message:
                           'Notifikasi akan dikirim 2 jam sebelum film dimulai via Push Notification & Kalender perangkat.',
                     ),
+                    const WReminderListBuilder(),
                   ],
                 ),
               ),
