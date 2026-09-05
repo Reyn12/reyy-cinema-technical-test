@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_bloc.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_event.dart';
 import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_state.dart';
+import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_bottom_bar.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_cinema_list_builder.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_date_selector.dart';
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summary.dart';
@@ -123,6 +124,24 @@ class BuyTicketView extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            BlocBuilder<BuyTicketBloc, BuyTicketState>(
+              builder: (context, state) {
+                if (!state.hasSelectedSlot) {
+                  return const SizedBox.shrink();
+                }
+                return WBuyTicketBottomBar(
+                  cinemaStudioLabel: state.cinemaStudioLabel,
+                  scheduleLabel: state.scheduleLabel,
+                  estimatedPriceLabel: state.estimatedPriceLabel,
+                  onPressed: () {
+                    CustomSnackbar.info(
+                      context,
+                      'Fitur Pilih Kursi Bioskop belum tersedia',
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),

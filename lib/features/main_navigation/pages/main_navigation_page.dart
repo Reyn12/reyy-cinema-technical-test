@@ -26,7 +26,7 @@ class MainNavigationPage extends StatelessWidget {
       activeIconPath: Assets.icons.icBioskopActive.path,
     ),
     NavItem(
-      label: 'Reminder',
+      label: 'Pengingat',
       iconPath: Assets.icons.icNotifikasi.path,
       activeIconPath: Assets.icons.icNotifikasiActive.path,
     ),
@@ -56,7 +56,7 @@ class _MainNavigationView extends StatelessWidget {
     final pages = [
       const HomePage(key: ValueKey('home')),
       const BioskopPage(key: ValueKey('bioskop')),
-      const ReminderPage(key: ValueKey('reminder')),
+      const ReminderPage(key: ValueKey('Pengingat')),
       const ProfilePage(key: ValueKey('profile')),
     ];
 
@@ -77,9 +77,9 @@ class _MainNavigationView extends StatelessWidget {
           bottomNavigationBar: CustomBottomNav(
             currentIndex: currentIndex,
             navItems: MainNavigationPage.navItems,
-            onNavItemSelected: (index) => context.read<MainNavigationBloc>().add(
-              MainNavigationPageChanged(index),
-            ),
+            onNavItemSelected: (index) => context
+                .read<MainNavigationBloc>()
+                .add(MainNavigationPageChanged(index)),
           ),
         ),
       ),

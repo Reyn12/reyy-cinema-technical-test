@@ -1,5 +1,6 @@
 import 'package:reyy_cinema/features/buy_ticket/models/buy_ticket_cinema_model.dart';
 import 'package:reyy_cinema/features/buy_ticket/models/buy_ticket_date_model.dart';
+import 'package:reyy_cinema/helper/format_currency_helper.dart';
 
 class BuyTicketState {
   const BuyTicketState({
@@ -19,6 +20,30 @@ class BuyTicketState {
   final List<String> formats;
   final List<BuyTicketCinemaModel> cinemas;
   final String monthLabel;
+
+  static const fullDayNames = [
+    'Minggu',
+    'Senin',
+    'Selasa',
+    'Rabu',
+    'Kamis',
+    'Jumat',
+    'Sabtu',
+  ];
+  static const monthShortNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'Mei',
+    'Jun',
+    'Jul',
+    'Agu',
+    'Sep',
+    'Okt',
+    'Nov',
+    'Des',
+  ];
 
   String get selectedFormat {
     if (formats.isEmpty) return 'Semua Format';
@@ -41,6 +66,69 @@ class BuyTicketState {
     return cinemas
         .where((cinema) => cinema.brand == selectedFormat)
         .toList();
+  }
+
+  bool get hasSelectedSlot => selectedSlotId != null;
+
+  BuyTicketCinemaModel? get selectedCinema {
+    final slotId = selectedSlotId;
+    if (slotId == null) return null;
+    for (final cinema in cinemas) {
+      for (final studio in cinema.studios) {
+        if (studio.slots.any((slot) => slot.id == slotId)) {
+          return cinema;
+        }
+      }
+    }
+    return null;
+  }
+
+  BuyTicketStudioModel? get selectedStudio {
+    final slotId = selectedSlotId;
+    if (slotId == null) return null;
+    for (final cinema in cinemas) {
+      for (final studio in cinema.studios) {
+        if (studio.slots.any((slot) => slot.id == slotId)) {
+          return studio;
+        }
+      }
+    }
+    return null;
+  }
+
+  BuyTicketTimeSlotModel? get selectedSlot {
+    final slotId = selectedSlotId;
+    if (slotId == null) return null;
+    for (final cinema in cinemas) {
+      for (final studio in cinema.studios) {
+        for (final slot in studio.slots) {
+          if (slot.id == slotId) return slot;
+        }
+      }
+    }
+    return null;
+  }
+
+  String get cinemaStudioLabel {
+    final cinema = selectedCinema;
+    final studio = selectedStudio;
+    if (cinema == null || studio == null) return '-';
+    return '${cinema.name} • ${studio.name}';
+  }
+
+  String get scheduleLabel {
+    if (dates.isEmpty || selectedDateIndex >= dates.length) return '-';
+    final date = dates[selectedDateIndex].date;
+    final dayName = fullDayNames[date.weekday % 7];
+    final month = monthShortNames[date.month - 1];
+    final time = selectedSlot?.time ?? '--:--';
+    return '$dayName, ${date.day} $month • $time WIB';
+  }
+
+  String get estimatedPriceLabel {
+    final price = selectedStudio?.price;
+    if (price == null) return '-';
+    return formatRupiah(price);
   }
 
   BuyTicketState copyWith({

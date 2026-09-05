@@ -27,7 +27,7 @@ class ReminderPage extends StatelessWidget {
         body: Column(
           children: [
             AppHeader(
-              title: 'Reminder',
+              title: 'Pengingat Notifikasi',
               leading: canPop
                   ? IconButton(
                       onPressed: () => context.pop(),
