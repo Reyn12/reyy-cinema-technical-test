@@ -163,6 +163,9 @@ class $AssetsIconsGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
 
+  /// File path: assets/icons/ic_roadmap.svg
+  SvgGenImage get icRoadmap => const SvgGenImage('assets/icons/ic_roadmap.svg');
+
   /// File path: assets/icons/ic_romance.svg
   SvgGenImage get icRomance => const SvgGenImage('assets/icons/ic_romance.svg');
 
@@ -244,6 +247,7 @@ class $AssetsIconsGen {
     icPromo,
     icRange,
     icRightProfile,
+    icRoadmap,
     icRomance,
     icScifi,
     icSeat,
