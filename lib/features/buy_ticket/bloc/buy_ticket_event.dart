@@ -2,6 +2,10 @@ sealed class BuyTicketEvent {
   const BuyTicketEvent();
 }
 
+class BuyTicketLoadRequested extends BuyTicketEvent {
+  const BuyTicketLoadRequested();
+}
+
 class BuyTicketDateSelected extends BuyTicketEvent {
   const BuyTicketDateSelected(this.index);
 

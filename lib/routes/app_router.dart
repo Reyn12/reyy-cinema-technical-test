@@ -84,7 +84,9 @@ final appRouter = GoRouter(
       path: AppPaths.buyTicket,
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
-        child: const BuyTicketPage(),
+        child: BuyTicketPage(
+          filmId: int.parse(state.pathParameters['id']!),
+        ),
       ),
     ),
     GoRoute(

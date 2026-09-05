@@ -51,7 +51,7 @@ class WHomeSorotanSectionView extends StatelessWidget {
             );
           },
           onTapBookTicket: () {
-            context.push(AppPaths.buyTicket);
+            context.push(AppPaths.buyTicketWithId(film.id));
           },
         );
       },

@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:reyy_cinema/features/about_app/mocks/about_app_mocks.dart';
 import 'package:reyy_cinema/features/about_app/models/about_app_model.dart';
 import 'package:reyy_cinema/features/auth/mocks/auth_mocks.dart';
+import 'package:reyy_cinema/features/buy_ticket/mocks/buy_ticket_mocks.dart';
+import 'package:reyy_cinema/features/buy_ticket/models/buy_ticket_schedules_result.dart';
 import 'package:reyy_cinema/features/faq/mocks/faq_mocks.dart';
 import 'package:reyy_cinema/features/faq/models/faq_model.dart';
 import 'package:reyy_cinema/features/home/mocks/home_mocks.dart';
@@ -16,6 +18,7 @@ import 'package:reyy_cinema/features/reminder/mocks/reminder_mocks.dart';
 import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/features/terms/mocks/terms_mocks.dart';
 import 'package:reyy_cinema/features/terms/models/terms_model.dart';
+import 'package:reyy_cinema/helper/format_date_helper.dart';
 import 'package:reyy_cinema/network/environment.dart';
 import 'package:reyy_cinema/shared/models/film_pilihan_model.dart';
 
@@ -179,6 +182,32 @@ class ApiService {
     }
 
     return FilmDummyInjector.fromSwapiJson(data.cast<String, dynamic>());
+  }
+
+  Future<BuyTicketSchedulesResult> fetchBuyTicketSchedules({
+    required int filmId,
+    required DateTime date,
+    bool mock = false,
+  }) async {
+    if (useMock(mock)) {
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      return BuyTicketMocks.schedulesForDate(date);
+    }
+
+    final res = await dio.get(
+      '/films/$filmId/schedules',
+      queryParameters: {'date': formatDateKey(date)},
+    );
+
+    final data = res.data;
+
+    if (data is! Map) {
+      throw Exception('Unexpected schedules response');
+    }
+    final payload = data['data'] is Map
+        ? (data['data'] as Map).cast<String, dynamic>()
+        : data.cast<String, dynamic>();
+    return BuyTicketSchedulesResult.fromJson(payload);
   }
 
   Future<List<ReminderModel>> fetchReminderList({bool mock = false}) async {

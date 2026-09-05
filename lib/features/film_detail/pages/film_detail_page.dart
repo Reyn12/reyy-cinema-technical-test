@@ -164,7 +164,10 @@ class _FilmDetailViewState extends State<FilmDetailView> {
               ),
             ),
             WFilmDetailBuyTicketBar(
-              onPressed: () => context.push(AppPaths.buyTicket),
+              onPressed: () {
+                final filmId = context.read<FilmDetailBloc>().filmId;
+                context.push(AppPaths.buyTicketWithId(filmId));
+              },
             ),
           ],
         ),
