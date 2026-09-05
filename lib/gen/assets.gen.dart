@@ -104,6 +104,10 @@ class $AssetsIconsGen {
   AssetGenImage get icLogoLogin =>
       const AssetGenImage('assets/icons/ic_logo_login.png');
 
+  /// File path: assets/icons/ic_logo_reyy_cinema_no_bg.png
+  AssetGenImage get icLogoReyyCinemaNoBg =>
+      const AssetGenImage('assets/icons/ic_logo_reyy_cinema_no_bg.png');
+
   /// File path: assets/icons/ic_loyality_point.svg
   SvgGenImage get icLoyalityPoint =>
       const SvgGenImage('assets/icons/ic_loyality_point.svg');
@@ -203,6 +207,7 @@ class $AssetsIconsGen {
     icLogoApp,
     icLogoHome,
     icLogoLogin,
+    icLogoReyyCinemaNoBg,
     icLoyalityPoint,
     icMemberCopy,
     icMember,
@@ -264,6 +269,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgDummyBanner3 =>
       const AssetGenImage('assets/images/img_dummy_banner_3.png');
 
+  /// File path: assets/images/img_dummy_boarding.png
+  AssetGenImage get imgDummyBoarding =>
+      const AssetGenImage('assets/images/img_dummy_boarding.png');
+
   /// File path: assets/images/img_dummy_film_pilihan_1.png
   AssetGenImage get imgDummyFilmPilihan1 =>
       const AssetGenImage('assets/images/img_dummy_film_pilihan_1.png');
@@ -305,6 +314,7 @@ class $AssetsImagesGen {
     imgDummyBanner1,
     imgDummyBanner2,
     imgDummyBanner3,
+    imgDummyBoarding,
     imgDummyFilmPilihan1,
     imgDummyFilmPilihan2,
     imgDummyReminderItem1,

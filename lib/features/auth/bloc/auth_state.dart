@@ -14,6 +14,10 @@ class AuthAuthenticated extends AuthState {
   const AuthAuthenticated();
 }
 
+class AuthOnboardingRequired extends AuthState {
+  const AuthOnboardingRequired();
+}
+
 class AuthUnauthenticated extends AuthState {
   const AuthUnauthenticated();
 }

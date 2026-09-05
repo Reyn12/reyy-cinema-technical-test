@@ -14,20 +14,17 @@ class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  State<SplashPage> createState() => SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    checkAuth();
-  }
-
-  Future<void> checkAuth() async {
-    await Future<void>.delayed(const Duration(seconds: 1));
-    if (!mounted) return;
-    context.read<AuthBloc>().add(const AuthCheckRequested());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<AuthBloc>().add(const AuthCheckRequested());
+    });
   }
 
   @override
@@ -37,6 +34,8 @@ class _SplashPageState extends State<SplashPage> {
         switch (state) {
           case AuthAuthenticated():
             context.go(AppPaths.mainNavigation);
+          case AuthOnboardingRequired():
+            context.go(AppPaths.onboarding);
           case AuthUnauthenticated():
             context.go(AppPaths.login);
           case AuthInitial():

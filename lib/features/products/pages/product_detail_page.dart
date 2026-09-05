@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reyy_cinema/features/products/bloc/product_detail_cubit.dart';
+import 'package:reyy_cinema/features/products/bloc/product_detail_bloc.dart';
 import 'package:reyy_cinema/features/products/bloc/product_detail_state.dart';
 import 'package:reyy_cinema/helper/dialog_error_helper.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
@@ -18,7 +18,7 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProductDetailCubit(id: id),
+      create: (_) => ProductDetailBloc(id: id),
       child: const _ProductDetailView(),
     );
   }
@@ -29,7 +29,7 @@ class _ProductDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductDetailCubit, ProductDetailState>(
+    return BlocConsumer<ProductDetailBloc, ProductDetailState>(
       listener: (context, state) {
         if (state is ProductDetailFailure) {
           final parsed = parseDialogError(state.error);
