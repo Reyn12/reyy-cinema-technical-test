@@ -49,6 +49,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_comedy.svg
   SvgGenImage get icComedy => const SvgGenImage('assets/icons/ic_comedy.svg');
 
+  /// File path: assets/icons/ic_down.svg
+  SvgGenImage get icDown => const SvgGenImage('assets/icons/ic_down.svg');
+
   /// File path: assets/icons/ic_horror.svg
   SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
 
@@ -99,6 +102,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_scifi.svg
   SvgGenImage get icScifi => const SvgGenImage('assets/icons/ic_scifi.svg');
 
+  /// File path: assets/icons/ic_select_bioskop.png
+  AssetGenImage get icSelectBioskop =>
+      const AssetGenImage('assets/icons/ic_select_bioskop.png');
+
   /// File path: assets/icons/ic_semua.svg
   SvgGenImage get icSemua => const SvgGenImage('assets/icons/ic_semua.svg');
 
@@ -118,6 +125,7 @@ class $AssetsIconsGen {
     icBioskopActive,
     icClock,
     icComedy,
+    icDown,
     icHorror,
     icLeft,
     icLogoApp,
@@ -132,6 +140,7 @@ class $AssetsIconsGen {
     icRightProfile,
     icRomance,
     icScifi,
+    icSelectBioskop,
     icSemua,
     icStar,
     icTicket,
@@ -226,12 +235,17 @@ class $AssetsIcons20xGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/2.0x/ic_right_profile.png');
 
+  /// File path: assets/icons/2.0x/ic_select_bioskop.png
+  AssetGenImage get icSelectBioskop =>
+      const AssetGenImage('assets/icons/2.0x/ic_select_bioskop.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     icLogoHome,
     icLogoLogin,
     icNotifItem,
     icRightProfile,
+    icSelectBioskop,
   ];
 }
 
@@ -254,12 +268,17 @@ class $AssetsIcons30xGen {
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/3.0x/ic_right_profile.png');
 
+  /// File path: assets/icons/3.0x/ic_select_bioskop.png
+  AssetGenImage get icSelectBioskop =>
+      const AssetGenImage('assets/icons/3.0x/ic_select_bioskop.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     icLogoHome,
     icLogoLogin,
     icNotifItem,
     icRightProfile,
+    icSelectBioskop,
   ];
 }
 

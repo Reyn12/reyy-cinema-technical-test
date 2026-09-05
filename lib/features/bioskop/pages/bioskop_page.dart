@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:reyy_cinema/features/bioskop/widgets/w_bioskop_selected_cinema.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
+import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
 class BioskopPage extends StatelessWidget {
   const BioskopPage({super.key});
@@ -20,13 +22,19 @@ class BioskopPage extends StatelessWidget {
           children: [
             const AppHeader(title: 'Bioskop'),
             Expanded(
-              child: Center(
-                child: Text(
-                  'Bioskop Page',
-                  style: AppTypography.bodySemiboldM.copyWith(
-                    color: AppColors.neutral100,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                children: [
+                  WBioskopSelectedCinema(
+                    cinemaName: 'XXI Solo Square',
+                    onTapOpenBottomSheetCinema: () {
+                      CustomSnackbar.info(
+                        context,
+                        'Fitur Pilih Bioskop belum tersedia',
+                      );
+                    },
                   ),
-                ),
+                ],
               ),
             ),
           ],
