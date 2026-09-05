@@ -11,7 +11,7 @@ class WProfileBackgroundHeader extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ImageLoad(
-          src: Assets.images.imgBgProfileUpper.path,
+          src: Assets.images.imgBgProfileBottom.path,
           isAsset: true,
           width: double.infinity,
           fit: BoxFit.fitWidth,

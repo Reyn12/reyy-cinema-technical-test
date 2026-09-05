@@ -95,6 +95,18 @@ class AppGradients {
     ],
     stops: const [0.0, 0.5, 1.0],
   );
+
+  /// Onboarding overlay: white 10% → #0072FF → #0B5DC2
+  static LinearGradient get onboarding => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      const Color(0xFFFFFFFF).withValues(alpha: 0.1),
+      const Color(0xFF0072FF),
+      const Color(0xFF0B5DC2),
+    ],
+    stops: const [0.0, 0.63, 1.0],
+  );
 }
 
 class AppShadows {

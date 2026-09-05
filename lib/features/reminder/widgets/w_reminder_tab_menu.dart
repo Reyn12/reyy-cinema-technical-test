@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reyy_cinema/features/reminder/bloc/reminder_cubit.dart';
+import 'package:reyy_cinema/features/reminder/bloc/reminder_bloc.dart';
+import 'package:reyy_cinema/features/reminder/bloc/reminder_event.dart';
 import 'package:reyy_cinema/features/reminder/models/reminder_model.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 
@@ -10,7 +11,7 @@ class WReminderTabMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedTab = context.select(
-      (ReminderCubit cubit) => cubit.state.selectedTab,
+      (ReminderBloc bloc) => bloc.state.selectedTab,
     );
 
     return Container(
@@ -23,7 +24,7 @@ class WReminderTabMenu extends StatelessWidget {
           return Expanded(
             child: GestureDetector(
               onTap: () =>
-                  context.read<ReminderCubit>().setSelectedTab(tab),
+                  context.read<ReminderBloc>().add(ReminderTabChanged(tab)),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(

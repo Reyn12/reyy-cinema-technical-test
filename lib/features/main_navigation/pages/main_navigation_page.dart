@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reyy_cinema/features/bioskop/pages/bioskop_page.dart';
 import 'package:reyy_cinema/features/home/pages/home_page.dart';
-import 'package:reyy_cinema/features/main_navigation/bloc/main_navigation_cubit.dart';
+import 'package:reyy_cinema/features/main_navigation/bloc/main_navigation_bloc.dart';
+import 'package:reyy_cinema/features/main_navigation/bloc/main_navigation_event.dart';
 import 'package:reyy_cinema/features/main_navigation/widgets/custom_bottom_nav.dart';
 import 'package:reyy_cinema/features/reminder/pages/reminder_page.dart';
 import 'package:reyy_cinema/features/profile/pages/profile_page.dart';
@@ -39,7 +40,7 @@ class MainNavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MainNavigationCubit(),
+      create: (_) => MainNavigationBloc(),
       child: const _MainNavigationView(),
     );
   }
@@ -50,7 +51,7 @@ class _MainNavigationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = context.watch<MainNavigationCubit>().state;
+    final currentIndex = context.watch<MainNavigationBloc>().state;
 
     final pages = [
       const HomePage(key: ValueKey('home')),
@@ -76,8 +77,9 @@ class _MainNavigationView extends StatelessWidget {
           bottomNavigationBar: CustomBottomNav(
             currentIndex: currentIndex,
             navItems: MainNavigationPage.navItems,
-            onNavItemSelected: (index) =>
-                context.read<MainNavigationCubit>().changePage(index),
+            onNavItemSelected: (index) => context.read<MainNavigationBloc>().add(
+              MainNavigationPageChanged(index),
+            ),
           ),
         ),
       ),

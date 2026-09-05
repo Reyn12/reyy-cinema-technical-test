@@ -23,6 +23,10 @@ class $AssetsIconsGen {
   /// Directory path: assets/icons/3.0x
   $AssetsIcons30xGen get a3 => const $AssetsIcons30xGen();
 
+  /// File path: assets/icons/ic_about_app.svg
+  SvgGenImage get icAboutApp =>
+      const SvgGenImage('assets/icons/ic_about_app.svg');
+
   /// File path: assets/icons/ic_action.svg
   SvgGenImage get icAction => const SvgGenImage('assets/icons/ic_action.svg');
 
@@ -65,8 +69,19 @@ class $AssetsIconsGen {
   AssetGenImage get icCurrentLocation =>
       const AssetGenImage('assets/icons/ic_current_location.png');
 
+  /// File path: assets/icons/ic_ditonton.svg
+  SvgGenImage get icDitonton =>
+      const SvgGenImage('assets/icons/ic_ditonton.svg');
+
   /// File path: assets/icons/ic_down.svg
   SvgGenImage get icDown => const SvgGenImage('assets/icons/ic_down.svg');
+
+  /// File path: assets/icons/ic_edit_profile.svg
+  SvgGenImage get icEditProfile =>
+      const SvgGenImage('assets/icons/ic_edit_profile.svg');
+
+  /// File path: assets/icons/ic_faq.svg
+  SvgGenImage get icFaq => const SvgGenImage('assets/icons/ic_faq.svg');
 
   /// File path: assets/icons/ic_horror.svg
   SvgGenImage get icHorror => const SvgGenImage('assets/icons/ic_horror.svg');
@@ -89,6 +104,21 @@ class $AssetsIconsGen {
   AssetGenImage get icLogoLogin =>
       const AssetGenImage('assets/icons/ic_logo_login.png');
 
+  /// File path: assets/icons/ic_logo_reyy_cinema_no_bg.png
+  AssetGenImage get icLogoReyyCinemaNoBg =>
+      const AssetGenImage('assets/icons/ic_logo_reyy_cinema_no_bg.png');
+
+  /// File path: assets/icons/ic_loyality_point.svg
+  SvgGenImage get icLoyalityPoint =>
+      const SvgGenImage('assets/icons/ic_loyality_point.svg');
+
+  /// File path: assets/icons/ic_member copy.svg
+  SvgGenImage get icMemberCopy =>
+      const SvgGenImage('assets/icons/ic_member copy.svg');
+
+  /// File path: assets/icons/ic_member.svg
+  SvgGenImage get icMember => const SvgGenImage('assets/icons/ic_member.svg');
+
   /// File path: assets/icons/ic_notif_item.png
   AssetGenImage get icNotifItem =>
       const AssetGenImage('assets/icons/ic_notif_item.png');
@@ -107,6 +137,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_profile_active.svg
   SvgGenImage get icProfileActive =>
       const SvgGenImage('assets/icons/ic_profile_active.svg');
+
+  /// File path: assets/icons/ic_profile_reminder.svg
+  SvgGenImage get icProfileReminder =>
+      const SvgGenImage('assets/icons/ic_profile_reminder.svg');
 
   /// File path: assets/icons/ic_promo.svg
   SvgGenImage get icPromo => const SvgGenImage('assets/icons/ic_promo.svg');
@@ -135,6 +169,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_semua.svg
   SvgGenImage get icSemua => const SvgGenImage('assets/icons/ic_semua.svg');
 
+  /// File path: assets/icons/ic_snk.svg
+  SvgGenImage get icSnk => const SvgGenImage('assets/icons/ic_snk.svg');
+
   /// File path: assets/icons/ic_star.svg
   SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
 
@@ -147,6 +184,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    icAboutApp,
     icAction,
     icAddReminder,
     icAnimasi,
@@ -159,18 +197,26 @@ class $AssetsIconsGen {
     icClock,
     icComedy,
     icCurrentLocation,
+    icDitonton,
     icDown,
+    icEditProfile,
+    icFaq,
     icHorror,
     icInfo,
     icLeft,
     icLogoApp,
     icLogoHome,
     icLogoLogin,
+    icLogoReyyCinemaNoBg,
+    icLoyalityPoint,
+    icMemberCopy,
+    icMember,
     icNotifItem,
     icNotifikasi,
     icNotifikasiActive,
     icProfile,
     icProfileActive,
+    icProfileReminder,
     icPromo,
     icRange,
     icRightProfile,
@@ -179,6 +225,7 @@ class $AssetsIconsGen {
     icSeeSchedule,
     icSelectBioskop,
     icSemua,
+    icSnk,
     icStar,
     icStartNavigation,
     icTicket,
@@ -202,9 +249,9 @@ class $AssetsImagesGen {
   AssetGenImage get imgBgBerandaUpper =>
       const AssetGenImage('assets/images/img_bg_beranda_upper.png');
 
-  /// File path: assets/images/img_bg_profile_upper copy.png
-  AssetGenImage get imgBgProfileUpperCopy =>
-      const AssetGenImage('assets/images/img_bg_profile_upper copy.png');
+  /// File path: assets/images/img_bg_profile_bottom.png
+  AssetGenImage get imgBgProfileBottom =>
+      const AssetGenImage('assets/images/img_bg_profile_bottom.png');
 
   /// File path: assets/images/img_bg_profile_upper.png
   AssetGenImage get imgBgProfileUpper =>
@@ -221,6 +268,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/img_dummy_banner_3.png
   AssetGenImage get imgDummyBanner3 =>
       const AssetGenImage('assets/images/img_dummy_banner_3.png');
+
+  /// File path: assets/images/img_dummy_boarding.png
+  AssetGenImage get imgDummyBoarding =>
+      const AssetGenImage('assets/images/img_dummy_boarding.png');
 
   /// File path: assets/images/img_dummy_film_pilihan_1.png
   AssetGenImage get imgDummyFilmPilihan1 =>
@@ -250,15 +301,20 @@ class $AssetsImagesGen {
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/img_login.png');
 
+  /// File path: assets/images/img_profile_pic_dummy.jpg
+  AssetGenImage get imgProfilePicDummy =>
+      const AssetGenImage('assets/images/img_profile_pic_dummy.jpg');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     imgBgBerandaBottom,
     imgBgBerandaUpper,
-    imgBgProfileUpperCopy,
+    imgBgProfileBottom,
     imgBgProfileUpper,
     imgDummyBanner1,
     imgDummyBanner2,
     imgDummyBanner3,
+    imgDummyBoarding,
     imgDummyFilmPilihan1,
     imgDummyFilmPilihan2,
     imgDummyReminderItem1,
@@ -266,6 +322,7 @@ class $AssetsImagesGen {
     imgDummyReminderItem3,
     imgDummySorotanBanner1,
     imgLogin,
+    imgProfilePicDummy,
   ];
 }
 

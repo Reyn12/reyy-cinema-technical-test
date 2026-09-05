@@ -6,6 +6,10 @@ class AuthCheckRequested extends AuthEvent {
   const AuthCheckRequested();
 }
 
+class AuthOnboardingCompleted extends AuthEvent {
+  const AuthOnboardingCompleted();
+}
+
 class AuthLoggedIn extends AuthEvent {
   const AuthLoggedIn();
 }
