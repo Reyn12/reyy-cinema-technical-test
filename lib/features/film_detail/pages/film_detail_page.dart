@@ -55,7 +55,7 @@ class FilmDetailPage extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: ClampingScrollPhysics(),
                   ),
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                   child: Column(
                     spacing: 16,
                     children: [

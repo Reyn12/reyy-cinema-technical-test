@@ -3,10 +3,7 @@ import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 
 class WFilmDetailSynopsis extends StatefulWidget {
-  const WFilmDetailSynopsis({
-    super.key,
-    required this.text,
-  });
+  const WFilmDetailSynopsis({super.key, required this.text});
 
   final String text;
 
@@ -25,6 +22,7 @@ class _WFilmDetailSynopsisState extends State<WFilmDetailSynopsis> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.white,

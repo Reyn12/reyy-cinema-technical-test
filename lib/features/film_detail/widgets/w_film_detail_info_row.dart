@@ -16,25 +16,28 @@ class WFilmDetailInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: 8,
-        children: [
-          Expanded(
-            child: WFilmDetailInfoCard(label: 'Sutradara', value: director),
-          ),
-          Expanded(
-            child: WFilmDetailInfoCard(label: 'Penulis', value: writer),
-          ),
-          Expanded(
-            child: WFilmDetailInfoCard(
-              label: 'Status',
-              value: status,
-              valueColor: AppColors.primaryDeep,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 8,
+          children: [
+            Expanded(
+              child: WFilmDetailInfoCard(label: 'Sutradara', value: director),
             ),
-          ),
-        ],
+            Expanded(
+              child: WFilmDetailInfoCard(label: 'Penulis', value: writer),
+            ),
+            Expanded(
+              child: WFilmDetailInfoCard(
+                label: 'Status',
+                value: status,
+                valueColor: AppColors.primaryDeep,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

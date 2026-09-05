@@ -16,50 +16,53 @@ class WFilmDetailStatusHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 6,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Text(
+                  statusLabel,
+                  style: AppTypography.bodySemiboldS.copyWith(
+                    color: AppColors.overlayNavy,
+                  ),
+                ),
+              ],
+            ),
           ),
-          child: Row(
+          Row(
             mainAxisSize: MainAxisSize.min,
-            spacing: 6,
             children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                ),
+              GestureDetector(
+                onTap: onTapBookmark,
+                child: Assets.icons.icBookmark.svg(width: 40, height: 40),
               ),
-              Text(
-                statusLabel,
-                style: AppTypography.bodySemiboldS.copyWith(
-                  color: AppColors.overlayNavy,
-                ),
+              GestureDetector(
+                onTap: onTapShare,
+                child: Assets.icons.icShare.svg(width: 40, height: 40),
               ),
             ],
           ),
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              onTap: onTapBookmark,
-              child: Assets.icons.icBookmark.svg(width: 40, height: 40),
-            ),
-            GestureDetector(
-              onTap: onTapShare,
-              child: Assets.icons.icShare.svg(width: 40, height: 40),
-            ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
