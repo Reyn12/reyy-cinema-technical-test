@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_buy_ticket_bar.dart';
 import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_cast_list_builder.dart';
 import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_hero.dart';
 import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_info_row.dart';
@@ -96,6 +97,11 @@ class FilmDetailPage extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            WFilmDetailBuyTicketBar(
+              onPressed: () {
+                CustomSnackbar.info(context, 'Fitur Beli Tiket belum tersedia');
+              },
             ),
           ],
         ),
