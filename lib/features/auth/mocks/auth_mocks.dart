@@ -13,7 +13,7 @@ class AuthMocks {
       token: 'mock-token-$resolvedUsername',
       user: LoginUser(
         id: 1,
-        name: 'Muhammad Renaldi Maulana',
+        name: 'Renaldi Maulana',
         username: resolvedUsername,
         email: 'muhammadrenaldi687@gmail.com',
         phone: '081234567890',

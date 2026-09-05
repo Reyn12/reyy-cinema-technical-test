@@ -6,21 +6,26 @@ import 'package:reyy_cinema/features/ticket_detail/bloc/ticket_detail_bloc.dart'
 import 'package:reyy_cinema/features/ticket_detail/bloc/ticket_detail_event.dart';
 import 'package:reyy_cinema/features/ticket_detail/bloc/ticket_detail_state.dart';
 import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_card.dart';
+import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_card_shimmer.dart';
 import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_maps_button.dart';
 import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_order_summary.dart';
+import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_order_summary_shimmer.dart';
 import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_policy.dart';
-import 'package:reyy_cinema/gen/assets.gen.dart';
+import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_policy_shimmer.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class TicketDetailPage extends StatelessWidget {
-  const TicketDetailPage({super.key});
+  const TicketDetailPage({super.key, required this.ticketId});
+
+  final String ticketId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TicketDetailBloc(),
+      create: (_) => TicketDetailBloc(ticketId: ticketId),
       child: const TicketDetailView(),
     );
   }
@@ -71,83 +76,90 @@ class TicketDetailView extends StatelessWidget {
                 child: RefreshIndicator(
                   color: AppColors.primaryPressed,
                   onRefresh: () async {
-                    await Future<void>.delayed(
-                      const Duration(milliseconds: 600),
-                    );
-                    if (!context.mounted) return;
-                    CustomSnackbar.info(context, 'Refresh completed');
+                    final bloc = context.read<TicketDetailBloc>();
+                    bloc.add(const TicketDetailLoadRequested());
+                    await bloc.stream.firstWhere((state) => !state.isLoading);
                   },
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: ClampingScrollPhysics(),
                     ),
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                    child: Column(
-                      spacing: 16,
-                      children: [
-                        WTicketDetailCard(
-                          image: Assets.images.imgDumyDetailFilm,
-                          cinemaBrand: 'XXI',
-                          studioLabel: 'Studio 1',
-                          formatLabel: 'Reguler 2D',
-                          ageRating: 'D-17',
-                          duration: '2j 05m',
-                          title: 'Black Adam',
-                          genres: 'Aksi, Fantasi, Petualangan',
-                          cinemaName: 'XXI Solo Square',
-                          dateLabel: '14 Okt 2026',
-                          timeLabel: '19:30',
-                          seatCount: 2,
-                          seatsLabel: 'D5, D6',
-                          bookingCode: 'BK-XXI-98421099',
-                          qrImage: Assets.images.imgDummyQr,
-                          onTapCopyBookingCode: () async {
-                            await Clipboard.setData(
-                              const ClipboardData(text: 'BK-XXI-98421099'),
-                            );
-                            if (!context.mounted) return;
-                            CustomSnackbar.info(
-                              context,
-                              'Kode booking disalin',
-                            );
-                          },
-                        ),
-                        const WTicketDetailOrderSummary(
-                          orderNumber: '#CR-20261014-8831',
-                          customerName: 'Muhammad Renaldi M.',
-                          paymentMethod: 'QRIS / GoPay',
-                          transactionTime: '12 Okt 2026, 14:20 WIB',
-                          ticketCount: 2,
-                          totalPayment: 93000,
-                        ),
-                        const WTicketDetailPolicy(
-                          items: [
-                            TicketDetailPolicyItem(
-                              title: 'Lokasi Studio 1',
-                              description:
-                                  'Lantai 3 Solo Square Mall, sayap barat dekat area F&B XXI.',
-                              icon: Icons.meeting_room_outlined,
-                            ),
-                            TicketDetailPolicyItem(
-                              title: 'Hadir Lebih Awal',
-                              description:
-                                  'Pintu studio dibuka 15 menit sebelum waktu pemutaran (19:15 WIB).',
-                              icon: Icons.access_time_rounded,
-                            ),
-                            TicketDetailPolicyItem(
-                              title: 'Larangan Merekam',
-                              description:
-                                  'Dilarang keras mengambil video atau gambar selama pemutaran film berlangsung.',
-                              icon: Icons.no_photography_outlined,
-                            ),
-                          ],
-                        ),
-                        WTicketDetailMapsButton(
-                          onTap: () => context.read<TicketDetailBloc>().add(
-                            const TicketDetailOpenMapsRequested(),
+                    child: BlocBuilder<TicketDetailBloc, TicketDetailState>(
+                      builder: (context, state) {
+                        final ticket = state.ticket;
+
+                        return StateView(
+                          isLoading: state.isLoading,
+                          hasError: state.hasError || ticket == null,
+                          errorMessage: 'Gagal memuat detail tiket',
+                          onRetry: () => context.read<TicketDetailBloc>().add(
+                            const TicketDetailLoadRequested(),
                           ),
-                        ),
-                      ],
+                          loadingView: const Column(
+                            spacing: 16,
+                            children: [
+                              WTicketDetailCardShimmer(),
+                              WTicketDetailOrderSummaryShimmer(),
+                              WTicketDetailPolicyShimmer(),
+                            ],
+                          ),
+                          child: ticket == null
+                              ? const SizedBox.shrink()
+                              : Column(
+                                  spacing: 16,
+                                  children: [
+                                    WTicketDetailCard(
+                                      image: ticket.image,
+                                      cinemaBrand: ticket.cinemaBrand,
+                                      studioLabel: ticket.studioLabel,
+                                      formatLabel: ticket.formatLabel,
+                                      ageRating: ticket.ageRating,
+                                      duration: ticket.duration,
+                                      title: ticket.title,
+                                      genres: ticket.genres,
+                                      cinemaName: ticket.cinemaName,
+                                      dateLabel: ticket.dateLabel,
+                                      timeLabel: ticket.timeLabel,
+                                      seatCount: ticket.seatCount,
+                                      seatsLabel: ticket.seatsLabel,
+                                      bookingCode: ticket.bookingCode,
+                                      qrImage: ticket.qrImage,
+                                      onTapCopyBookingCode: () async {
+                                        await Clipboard.setData(
+                                          ClipboardData(
+                                            text: ticket.bookingCode,
+                                          ),
+                                        );
+                                        if (!context.mounted) return;
+                                        CustomSnackbar.info(
+                                          context,
+                                          'Kode booking disalin',
+                                        );
+                                      },
+                                    ),
+                                    WTicketDetailOrderSummary(
+                                      orderNumber: ticket.orderNumber,
+                                      customerName: ticket.customerName,
+                                      paymentMethod: ticket.paymentMethod,
+                                      transactionTime: ticket.transactionTime,
+                                      ticketCount: ticket.ticketCount,
+                                      totalPayment: ticket.totalPayment,
+                                      statusLabel: ticket.statusLabel,
+                                    ),
+                                    WTicketDetailPolicy(
+                                      items: ticket.policies,
+                                    ),
+                                    WTicketDetailMapsButton(
+                                      onTap: () =>
+                                          context.read<TicketDetailBloc>().add(
+                                            const TicketDetailOpenMapsRequested(),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                        );
+                      },
                     ),
                   ),
                 ),

@@ -10,6 +10,7 @@ import 'package:reyy_cinema/features/about_app/widgets/about_app_content_shimmer
 import 'package:reyy_cinema/features/about_app/widgets/about_app_section_error.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
+import 'package:reyy_cinema/widget/state_view.dart';
 
 class AboutAppPage extends StatelessWidget {
   const AboutAppPage({super.key});
@@ -81,17 +82,20 @@ class AboutAppViewState extends State<AboutAppView> {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: BlocBuilder<AboutAppBloc, AboutAppState>(
                     builder: (context, state) {
-                      if (state.isLoading) {
-                        return const AboutAppContentShimmer();
-                      }
-                      if (state.hasError || state.data == null) {
-                        return AboutAppSectionError(
+                      final about = state.data;
+                      return StateView(
+                        isLoading: state.isLoading,
+                        hasError: state.hasError || about == null,
+                        loadingView: const AboutAppContentShimmer(),
+                        errorView: AboutAppSectionError(
                           onRetry: () => context.read<AboutAppBloc>().add(
                             const AboutAppLoadRequested(),
                           ),
-                        );
-                      }
-                      return AboutAppContent(about: state.data!);
+                        ),
+                        child: about == null
+                            ? const SizedBox.shrink()
+                            : AboutAppContent(about: about),
+                      );
                     },
                   ),
                 ),

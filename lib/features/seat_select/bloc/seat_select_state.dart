@@ -1,22 +1,44 @@
+import 'package:reyy_cinema/features/home/models/film_model.dart';
 import 'package:reyy_cinema/features/seat_select/models/seat_item_model.dart';
+import 'package:reyy_cinema/features/seat_select/models/seat_select_args.dart';
 import 'package:reyy_cinema/helper/format_currency_helper.dart';
 
 class SeatSelectState {
   const SeatSelectState({
+    required this.args,
+    this.film,
     this.rows = const [],
     this.selectedSeatIds = const {},
     this.isReminderEnabled = true,
-    this.ticketPrice = 45000,
     this.serviceFee = 3000,
-    this.formatLabel = 'Reguler 2D',
+    this.isFilmLoading = false,
+    this.isSeatsLoading = false,
+    this.hasFilmError = false,
+    this.hasSeatsError = false,
   });
 
+  final SeatSelectArgs args;
+  final FilmModel? film;
   final List<SeatRowModel> rows;
   final Set<String> selectedSeatIds;
   final bool isReminderEnabled;
-  final int ticketPrice;
   final int serviceFee;
-  final String formatLabel;
+  final bool isFilmLoading;
+  final bool isSeatsLoading;
+  final bool hasFilmError;
+  final bool hasSeatsError;
+
+  int get ticketPrice => args.ticketPrice;
+
+  String get formatLabel => args.formatLabel;
+
+  String get cinemaStudioLabel => args.cinemaStudioLabel;
+
+  String get dateLabel => args.dateLabel;
+
+  String get timeLabel => args.timeLabel;
+
+  bool get isAnyLoading => isFilmLoading || isSeatsLoading;
 
   bool isSelected(String seatId) => selectedSeatIds.contains(seatId);
 
@@ -45,8 +67,7 @@ class SeatSelectState {
 
   int get ticketsSubtotal => selectedCount * ticketPrice;
 
-  int get totalPayment =>
-      hasSelectedSeats ? ticketsSubtotal + serviceFee : 0;
+  int get totalPayment => hasSelectedSeats ? ticketsSubtotal + serviceFee : 0;
 
   String get ticketsPriceDetailLabel {
     return '$formatLabel ($selectedCount x ${formatRupiah(ticketPrice)})';
@@ -60,20 +81,31 @@ class SeatSelectState {
   String get totalPaymentLabel => formatRupiah(totalPayment);
 
   SeatSelectState copyWith({
+    SeatSelectArgs? args,
+    FilmModel? film,
     List<SeatRowModel>? rows,
     Set<String>? selectedSeatIds,
+    bool clearSelectedSeats = false,
     bool? isReminderEnabled,
-    int? ticketPrice,
     int? serviceFee,
-    String? formatLabel,
+    bool? isFilmLoading,
+    bool? isSeatsLoading,
+    bool? hasFilmError,
+    bool? hasSeatsError,
   }) {
     return SeatSelectState(
+      args: args ?? this.args,
+      film: film ?? this.film,
       rows: rows ?? this.rows,
-      selectedSeatIds: selectedSeatIds ?? this.selectedSeatIds,
+      selectedSeatIds: clearSelectedSeats
+          ? const {}
+          : selectedSeatIds ?? this.selectedSeatIds,
       isReminderEnabled: isReminderEnabled ?? this.isReminderEnabled,
-      ticketPrice: ticketPrice ?? this.ticketPrice,
       serviceFee: serviceFee ?? this.serviceFee,
-      formatLabel: formatLabel ?? this.formatLabel,
+      isFilmLoading: isFilmLoading ?? this.isFilmLoading,
+      isSeatsLoading: isSeatsLoading ?? this.isSeatsLoading,
+      hasFilmError: hasFilmError ?? this.hasFilmError,
+      hasSeatsError: hasSeatsError ?? this.hasSeatsError,
     );
   }
 }

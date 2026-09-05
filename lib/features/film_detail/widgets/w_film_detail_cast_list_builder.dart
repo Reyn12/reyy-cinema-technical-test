@@ -4,14 +4,12 @@ import 'package:reyy_cinema/features/film_detail/widgets/w_film_detail_cast_item
 import 'package:reyy_cinema/resources/resources.dart';
 
 class WFilmDetailCastListBuilder extends StatelessWidget {
-  const WFilmDetailCastListBuilder({super.key});
+  const WFilmDetailCastListBuilder({
+    super.key,
+    required this.items,
+  });
 
-  static const items = [
-    FilmCastItemModel(actorName: 'Dwayne J.', characterName: 'Black Adam'),
-    FilmCastItemModel(actorName: 'Aldis Hodge', characterName: 'Hawkman'),
-    FilmCastItemModel(actorName: 'Pierce B.', characterName: 'Dr. Fate'),
-    FilmCastItemModel(actorName: 'Sarah Shahi', characterName: 'Adrianna'),
-  ];
+  final List<FilmCastItemModel> items;
 
   @override
   Widget build(BuildContext context) {

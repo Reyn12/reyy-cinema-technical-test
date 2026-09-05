@@ -6,6 +6,7 @@ import 'package:reyy_cinema/features/film_detail/pages/film_detail_page.dart';
 import 'package:reyy_cinema/features/main_navigation/pages/main_navigation_page.dart';
 import 'package:reyy_cinema/features/onboarding/pages/onboarding_page.dart';
 import 'package:reyy_cinema/features/reminder/pages/reminder_page.dart';
+import 'package:reyy_cinema/features/seat_select/models/seat_select_args.dart';
 import 'package:reyy_cinema/features/seat_select/pages/seat_select_page.dart';
 import 'package:reyy_cinema/features/splash/pages/splash_page.dart';
 import 'package:reyy_cinema/features/terms/pages/terms_page.dart';
@@ -75,28 +76,38 @@ final appRouter = GoRouter(
       path: AppPaths.filmDetail,
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
-        child: const FilmDetailPage(),
+        child: FilmDetailPage(
+          id: int.parse(state.pathParameters['id']!),
+        ),
       ),
     ),
     GoRoute(
       path: AppPaths.buyTicket,
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
-        child: const BuyTicketPage(),
+        child: BuyTicketPage(
+          filmId: int.parse(state.pathParameters['id']!),
+        ),
       ),
     ),
     GoRoute(
       path: AppPaths.seatSelect,
-      pageBuilder: (context, state) => buildCupertinoPage(
-        key: state.pageKey,
-        child: const SeatSelectPage(),
-      ),
+      pageBuilder: (context, state) {
+        final extra = state.extra;
+        final args = extra is SeatSelectArgs ? extra : SeatSelectArgs.fallback;
+        return buildCupertinoPage(
+          key: state.pageKey,
+          child: SeatSelectPage(args: args),
+        );
+      },
     ),
     GoRoute(
       path: AppPaths.ticketDetail,
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
-        child: const TicketDetailPage(),
+        child: TicketDetailPage(
+          ticketId: state.pathParameters['id']!,
+        ),
       ),
     ),
     GoRoute(

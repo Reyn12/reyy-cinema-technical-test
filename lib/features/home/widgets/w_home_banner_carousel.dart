@@ -1,17 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/image_load.dart';
 
 class WHomeBannerCarousel extends StatefulWidget {
   const WHomeBannerCarousel({
     super.key,
-    required this.banners,
+    required this.bannerImagePaths,
     required this.onTapDetailBanner,
   });
 
-  final List<AssetGenImage> banners;
+  final List<String> bannerImagePaths;
   final ValueChanged<int> onTapDetailBanner;
 
   @override
@@ -23,7 +22,7 @@ class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    final banners = widget.banners;
+    final banners = widget.bannerImagePaths;
 
     return Column(
       children: [
@@ -39,7 +38,7 @@ class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
           ),
           items: banners.asMap().entries.map((entry) {
             final index = entry.key;
-            final banner = entry.value;
+            final bannerPath = entry.value;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: GestureDetector(
@@ -51,7 +50,7 @@ class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
                     height: 180,
                     color: AppColors.neutral50.withValues(alpha: 0.1),
                     child: ImageLoad(
-                      src: banner.path,
+                      src: bannerPath,
                       isAsset: true,
                       width: double.infinity,
                       height: 180,

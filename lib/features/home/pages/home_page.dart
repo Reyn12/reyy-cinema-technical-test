@@ -1,20 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_background_header.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_banner_carousel.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_greetings.dart';
+import 'package:reyy_cinema/features/home/bloc/home_bloc.dart';
+import 'package:reyy_cinema/features/home/bloc/home_event.dart';
+import 'package:reyy_cinema/features/home/sections/w_home_banner_section.dart';
+import 'package:reyy_cinema/features/home/sections/w_home_films_section.dart';
+import 'package:reyy_cinema/features/home/sections/w_home_hero_section.dart';
+import 'package:reyy_cinema/features/home/sections/w_home_sorotan_section_view.dart';
 import 'package:reyy_cinema/features/home/widgets/w_home_header.dart';
-import 'package:reyy_cinema/shared/widgets/film_pilihan/w_film_pilihan_section.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_promo_card.dart';
-import 'package:reyy_cinema/features/home/widgets/w_home_sorotan_section.dart';
-import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
-import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(create: (_) => HomeBloc(), child: const HomeView());
+  }
+}
+
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,102 +58,27 @@ class HomePage extends StatelessWidget {
               child: RefreshIndicator(
                 color: AppColors.primaryPressed,
                 onRefresh: () async {
-                  await Future<void>.delayed(const Duration(milliseconds: 600));
-                  if (!context.mounted) return;
-                  CustomSnackbar.info(context, 'Refresh completed');
+                  if (scrollController.hasClients) {
+                    scrollController.jumpTo(0);
+                  }
+                  context.read<HomeBloc>().add(const HomeLoadRequested());
+                  await context.read<HomeBloc>().stream.firstWhere(
+                    (state) => !state.isAnyLoading,
+                  );
                 },
                 child: SingleChildScrollView(
+                  controller: scrollController,
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: ClampingScrollPhysics(),
                   ),
-                  child: Column(
+                  child: const Column(
                     spacing: 24,
                     children: [
-                      Stack(
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Stack(
-                                children: [
-                                  WHomeBackgroundHeader(),
-                                  WHomeGreetings(userName: 'Renaldi (Reyy)'),
-                                ],
-                              ),
-                              const SizedBox(height: 120),
-                            ],
-                          ),
-                          Positioned(
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            child: WHomePromoCard(
-                              title: 'Diskon Hingga 50%',
-                              description:
-                                  'Dapatkan promo menarik setiap Senin di bioskop XXI pilihanmu.',
-                              buttonText: 'Klaim Promo',
-                              onTapClaimPromo: () {
-                                CustomSnackbar.info(
-                                  context,
-                                  'Fitur Klaim Promo belum tersedia',
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      WHomeBannerCarousel(
-                        banners: [
-                          Assets.images.imgDummyBanner1,
-                          Assets.images.imgDummyBanner2,
-                          Assets.images.imgDummyBanner3,
-                        ],
-                        onTapDetailBanner: (_) {
-                          CustomSnackbar.info(
-                            context,
-                            'Fitur Detail Banner belum tersedia',
-                          );
-                        },
-                      ),
-                      WHomeSorotanSection(
-                        image: Assets.images.imgDummySorotanBanner1,
-                        rating: '4.8',
-                        ratingCount: '12.4k',
-                        ageRating: 'D 17+',
-                        cinemaLabel: 'BIOSKOP PREMIERE & REGULER',
-                        movieTitle: 'Black Adam: Sovereign',
-                        duration: '2j 05m',
-                        genres: const [
-                          'Action',
-                          'Petualangan',
-                          'Sci-Fi',
-                          'Drama',
-                          'Thriller',
-                          'Fantasi',
-                          'Komedi',
-                        ],
-                        onTapSeeAll: () {
-                          CustomSnackbar.info(
-                            context,
-                            'Fitur Lihat Semua belum tersedia',
-                          );
-                        },
-                        onTapBookTicket: () {
-                          context.push(AppPaths.buyTicket);
-                        },
-                      ),
-                      WFilmPilihanSection(
-                        onTapSeeAll: () {
-                          CustomSnackbar.info(
-                            context,
-                            'Fitur Semua Film Pilihan belum tersedia',
-                          );
-                        },
-                        onTapLihatFilm: () {
-                          context.push(AppPaths.filmDetail);
-                        },
-                      ),
-                      const SizedBox(height: 8),
+                      WHomeHeroSection(),
+                      WHomeBannerSection(),
+                      WHomeSorotanSectionView(),
+                      WHomeFilmsSection(),
+                      SizedBox(height: 8),
                     ],
                   ),
                 ),
