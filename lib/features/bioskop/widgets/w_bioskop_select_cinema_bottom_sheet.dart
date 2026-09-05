@@ -15,35 +15,128 @@ class WBioskopSelectCinemaBottomSheet extends StatefulWidget {
   final String selectedCinemaName;
 
   static const cinemas = [
+    // Near Gama Tower
     CinemaModel(
-      name: 'XXI Solo Square',
-      address: 'Jl. Slamet Riyadi No.451, Solo',
+      name: 'XXI Epicentrum Kuningan',
+      address: 'Epicentrum Walk, Kuningan, Jakarta',
+      distanceLabel: '0.6 km',
+      location: LatLng(-6.221340, 106.836900),
+    ),
+    CinemaModel(
+      name: 'CGV FX Sudirman',
+      address: 'FX Sudirman, Jakarta',
+      distanceLabel: '1.1 km',
+      location: LatLng(-6.227500, 106.830200),
+    ),
+    CinemaModel(
+      name: 'Cinépolis Kota Kasablanka',
+      address: 'Kota Kasablanka, Jakarta',
+      distanceLabel: '1.4 km',
+      location: LatLng(-6.224800, 106.841300),
+    ),
+    CinemaModel(
+      name: 'XXI Plaza Senayan',
+      address: 'Plaza Senayan, Jakarta',
       distanceLabel: '1.8 km',
-      location: LatLng(-6.915030539127153, 107.5975680814174),
+      location: LatLng(-6.218900, 106.829700),
     ),
     CinemaModel(
-      name: 'CGV Solo Paragon',
-      address: 'Jl. Dr. Sutomo No.8, Solo',
-      distanceLabel: '2.4 km',
-      location: LatLng(-6.9205, 107.6101),
+      name: 'CGV Rasuna Epicentrum',
+      address: 'Rasuna Epicentrum, Jakarta',
+      distanceLabel: '2.1 km',
+      location: LatLng(-6.230100, 106.837800),
     ),
     CinemaModel(
-      name: 'XXI Hartono Mall',
-      address: 'Jl. Ring Road Utara, Yogyakarta',
-      distanceLabel: '3.1 km',
-      location: LatLng(-7.7595, 110.4089),
+      name: 'Cinépolis Setiabudi One',
+      address: 'Setiabudi One, Jakarta',
+      distanceLabel: '2.5 km',
+      location: LatLng(-6.219600, 106.840500),
     ),
     CinemaModel(
-      name: 'Cinema XXI The Park',
-      address: 'Jl. Ir. Soekarno, Solo Baru',
-      distanceLabel: '4.6 km',
-      location: LatLng(-7.5598, 110.8205),
+      name: 'XXI Kuningan City',
+      address: 'Kuningan City, Jakarta',
+      distanceLabel: '2.9 km',
+      location: LatLng(-6.233200, 106.831900),
     ),
     CinemaModel(
-      name: 'CGV Transmart Solo',
-      address: 'Jl. Ahmad Yani No.234, Solo',
-      distanceLabel: '5.2 km',
-      location: LatLng(-6.9288, 110.4203),
+      name: 'CGV Kota Kasablanka',
+      address: 'Kota Kasablanka, Jakarta',
+      distanceLabel: '3.2 km',
+      location: LatLng(-6.222700, 106.827400),
+    ),
+    CinemaModel(
+      name: 'Cinépolis Mega Kuningan',
+      address: 'Mega Kuningan, Jakarta',
+      distanceLabel: '3.6 km',
+      location: LatLng(-6.216500, 106.838100),
+    ),
+    CinemaModel(
+      name: 'XXI Ambassador Mall',
+      address: 'Ambassador Mall, Jakarta',
+      distanceLabel: '4.0 km',
+      location: LatLng(-6.235800, 106.834600),
+    ),
+
+    // Bandung Pride
+    CinemaModel(
+      name: 'XXI Grand Banjar',
+      address: 'Grand Banjar, Banjar',
+      distanceLabel: '0.8 km',
+      location: LatLng(-6.884521, 107.615230),
+    ),
+    CinemaModel(
+      name: 'CGV Banjar City Mall',
+      address: 'Banjar City Mall, Banjar',
+      distanceLabel: '1.2 km',
+      location: LatLng(-6.890340, 107.621450),
+    ),
+    CinemaModel(
+      name: 'Cinépolis Banjar Square',
+      address: 'Banjar Square, Banjar',
+      distanceLabel: '1.5 km',
+      location: LatLng(-6.881900, 107.612800),
+    ),
+    CinemaModel(
+      name: 'XXI Plaza Banjar',
+      address: 'Plaza Banjar, Banjar',
+      distanceLabel: '1.9 km',
+      location: LatLng(-6.892750, 107.616900),
+    ),
+    CinemaModel(
+      name: 'CGV Banjar Central',
+      address: 'Banjar Central, Banjar',
+      distanceLabel: '2.3 km',
+      location: LatLng(-6.885600, 107.624100),
+    ),
+    CinemaModel(
+      name: 'Cinépolis Rasuna Banjar',
+      address: 'Rasuna Banjar, Banjar',
+      distanceLabel: '2.6 km',
+      location: LatLng(-6.878900, 107.619500),
+    ),
+    CinemaModel(
+      name: 'XXI Solo Banjar Park',
+      address: 'Solo Banjar Park, Banjar',
+      distanceLabel: '3.0 km',
+      location: LatLng(-6.895100, 107.613700),
+    ),
+    CinemaModel(
+      name: 'CGV Banjar Kota',
+      address: 'Banjar Kota, Banjar',
+      distanceLabel: '3.4 km',
+      location: LatLng(-6.883200, 107.627300),
+    ),
+    CinemaModel(
+      name: 'Cinépolis Sunrise Mall',
+      address: 'Sunrise Mall, Banjar',
+      distanceLabel: '3.8 km',
+      location: LatLng(-6.889700, 107.609800),
+    ),
+    CinemaModel(
+      name: 'XXI Metropolitan Banjar',
+      address: 'Metropolitan Banjar, Banjar',
+      distanceLabel: '4.2 km',
+      location: LatLng(-6.876400, 107.622600),
     ),
   ];
 
