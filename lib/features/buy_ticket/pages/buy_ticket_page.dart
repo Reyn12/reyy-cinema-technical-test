@@ -12,6 +12,7 @@ import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summar
 import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_format_filter.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
+import 'package:reyy_cinema/routes/app_paths.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
@@ -134,12 +135,7 @@ class BuyTicketView extends StatelessWidget {
                   cinemaStudioLabel: state.cinemaStudioLabel,
                   scheduleLabel: state.scheduleLabel,
                   estimatedPriceLabel: state.estimatedPriceLabel,
-                  onPressed: () {
-                    CustomSnackbar.info(
-                      context,
-                      'Fitur Pilih Kursi Bioskop belum tersedia',
-                    );
-                  },
+                  onPressed: () => context.push(AppPaths.seatSelect),
                 );
               },
             ),

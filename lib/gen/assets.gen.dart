@@ -127,6 +127,10 @@ class $AssetsIconsGen {
   AssetGenImage get icNotifItem =>
       const AssetGenImage('assets/icons/ic_notif_item.png');
 
+  /// File path: assets/icons/ic_notif_selected_seat.svg
+  SvgGenImage get icNotifSelectedSeat =>
+      const SvgGenImage('assets/icons/ic_notif_selected_seat.svg');
+
   /// File path: assets/icons/ic_notifikasi.svg
   SvgGenImage get icNotifikasi =>
       const SvgGenImage('assets/icons/ic_notifikasi.svg');
@@ -161,6 +165,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_scifi.svg
   SvgGenImage get icScifi => const SvgGenImage('assets/icons/ic_scifi.svg');
+
+  /// File path: assets/icons/ic_seat.svg
+  SvgGenImage get icSeat => const SvgGenImage('assets/icons/ic_seat.svg');
 
   /// File path: assets/icons/ic_see_schedule.svg
   SvgGenImage get icSeeSchedule =>
@@ -224,6 +231,7 @@ class $AssetsIconsGen {
     icMemberCopy,
     icMember,
     icNotifItem,
+    icNotifSelectedSeat,
     icNotifikasi,
     icNotifikasiActive,
     icProfile,
@@ -234,6 +242,7 @@ class $AssetsIconsGen {
     icRightProfile,
     icRomance,
     icScifi,
+    icSeat,
     icSeeSchedule,
     icSelectBioskop,
     icSemua,
@@ -323,6 +332,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgProfilePicDummy =>
       const AssetGenImage('assets/images/img_profile_pic_dummy.jpg');
 
+  /// File path: assets/images/img_screen_cinema.png
+  AssetGenImage get imgScreenCinema =>
+      const AssetGenImage('assets/images/img_screen_cinema.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     imgBgBerandaBottom,
@@ -342,6 +355,7 @@ class $AssetsImagesGen {
     imgDumyDetailFilm,
     imgLogin,
     imgProfilePicDummy,
+    imgScreenCinema,
   ];
 }
 
@@ -428,8 +442,12 @@ class $AssetsImages20xGen {
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/2.0x/img_login.png');
 
+  /// File path: assets/images/2.0x/img_screen_cinema.png
+  AssetGenImage get imgScreenCinema =>
+      const AssetGenImage('assets/images/2.0x/img_screen_cinema.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imgLogin];
+  List<AssetGenImage> get values => [imgLogin, imgScreenCinema];
 }
 
 class $AssetsImages30xGen {
@@ -439,8 +457,12 @@ class $AssetsImages30xGen {
   AssetGenImage get imgLogin =>
       const AssetGenImage('assets/images/3.0x/img_login.png');
 
+  /// File path: assets/images/3.0x/img_screen_cinema.png
+  AssetGenImage get imgScreenCinema =>
+      const AssetGenImage('assets/images/3.0x/img_screen_cinema.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imgLogin];
+  List<AssetGenImage> get values => [imgLogin, imgScreenCinema];
 }
 
 class Assets {

@@ -6,6 +6,7 @@ import 'package:reyy_cinema/features/film_detail/pages/film_detail_page.dart';
 import 'package:reyy_cinema/features/main_navigation/pages/main_navigation_page.dart';
 import 'package:reyy_cinema/features/onboarding/pages/onboarding_page.dart';
 import 'package:reyy_cinema/features/reminder/pages/reminder_page.dart';
+import 'package:reyy_cinema/features/seat_select/pages/seat_select_page.dart';
 import 'package:reyy_cinema/features/splash/pages/splash_page.dart';
 import 'package:reyy_cinema/features/terms/pages/terms_page.dart';
 import 'package:reyy_cinema/routes/cupertino_page.dart';
@@ -81,6 +82,13 @@ final appRouter = GoRouter(
       pageBuilder: (context, state) => buildCupertinoPage(
         key: state.pageKey,
         child: const BuyTicketPage(),
+      ),
+    ),
+    GoRoute(
+      path: AppPaths.seatSelect,
+      pageBuilder: (context, state) => buildCupertinoPage(
+        key: state.pageKey,
+        child: const SeatSelectPage(),
       ),
     ),
     GoRoute(
