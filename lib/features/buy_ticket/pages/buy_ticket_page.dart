@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_bloc.dart';
+import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_event.dart';
+import 'package:reyy_cinema/features/buy_ticket/bloc/buy_ticket_state.dart';
+import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_date_selector.dart';
+import 'package:reyy_cinema/features/buy_ticket/widgets/w_buy_ticket_film_summary.dart';
+import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 
 class BuyTicketPage extends StatelessWidget {
   const BuyTicketPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => BuyTicketBloc(),
+      child: const BuyTicketView(),
+    );
+  }
+}
+
+class BuyTicketView extends StatelessWidget {
+  const BuyTicketView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,22 +67,32 @@ class BuyTicketPage extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: ClampingScrollPhysics(),
                   ),
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
+                    spacing: 16,
                     children: [
-                      Text(
-                        'Beli Tiket',
-                        style: AppTypography.h9Bold.copyWith(
-                          color: AppColors.primaryPressed,
-                        ),
+                      WBuyTicketFilmSummary(
+                        image: Assets.images.imgDumyDetailFilm,
+                        ageRating: '13+',
+                        rating: '4.7',
+                        duration: '2j 05m',
+                        title: 'Black Adam',
+                        genres: 'Aksi, Petualangan, Fantasi',
+                        formats: const ['Dolby Atmos', 'IMAX 2D'],
                       ),
-                      Text(
-                        'Pilih jadwal dan beli tiket film di sini.',
-                        style: AppTypography.bodyRegularS.copyWith(
-                          color: AppColors.textColor50,
-                        ),
+                      BlocBuilder<BuyTicketBloc, BuyTicketState>(
+                        builder: (context, state) {
+                          return WBuyTicketDateSelector(
+                            monthLabel: state.monthLabel,
+                            items: state.dates,
+                            selectedIndex: state.selectedDateIndex,
+                            onDateSelected: (index) {
+                              context.read<BuyTicketBloc>().add(
+                                BuyTicketDateSelected(index),
+                              );
+                            },
+                          );
+                        },
                       ),
                     ],
                   ),

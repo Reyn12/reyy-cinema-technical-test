@@ -118,10 +118,7 @@ class HomePage extends StatelessWidget {
                           );
                         },
                         onTapBookTicket: () {
-                          CustomSnackbar.info(
-                            context,
-                            'Fitur Pesan Tiket belum tersedia',
-                          );
+                          context.push(AppPaths.buyTicket);
                         },
                       ),
                       WFilmPilihanSection(
