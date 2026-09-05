@@ -71,6 +71,9 @@ class $AssetsIconsGen {
   SvgGenImage get icProfileActive =>
       const SvgGenImage('assets/icons/ic_profile_active.svg');
 
+  /// File path: assets/icons/ic_promo.svg
+  SvgGenImage get icPromo => const SvgGenImage('assets/icons/ic_promo.svg');
+
   /// File path: assets/icons/ic_right_profile.png
   AssetGenImage get icRightProfile =>
       const AssetGenImage('assets/icons/ic_right_profile.png');
@@ -90,6 +93,7 @@ class $AssetsIconsGen {
     icNotifikasiActive,
     icProfile,
     icProfileActive,
+    icPromo,
     icRightProfile,
   ];
 }

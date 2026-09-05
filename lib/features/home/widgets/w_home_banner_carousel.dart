@@ -5,23 +5,24 @@ import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/image_load.dart';
 
 class WHomeBannerCarousel extends StatefulWidget {
-  const WHomeBannerCarousel({super.key});
+  const WHomeBannerCarousel({
+    super.key,
+    required this.banners,
+  });
+
+  final List<AssetGenImage> banners;
 
   @override
   State<WHomeBannerCarousel> createState() => _WHomeBannerCarouselState();
 }
 
 class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
-  static final _banners = [
-    Assets.images.imgDummyBanner1,
-    Assets.images.imgDummyBanner2,
-    Assets.images.imgDummyBanner3,
-  ];
-
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final banners = widget.banners;
+
     return Column(
       children: [
         CarouselSlider(
@@ -34,7 +35,7 @@ class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
               setState(() => _currentIndex = index);
             },
           ),
-          items: _banners.map((banner) {
+          items: banners.map((banner) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: ClipRRect(
@@ -58,7 +59,7 @@ class _WHomeBannerCarouselState extends State<WHomeBannerCarousel> {
         const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(_banners.length, (index) {
+          children: List.generate(banners.length, (index) {
             final isActive = index == _currentIndex;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
