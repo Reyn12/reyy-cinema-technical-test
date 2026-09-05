@@ -23,11 +23,7 @@ class PushNotificationService {
 
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-    await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    await messaging.requestPermission(alert: true, badge: true, sound: true);
 
     await messaging.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -70,7 +66,7 @@ class PushNotificationService {
   Future<void> showDummyNotification() async {
     await LocalNotificationService.instance.show(
       title: 'Reyy Cinema',
-      body: 'Ini dummy push notification untuk testing.',
+      body: 'HIDUP JOKOWI - Ini dummy push notification untuk testing',
       payload: 'dummy_push_test',
       id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
     );
