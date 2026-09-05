@@ -18,6 +18,7 @@ import 'package:reyy_cinema/features/profile/widgets/w_profile_section_error.dar
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
+import 'package:reyy_cinema/core/notification/push_notification_service.dart';
 import 'package:reyy_cinema/widget/bottom_sheet_helper.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
 import 'package:reyy_cinema/widget/primary_button.dart';
@@ -156,11 +157,10 @@ class _ProfileViewState extends State<ProfileView> {
                         child: PrimaryButton(
                           text: 'Testing Push Notifikasi',
                           color: AppColors.primaryPressed,
-                          onPressed: () {
-                            CustomSnackbar.info(
-                              context,
-                              'Testing push notifikasi',
-                            );
+                          onPressed: () async {
+                            await PushNotificationService.instance
+                                .showDummyNotification();
+                            if (!context.mounted) return;
                           },
                         ),
                       ),

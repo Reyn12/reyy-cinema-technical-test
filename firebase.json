@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "reyy-cinema-logkar",
+          "appId": "1:230659502620:android:56e798e55cdf360a1665d9",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "reyy-cinema-logkar",
+          "appId": "1:230659502620:ios:273a638b80621a111665d9",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      }
+    }
+  },
+  "projects": {}
+}

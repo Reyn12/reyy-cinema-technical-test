@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reyy_cinema/core/firebase/app_update_service.dart';
 import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/routes/app_paths.dart';
@@ -21,8 +22,12 @@ class SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
+
+      final needUpdate = await AppUpdateService.instance.checkAndShow(context);
+      if (!mounted || needUpdate) return;
+
       context.read<AuthBloc>().add(const AuthCheckRequested());
     });
   }

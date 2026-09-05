@@ -53,5 +53,10 @@
 	<string>Reyy Cinema butuh lokasi untuk menampilkan rute ke bioskop.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Reyy Cinema butuh lokasi untuk menampilkan rute ke bioskop.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
