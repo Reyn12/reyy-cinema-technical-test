@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reyy_cinema/features/ticket_detail/widgets/w_ticket_detail_card.dart';
+import 'package:reyy_cinema/gen/assets.gen.dart';
 import 'package:reyy_cinema/resources/resources.dart';
 import 'package:reyy_cinema/widget/app_header.dart';
 import 'package:reyy_cinema/widget/custom_snackbar.dart';
@@ -49,23 +51,29 @@ class TicketDetailPage extends StatelessWidget {
                     parent: ClampingScrollPhysics(),
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
-                    children: [
-                      Text(
-                        'Detail Tiket',
-                        style: AppTypography.h9Bold.copyWith(
-                          color: AppColors.primaryPressed,
-                        ),
-                      ),
-                      Text(
-                        'Informasi tiket film kamu akan tampil di sini.',
-                        style: AppTypography.bodyRegularS.copyWith(
-                          color: AppColors.textColor50,
-                        ),
-                      ),
-                    ],
+                  child: WTicketDetailCard(
+                    image: Assets.images.imgDumyDetailFilm,
+                    cinemaBrand: 'XXI',
+                    studioLabel: 'Studio 1',
+                    formatLabel: 'Reguler 2D',
+                    ageRating: 'D-17',
+                    duration: '2j 05m',
+                    title: 'Black Adam',
+                    genres: 'Aksi, Fantasi, Petualangan',
+                    cinemaName: 'XXI Solo Square',
+                    dateLabel: '14 Okt 2026',
+                    timeLabel: '19:30',
+                    seatCount: 2,
+                    seatsLabel: 'D5, D6',
+                    bookingCode: 'BK-XXI-98421099',
+                    qrImage: Assets.images.imgDummyQr,
+                    onTapCopyBookingCode: () async {
+                      await Clipboard.setData(
+                        const ClipboardData(text: 'BK-XXI-98421099'),
+                      );
+                      if (!context.mounted) return;
+                      CustomSnackbar.info(context, 'Kode booking disalin');
+                    },
                   ),
                 ),
               ),
