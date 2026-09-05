@@ -184,6 +184,7 @@ class CustomTextField<T> extends StatefulWidget {
     required String hint,
     String? initialValue,
     TextEditingController? controller,
+    Widget? suffixIcon,
     void Function(String?)? onChanged,
     void Function(String?)? onSubmitted,
   }) => CustomTextField(
@@ -201,6 +202,7 @@ class CustomTextField<T> extends StatefulWidget {
       size: 20,
       color: AppColors.textColor50,
     ),
+    suffixIcon: suffixIcon,
   );
 
   factory CustomTextField.multiline({
